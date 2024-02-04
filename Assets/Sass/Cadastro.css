@@ -1,0 +1,251 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ini: Preloader */
+#carregando {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: none;
+  justify-content: center;
+  background-color: #101014;
+  align-items: center;
+  z-index: 10;
+}
+
+#carregando > article {
+  width: 80%;
+  color: #fff;
+}
+
+.preloader .inner {
+  position: absolute;
+  top: 50%; /* centralizar a parte interna do preload (onde fica a animação)*/
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bolas > div {
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 2px 2px 3px black;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  margin: 3px;
+  animation-fill-mode: both;
+  animation-name: animarBola;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.bolas > div:nth-child(1) {
+  animation-duration: 0.75s;
+  animation-delay: 0;
+}
+
+.bolas > div:nth-child(2) {
+  animation-duration: 0.75s;
+  animation-delay: 0.12s;
+}
+
+.bolas > div:nth-child(3) {
+  animation-duration: 0.75s;
+  animation-delay: 0.24s;
+}
+
+@keyframes animarBola {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  16% {
+    transform: scale(0.1);
+    opacity: 0.7;
+  }
+  33% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* end: Preloader */
+div#CarregamentoTela1 {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: #101014;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+div#CarregamentoTela1 div#containerMensagemAleatoria {
+  position: absolute;
+  bottom: 30px;
+  text-align: center;
+}
+div#CarregamentoTela1 div#containerMensagemAleatoria .preloader .inner {
+  position: relative;
+}
+div#CarregamentoTela1 div#containerMensagemAleatoria #ImgAstronauta {
+  width: 300px;
+}
+div#CarregamentoTela1 div#containerMensagemAleatoria p#MensagemAleatoria {
+  width: 95%;
+  max-width: 400px;
+  margin: 10px auto 0px;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5490196078);
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(180deg, #2C3137 0%, #17191D 100%);
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+}
+body div.backgroundIcons {
+  position: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body div.backgroundIcons#boll1 {
+  width: 300px;
+  height: 300px;
+  top: 0px;
+  left: 0px;
+  background-image: url("../Imgs/Icons/fundo1.png");
+}
+body div.backgroundIcons#boll2 {
+  width: 500px;
+  height: 140px;
+  top: -5px;
+  right: -5px;
+  background-image: url("../Imgs/Icons/fundo2.png");
+}
+body div.backgroundIcons#boll3 {
+  width: 300px;
+  height: 300px;
+  bottom: 0px;
+  right: 0px;
+  background-image: url("../Imgs/Icons/fundo3.png");
+}
+body div.backgroundIcons#boll4 {
+  width: 300px;
+  height: 300px;
+  bottom: 0px;
+  left: 0px;
+  background-image: url("../Imgs/Icons/fundo4.png");
+}
+body main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  color: #fff;
+}
+body main section {
+  width: calc(95% - 80px);
+  max-width: 580px;
+  background-image: linear-gradient(180deg, #2C3137 0%, #17191D 100%);
+  padding: 70px 40px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.445);
+}
+body main section img {
+  width: 100%;
+}
+body main section div.containerInputCadastro {
+  width: 100%;
+  position: relative;
+  margin: 20px 0px 43px;
+  border-radius: 17px;
+  overflow: hidden;
+}
+body main section div.containerInputCadastro#containerNomeUser, body main section div.containerInputCadastro#containerChave {
+  display: none;
+}
+body main section div.containerInputCadastro input {
+  width: calc(100% - 15px);
+  height: 57px;
+  background-color: rgba(102, 102, 102, 0.13);
+  border: none;
+  padding-left: 15px;
+  color: #fff;
+  outline: none;
+}
+body main section div.containerInputCadastro input.inputAnimation {
+  animation: 300ms inputAnimado infinite ease-in-out;
+}
+@keyframes inputAnimado {
+  50% {
+    margin-left: -5px;
+  }
+  75% {
+    margin-left: 5px;
+  }
+  100% {
+    margin-left: 0px;
+  }
+}
+body main section div.containerInputCadastro div {
+  width: 59px;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0FF;
+  border-radius: 0px;
+}
+body main section div.containerInputCadastro div.inputAnimation2 {
+  animation: 300ms inputAnimado2 infinite ease-in-out;
+}
+@keyframes inputAnimado2 {
+  50% {
+    background-color: red;
+  }
+}
+body main section div.containerInputCadastro div img {
+  width: 40px;
+  height: 40px;
+}
+body main section div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+body main section div button {
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 17px;
+  background-color: rgba(102, 102, 102, 0.13);
+  cursor: pointer;
+}
+body div#CarregamentoTela1 {
+  display: flex;
+}/*# sourceMappingURL=Cadastro.css.map */

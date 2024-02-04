@@ -1,0 +1,2909 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ini: Preloader */
+#carregando {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: none;
+  justify-content: center;
+  background-color: #101014;
+  align-items: center;
+  z-index: 10;
+}
+
+#carregando > article {
+  width: 80%;
+  color: #fff;
+}
+
+.preloader .inner {
+  position: absolute;
+  top: 50%; /* centralizar a parte interna do preload (onde fica a animação)*/
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bolas > div {
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 2px 2px 3px black;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  margin: 3px;
+  animation-fill-mode: both;
+  animation-name: animarBola;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.bolas > div:nth-child(1) {
+  animation-duration: 0.75s;
+  animation-delay: 0;
+}
+
+.bolas > div:nth-child(2) {
+  animation-duration: 0.75s;
+  animation-delay: 0.12s;
+}
+
+.bolas > div:nth-child(3) {
+  animation-duration: 0.75s;
+  animation-delay: 0.24s;
+}
+
+@keyframes animarBola {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  16% {
+    transform: scale(0.1);
+    opacity: 0.7;
+  }
+  33% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* end: Preloader */
+div#CarregamentoTela1 {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: #101014;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+div#CarregamentoTela1 div#containerMensagemAleatoria {
+  position: absolute;
+  bottom: 30px;
+  text-align: center;
+}
+div#CarregamentoTela1 div#containerMensagemAleatoria .preloader .inner {
+  position: relative;
+}
+div#CarregamentoTela1 div#containerMensagemAleatoria #ImgAstronauta {
+  width: 300px;
+}
+div#CarregamentoTela1 div#containerMensagemAleatoria p#MensagemAleatoria {
+  width: 95%;
+  max-width: 400px;
+  margin: 10px auto 0px;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5490196078);
+}
+
+body {
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  background: #1a1a1d;
+}
+body nav {
+  width: 100%;
+  max-width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: #212124;
+  padding: 12px 0px;
+  z-index: 5;
+  overflow: auto;
+}
+body nav::-webkit-scrollbar {
+  width: 1px; /* Largura da barra de rolagem */
+}
+body nav div#contaUser {
+  width: calc(100% - 48px);
+  margin: 0px auto 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body nav div#contaUser div#containerUserNavBar {
+  padding: 5px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  cursor: pointer;
+}
+body nav div#contaUser div#containerUserNavBar p#LetraNomePerfilUser {
+  display: none;
+}
+body nav div#contaUser div#containerUserNavBar img#imgPerfilUser {
+  width: 25px;
+  grid-row-end: 20px;
+  border-radius: 5px;
+  display: none;
+}
+body nav div#contaUser svg {
+  width: 24px;
+  height: 24px;
+}
+body nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  padding-left: 24px;
+}
+body nav ul#localUserArtistaSeguido {
+  margin-bottom: 120px;
+}
+body nav ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 24px;
+  cursor: pointer;
+}
+body nav ul li.perfilSeguindoNavBar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+body nav ul li.perfilSeguindoNavBar img {
+  width: 50px;
+  height: 50px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 5px;
+}
+body nav ul li.perfilSeguindoNavBar div {
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-around;
+}
+body nav ul li.perfilSeguindoNavBar div span {
+  margin: 0px;
+}
+body nav span {
+  color: #9898A6;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 12px;
+  margin: 32px 12px 12px 24px;
+  display: block;
+}
+body div#navCelular {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 40px;
+  padding: 10px 0px;
+  z-index: 7;
+  background: #212124;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+body div#navCelular ul {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+body div#navCelular ul li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+body div#navCelular ul li img {
+  width: 20px;
+  height: 20px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+body div#navCelular ul li p {
+  color: rgba(255, 255, 255, 0.5960784314);
+  font-size: 11px;
+}
+body div#navCelular ul li div#imgPerfilUserNavCell {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 123, 0);
+  border-radius: 2px;
+  cursor: pointer;
+}
+body div#navCelular ul li div#imgPerfilUserNavCell p#LetraNomePerfilUserNavCell {
+  display: none;
+}
+body div#containerOptionsClickMusic, body div#containerOptionsClickArtista, body div#containerOptionsClickUser, body div#containerOptionsClickPlaylist {
+  width: 200px;
+  height: auto;
+  position: fixed;
+  background-color: #232327;
+  color: #fff;
+  display: none;
+  z-index: 6;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+}
+body div#containerOptionsClickMusic ul, body div#containerOptionsClickArtista ul, body div#containerOptionsClickUser ul, body div#containerOptionsClickPlaylist ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+body div#containerOptionsClickMusic ul li, body div#containerOptionsClickArtista ul li, body div#containerOptionsClickUser ul li, body div#containerOptionsClickPlaylist ul li {
+  width: calc(100% - 20px);
+  font-size: 0.8em;
+  padding: 10px;
+  cursor: pointer;
+}
+body div#containerOptionsClickMusic ul li.noPaddingClickMusic, body div#containerOptionsClickArtista ul li.noPaddingClickMusic, body div#containerOptionsClickUser ul li.noPaddingClickMusic, body div#containerOptionsClickPlaylist ul li.noPaddingClickMusic {
+  width: 100%;
+  padding: 0;
+}
+body div#containerOptionsClickMusic ul li.noPaddingClickMusic span, body div#containerOptionsClickArtista ul li.noPaddingClickMusic span, body div#containerOptionsClickUser ul li.noPaddingClickMusic span, body div#containerOptionsClickPlaylist ul li.noPaddingClickMusic span {
+  width: 100%;
+  display: block;
+  padding: 10px;
+}
+body div#containerOptionsClickMusic ul li:hover, body div#containerOptionsClickArtista ul li:hover, body div#containerOptionsClickUser ul li:hover, body div#containerOptionsClickPlaylist ul li:hover {
+  background-color: #3c3c42;
+}
+body div#containerOptionsClickMusic ul hr, body div#containerOptionsClickArtista ul hr, body div#containerOptionsClickUser ul hr, body div#containerOptionsClickPlaylist ul hr {
+  width: 100%;
+  border-color: rgba(76, 78, 84, 0.4431372549);
+}
+body div#containerMenuCreditos {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.76);
+  z-index: 6;
+}
+body div#containerMenuCreditos div#menuCreditos {
+  width: calc(95% - 20px);
+  max-width: 400px;
+  height: auto;
+  padding: 20px;
+  background-color: #232327;
+  border-radius: 10px;
+  position: relative;
+}
+body div#containerMenuCreditos div#menuCreditos button {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 2em;
+  font-weight: 100;
+  cursor: pointer;
+}
+body div#containerMenuCreditos div#menuCreditos hr {
+  width: calc(100% + 38px);
+  margin: 10px 0 20px -19px;
+  border-color: rgba(76, 78, 84, 0.4431372549);
+}
+body div#containerMenuCreditos div#menuCreditos h3 {
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+body div#containerMenuCreditos div#menuCreditos p {
+  font-size: 0.9em;
+  margin: 25px 0 5px;
+}
+body div#containerMenuCreditos div#menuCreditos p.varCreditos {
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.4941176471);
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 0;
+}
+body div#containerMenuCreditos div#menuCreditos p.varCreditos#menuCreditosNomeMusica {
+  text-decoration: none;
+  cursor: default;
+}
+body div#containerNotification {
+  width: auto;
+  height: 30px;
+  position: fixed;
+  padding: 5px 10px;
+  bottom: -100px;
+  left: 10px;
+  transition: 0.5s bottom ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 6;
+  background-color: #3c3c42;
+  border-radius: 10px;
+}
+body div#containerNotification.containerNotificationActive {
+  bottom: 0;
+}
+body div#containerNotification img {
+  width: 30px;
+  height: 30px;
+}
+body div#containerNotification p {
+  color: #fff;
+}
+body div#btnVoltarPagina {
+  position: absolute;
+  top: 33px;
+  left: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  z-index: 5;
+}
+body div#btnVoltarPagina button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  background-color: #1a1a1d;
+}
+body div#btnVoltarPagina button img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body div#btnVoltarPagina button.btnBloqueado img {
+  opacity: 0.3;
+}
+body div#SearchBar {
+  width: 340px;
+  position: absolute;
+  top: 33px;
+  right: 30px;
+  border: 1px solid rgba(235, 235, 255, 0.05);
+  background: #1F1F22;
+  overflow: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  z-index: 4;
+}
+body div#SearchBar input {
+  width: 100%;
+  outline: none;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  color: #fff;
+}
+body main {
+  width: calc(100% - 200px);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+body main section#MusicasAleatoriasBanner {
+  display: none;
+  margin: 0px;
+  background: linear-gradient(to bottom, rgb(0, 209, 209), rgba(0, 209, 209, 0.26), #1a1a1d);
+  padding: 100px 0px 0px;
+}
+body main section#MusicasAleatoriasBanner article {
+  width: calc(90% - 60px);
+  margin: auto;
+  display: flex;
+  padding: 30px;
+  gap: 20px;
+  border-radius: 5px;
+  background-color: #1a1a1d;
+}
+body main section#MusicasAleatoriasBanner article div#containerMusicasAleatoriasBanner {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+}
+body main section#MusicasAleatoriasBanner article div#containerMusicasAleatoriasBanner div.catainerImgMusicasAleatoriasBanner {
+  width: 145px;
+  height: 145px;
+  overflow: hidden;
+}
+body main section#MusicasAleatoriasBanner article div#containerMusicasAleatoriasBanner div.catainerImgMusicasAleatoriasBanner:hover {
+  cursor: pointer;
+  scale: 1.1;
+  transition: all 0.2s linear;
+}
+body main section#MusicasAleatoriasBanner article div#containerMusicasAleatoriasBanner div.catainerImgMusicasAleatoriasBanner img {
+  width: 100%;
+  height: 133%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  display: block;
+  margin-top: -24px;
+}
+body main section#MusicasAleatoriasBanner article div#containerMusicasAleatoriasBanner div.catainerImgMusicasAleatoriasBanner img.imgMusicasAleatoriasBannerTreeFy {
+  height: 100%;
+  margin-top: 0;
+}
+body main section#MusicasAleatoriasBanner article div#containerMusicasAleatoriasBanner div.catainerImgMusicasAleatoriasBanner img:hover {
+  cursor: pointer;
+  scale: 1.1;
+  transition: all 0.2s linear;
+}
+body main section#MusicasAleatoriasBanner article div#textoMusicasAleatoriasBanner {
+  width: calc(100% - 330px);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+body main section#MusicasAleatoriasBanner article div#textoMusicasAleatoriasBanner h1 {
+  font-size: 3.5em;
+}
+body main section#MusicasAleatoriasBanner article div#textoMusicasAleatoriasBanner h1 span {
+  display: block;
+  font-size: 0.4em;
+}
+body main section#containerFavoritasDoPerfil {
+  max-width: 1400px;
+  width: 90%;
+  margin: 120px auto -30px;
+}
+body main section#containerFavoritasDoPerfil article {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Três colunas com tamanhos iguais */
+  grid-gap: 10px; /* Espaçamento entre as divs */
+  grid-template-rows: repeat(2, auto); /* Duas linhas com altura automática */
+}
+body main section#containerFavoritasDoPerfil article div.containerPlaylistFavoritaPerfil {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  position: relative;
+}
+body main section#containerFavoritasDoPerfil article div.containerPlaylistFavoritaPerfil:hover div.iconPlayPlaylistFavoritaPerfil {
+  transition: 200ms opacity ease-in-out;
+  opacity: 1;
+}
+body main section#containerFavoritasDoPerfil article div.containerPlaylistFavoritaPerfil img {
+  width: 80px;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body main section#containerFavoritasDoPerfil article div.containerPlaylistFavoritaPerfil div.iconPlayPlaylistFavoritaPerfil {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 5px;
+  opacity: 0;
+  border-radius: 50%;
+  background-image: url("../Imgs/Icons/DarPlay.png");
+  background-size: cover;
+}
+body main section#containerMain {
+  width: 90%;
+  margin: 100px auto;
+}
+body section.Paginas {
+  width: calc(100% - 200px);
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  display: none;
+  background: #1a1a1d;
+  overflow-x: auto;
+  z-index: 4;
+}
+body section.Paginas article {
+  width: 95%;
+  margin: auto;
+  padding: 100px 0px;
+}
+body section.Paginas#PagPesquisa {
+  z-index: 3;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom 50% center;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa {
+  max-width: 1400px;
+  margin: auto;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa h1 {
+  font-size: 1.5em;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa {
+  width: 100%;
+  margin: 20px auto;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa {
+  width: 280px;
+  height: 280px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #212124;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa div.DarkOverlayPerfilPesquisar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.37);
+  z-index: 1;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa img {
+  width: 150px;
+  height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  display: none;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa h1 {
+  width: 95%;
+  margin: 0px auto;
+  text-align: center;
+  font-weight: 600;
+  font-size: 2em;
+  z-index: 2;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa {
+  width: calc(100% - 320px);
+  max-height: 280px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1d;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa {
+  width: calc(100% - 20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 10px;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa:hover {
+  background-color: #232327;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa img {
+  width: 50px;
+  height: 50px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa div.containerTextoPerfilPesquisa {
+  display: flex;
+  flex-direction: column;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa div.containerTextoPerfilPesquisa span {
+  color: #5d5d63;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa img.heartPerfilPesquisa {
+  width: 20px;
+  height: 20px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa {
+  margin-bottom: 60px;
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa h1 {
+  width: 100%;
+  max-width: 1400px;
+  font-size: 1.5em;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 70px auto 14px;
+  display: block;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer {
+  width: 100%;
+  overflow: auto;
+  margin: auto;
+  scroll-behavior: smooth;
+  padding: 0;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 24px;
+  height: auto;
+  width: 100%;
+  padding: 0px 0px 30px !important;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists {
+  min-width: 205px;
+  height: 244px;
+  display: flex;
+  flex-direction: column;
+  background-position: center;
+  position: relative;
+  border-radius: 0px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  background-color: #1e1e20;
+  cursor: pointer;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.containerImgPlaylist {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.containerImgPlaylist img {
+  width: 100%;
+  height: 146%;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  top: -43px;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa {
+  width: 85%;
+  margin: 20px auto 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa p {
+  width: 90%;
+  color: #fff;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa span {
+  color: rgba(255, 255, 255, 0.4117647059);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerMusica article.articleContainer {
+  width: 100%;
+}
+body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerMusica article.articleContainer article.containerMusicaCaixa {
+  width: 100%;
+  padding-top: 0px !important;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#PrimeirosPassosYT {
+  width: 95%;
+  max-width: 700px;
+  margin: auto;
+  display: block;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#PrimeirosPassosYT h1 {
+  width: 400px;
+  margin: auto;
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: 900;
+  margin-bottom: 40px;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#PrimeirosPassosYT p {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.4862745098);
+  font-weight: 100;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#PrimeirosPassosYT div#containerInputLinkMusicaYT {
+  width: 100%;
+  position: relative;
+  margin: 20px 0px 43px;
+  border-radius: 17px;
+  overflow: hidden;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#PrimeirosPassosYT div#containerInputLinkMusicaYT input {
+  width: calc(100% - 15px);
+  height: 57px;
+  background-color: rgba(102, 102, 102, 0.13);
+  border: none;
+  padding-left: 15px;
+  color: #fff;
+  outline: none;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#PrimeirosPassosYT div#containerInputLinkMusicaYT input.inputAnimation {
+  animation: 300ms inputAnimado infinite ease-in-out;
+}
+@keyframes inputAnimado {
+  50% {
+    margin-left: -5px;
+  }
+  75% {
+    margin-left: 5px;
+  }
+  100% {
+    margin-left: 0px;
+  }
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#PrimeirosPassosYT div#containerInputLinkMusicaYT div {
+  width: 59px;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0FF;
+  border-radius: 0px;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#PrimeirosPassosYT div#containerInputLinkMusicaYT div.inputAnimation2 {
+  animation: 300ms inputAnimado2 infinite ease-in-out;
+}
+@keyframes inputAnimado2 {
+  50% {
+    background-color: red;
+  }
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#PrimeirosPassosYT div button {
+  width: 100%;
+  display: block;
+  border-radius: 17px;
+  padding: 10px 0px;
+  font-size: 20px;
+  color: #fff;
+  background-color: rgba(102, 102, 102, 0.13);
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#PrimeirosPassosYT div button:hover {
+  cursor: pointer;
+  scale: 1.05;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#FinalizarAddYT {
+  width: 95%;
+  max-width: 700px;
+  display: none;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#FinalizarAddYT img#ImgMusicaLinkYT {
+  width: 100%;
+  height: 300px;
+  display: block;
+  margin: 50px auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center;
+     object-position: center;
+  border-radius: 10px;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#FinalizarAddYT div.continerLinkYt {
+  width: 100%;
+  position: relative;
+  margin-bottom: 43px;
+  border-radius: 17px;
+  overflow: hidden;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#FinalizarAddYT div.continerLinkYt input {
+  width: calc(100% - 15px);
+  height: 57px;
+  background-color: rgba(102, 102, 102, 0.13);
+  border: none;
+  padding-left: 15px;
+  color: #fff;
+  outline: none;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#FinalizarAddYT div.continerLinkYt input.inputAnimation {
+  animation: 300ms inputAnimado infinite ease-in-out;
+}
+@keyframes inputAnimado {
+  50% {
+    margin-left: -5px;
+  }
+  75% {
+    margin-left: 5px;
+  }
+  100% {
+    margin-left: 0px;
+  }
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#FinalizarAddYT div.continerLinkYt div {
+  width: 59px;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0FF;
+  border-radius: 0px;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#FinalizarAddYT div.continerLinkYt div.inputAnimation2 {
+  animation: 300ms inputAnimado2 infinite ease-in-out;
+}
+@keyframes inputAnimado2 {
+  50% {
+    background-color: red;
+  }
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#FinalizarAddYT button {
+  width: 100%;
+  display: block;
+  border-radius: 17px;
+  padding: 10px 0px;
+  font-family: "Carter One", cursive;
+  font-size: 20px;
+  color: #fff;
+  background-color: rgba(102, 102, 102, 0.13);
+  border: none;
+  outline: none;
+  margin-bottom: 30px;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#FinalizarAddYT button:focus {
+  outline: none;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#FinalizarAddYT button:hover {
+  cursor: pointer;
+  scale: 1.05;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#AdicionarDeOutroJeito {
+  display: none;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#AletarPostarMusicaViaLinck {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.562);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#AletarPostarMusicaViaLinck div {
+  width: 95%;
+  max-width: 500px;
+  height: auto;
+  background-color: #1a1a1d;
+  padding: 20px;
+  border-radius: 20px;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#AletarPostarMusicaViaLinck div h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: rgb(255, 0, 0);
+  font-size: 25px;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#AletarPostarMusicaViaLinck div p {
+  font-size: 14px;
+  font-weight: 300;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#AletarPostarMusicaViaLinck div div {
+  width: 95%;
+  margin: auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  display: flex;
+}
+body section.Paginas#PagAdicionarMusica article#containerAddMusic div#AletarPostarMusicaViaLinck div div button {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #1F1F22;
+  margin-top: 50px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+body section.Paginas#PagMeuPerfil {
+  padding: 0px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil {
+  padding: 0px;
+  width: 100%;
+  margin: 0px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgroundPerfil {
+  width: calc(100% - 40px);
+  height: 400px;
+  background-image: url(../Imgs/Banners/fitaCassete.avif);
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 40px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgroundPerfil.RepetirBackgroundPerfilUser {
+  background-repeat: repeat;
+  background-size: contain;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgroundPerfil div#blurBackgroundPerfil {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.329);
+  left: 0px;
+  top: 0px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgroundPerfil div#coteudoHeaderPerfil {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+  z-index: 2;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgroundPerfil div#coteudoHeaderPerfil button#btnEditarMeuPerfil {
+  width: 40px;
+  height: 40px;
+  border: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-radius: 10px;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgroundPerfil div#coteudoHeaderPerfil div#containerImgPerfilUserHeaderUser {
+  width: 250px;
+  height: 250px;
+  z-index: 1;
+  background-color: #1a1a1d;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  background-position: center center;
+  background-size: cover;
+  margin-left: 20px;
+  display: none;
+  align-items: center;
+  justify-content: baseline;
+  overflow: hidden;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgroundPerfil div#coteudoHeaderPerfil div#containerImgPerfilUserHeaderUser img#imgPerfilUserHeaderUser {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgroundPerfil div#coteudoHeaderPerfil div#textoCoteudoHeaderPerfil h1 {
+  font-size: 5em;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgroundPerfil div#coteudoHeaderPerfil button#btnPlayHeaderPerfil {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  background-image: url("../Imgs/Icons/DarPlay200.png");
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: #fff;
+  position: absolute;
+  bottom: -50px;
+  left: 50px;
+  cursor: pointer;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop-upEditarPerfil {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.76);
+  z-index: 2;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop-upEditarPerfil div {
+  width: 95%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 10px;
+  padding: 20px;
+  margin: auto;
+  background-color: #1a1a1d;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop-upEditarPerfil div p {
+  margin: 20px 0px 10px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop-upEditarPerfil div input {
+  width: calc(100% - 15px);
+  height: 40px;
+  background-color: rgba(102, 102, 102, 0.13);
+  border: none;
+  padding-left: 15px;
+  color: rgb(255, 255, 255);
+  outline: none;
+  border-radius: 10px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop-upEditarPerfil div input#btnRepetirBackground {
+  width: 20px;
+  height: 20px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop-upEditarPerfil div div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop-upEditarPerfil div div button {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #1F1F22;
+  margin-top: 50px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#containerEditrarMusica {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.76);
+  z-index: 2;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#containerEditrarMusica div#conteudoEditarMusica {
+  width: 95%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 10px;
+  padding: 20px;
+  margin: auto;
+  background-color: #1a1a1d;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#containerEditrarMusica div#conteudoEditarMusica p {
+  margin: 20px 0px 10px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#containerEditrarMusica div#conteudoEditarMusica input {
+  width: calc(100% - 15px);
+  height: 40px;
+  background-color: rgba(102, 102, 102, 0.13);
+  border: none;
+  padding-left: 15px;
+  color: rgb(255, 255, 255);
+  outline: none;
+  border-radius: 10px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#containerEditrarMusica div#conteudoEditarMusica div#containerBtnsEditarMusica {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#containerEditrarMusica div#conteudoEditarMusica div#containerBtnsEditarMusica button {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #1F1F22;
+  margin-top: 50px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#containerMusicasPerfilUser {
+  padding-bottom: 100px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#containerMusicasPerfilUser section.containerMusica {
+  max-width: none !important;
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  max-width: none;
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas div#backgroundPagMusicasFavoritas {
+  position: fixed;
+  z-index: -1;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to bottom, rgba(0, 255, 255, 0.822), rgba(0, 255, 255, 0.432), transparent);
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas div#headerMusicasFavorias {
+  width: calc(100% - 40px);
+  margin: auto;
+  display: flex;
+  align-items: end;
+  gap: 20px;
+  padding: 50px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2196078431);
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas div#headerMusicasFavorias img {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 39px;
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas div#headerMusicasFavorias h1 {
+  font-size: 7em;
+  text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas article#localMusicasCurtidas {
+  width: 100%;
+  padding-bottom: 100px;
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas article#localMusicasCurtidas section.containerMusica {
+  max-width: none;
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas article#localMusicasCurtidas section.containerMusica article.containerMusicaLinha {
+  padding-top: 0px;
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas article#localMusicasCurtidas section.containerMusica article.containerMusicaLinha div.MusicasLinha {
+  align-items: center;
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas article#localMusicasCurtidas section.containerMusica article.containerMusicaLinha div.MusicasLinha img {
+  border-radius: 10px;
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas article#localMusicasCurtidas section.containerMusica article.containerMusicaLinha div.MusicasLinha div.TextoMusicaCaixa span {
+  color: #ffffff;
+}
+body section.Paginas#PagFavoritas #containerMusicasFavoritas article#localMusicasCurtidas section.containerMusica article.containerMusicaLinha div.MusicasLinha p.GeneroMeuPerfil {
+  color: #fff;
+}
+body section.Paginas#PagArtistas {
+  padding: 0px;
+}
+body section.Paginas#PagArtistas article#containerArtista {
+  padding: 0px;
+  width: 100%;
+  margin: 0px;
+}
+body section.Paginas#PagArtistas article#containerArtista div#coainerBackgroundArtista {
+  width: calc(100% - 40px);
+  height: 400px;
+  background-image: linear-gradient(#3c3c42, #232327);
+  position: relative;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 40px;
+}
+body section.Paginas#PagArtistas article#containerArtista div#coainerBackgroundArtista div#blurBackgroundArtista {
+  width: 250px;
+  height: 250px;
+  z-index: 1;
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.534);
+  background-position: center center;
+  background-size: cover;
+}
+body section.Paginas#PagArtistas article#containerArtista div#coainerBackgroundArtista div#coteudoHeaderArtista {
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+body section.Paginas#PagArtistas article#containerArtista div#coainerBackgroundArtista div#coteudoHeaderArtista div#inforArtista {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: end;
+  justify-content: start;
+  gap: 20px;
+}
+body section.Paginas#PagArtistas article#containerArtista div#coainerBackgroundArtista div#coteudoHeaderArtista div#inforArtista div#containerImgPerfilArtista {
+  width: 250px;
+  min-width: 250px;
+  height: 250px;
+  z-index: 1;
+  background-color: #1a1a1d;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  background-position: center center;
+  background-size: cover;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  overflow: hidden;
+}
+body section.Paginas#PagArtistas article#containerArtista div#coainerBackgroundArtista div#coteudoHeaderArtista div#inforArtista div#containerImgPerfilArtista img#imgPerfilArtista {
+  width: 100%;
+  height: 133%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.Paginas#PagArtistas article#containerArtista div#coainerBackgroundArtista div#coteudoHeaderArtista div#inforArtista div#containerImgPerfilArtista img#imgPerfilArtista.imgPerfilArtistaTreeFy {
+  height: 100%;
+}
+body section.Paginas#PagArtistas article#containerArtista div#coainerBackgroundArtista div#coteudoHeaderArtista div#inforArtista h1#NomeArtista {
+  font-size: 5em;
+}
+body section.Paginas#PagArtistas article#containerArtista div#coainerBackgroundArtista div#coteudoHeaderArtista button#btnPlayHeaderArtista {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  background-image: url("../Imgs/Icons/DarPlay200.png");
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: #fff;
+  position: absolute;
+  bottom: -50px;
+  left: 50px;
+  cursor: pointer;
+  overflow: hidden;
+}
+body section.Paginas#PagArtistas article#containerArtista div#containerMusicasArtista {
+  padding-bottom: 100px;
+}
+body section.Paginas#PagArtistas article#containerArtista div#containerMusicasArtista section.containerMusica {
+  max-width: none !important;
+}
+body section.Paginas#PagPlaylist {
+  padding: 0px;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist {
+  padding: 0px;
+  width: 100%;
+  margin: 0px;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist {
+  width: calc(100% - 40px);
+  height: 400px;
+  background-image: linear-gradient(#3c3c42, #232327);
+  position: relative;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 40px;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#blurBackgroundPagPlaylist {
+  width: 250px;
+  height: 250px;
+  z-index: 1;
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.534);
+  background-position: center center;
+  background-size: cover;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist {
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: end;
+  justify-content: start;
+  gap: 20px;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist div#containerImgPerfilPagPlaylist {
+  width: 250px;
+  height: 250px;
+  z-index: 1;
+  background-color: #1a1a1d;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  background-position: center center;
+  background-size: cover;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  overflow: hidden;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist div#containerImgPerfilPagPlaylist img#imgPerfilPagPlaylist {
+  width: 100%;
+  height: 133%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist div#containerImgPerfilPagPlaylist img#imgPerfilPagPlaylist.imgPerfilPagPlaylistTreeFy {
+  height: 100%;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist h1#NomePagPlaylist {
+  font-size: 5em;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist span {
+  color: rgba(255, 255, 255, 0.4117647059);
+  font-weight: 500;
+  line-height: 20px;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist button#btnPlayHeaderPagPlaylist {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  background-image: url("../Imgs/Icons/DarPlay200.png");
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: #fff;
+  position: absolute;
+  bottom: -50px;
+  left: 50px;
+  cursor: pointer;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#containerMusicasPagPlaylist {
+  padding-bottom: 100px;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#containerMusicasPagPlaylist section.containerMusica {
+  max-width: none !important;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#containerMusicasPagPlaylist section.containerMusica article.articleContainer {
+  width: 100%;
+}
+body section.Paginas#PagMusicaTocandoAgora {
+  padding: 0px;
+  z-index: 6;
+}
+body section.Paginas#PagMusicaTocandoAgora.Open {
+  display: none;
+}
+body section.Paginas#PagMusicaTocandoAgora article {
+  width: 90%;
+  padding: 20px 0px;
+  max-width: 340px;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#headerPagMusicaTocandoAgora {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#headerPagMusicaTocandoAgora img {
+  left: 0px;
+  position: absolute;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora {
+  margin: 20px auto;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora {
+  width: 100%; /* Define a largura para 100% */
+  padding-top: 100%; /* Define a altura com base na largura (1:1) */
+  position: relative; /* Permite posicionar o conteúdo interno */
+  background-color: rgba(37, 38, 44, 0.8078431373); /* Cor de fundo, você pode personalizar conforme necessário */
+  background-size: cover; /* Ajusta a imagem de fundo para cobrir toda a área */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora::before {
+  content: ""; /* Adiciona um pseudo-elemento para criar conteúdo interno */
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("sua-imagem.jpg"); /* Adicione uma imagem de fundo ou personalize conforme necessário */
+  background-size: cover; /* Ajusta a imagem de fundo para cobrir toda a área */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: none;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora div h1 {
+  width: 100%;
+  font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 20px 0px 10px;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora div p {
+  width: 100%;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4196078431);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora {
+  width: 100%;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora div#containerControles {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px auto;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora div#containerControles img {
+  width: 20px;
+  height: 20px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  cursor: pointer;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora div#containerControles img#PlayBtn {
+  width: 28px;
+  height: 28px;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora input {
+  width: 100%;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  height: 5px;
+  background: #4C4E54;
+  border-radius: 10px;
+  cursor: pointer;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00e1ff;
+}
+body section.Paginas#PagCriarPlaylist article {
+  width: 100%;
+  padding: 0;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist {
+  width: calc(100% - 40px);
+  height: 400px;
+  background-image: linear-gradient(#3c3c42, #232327);
+  position: relative;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 40px;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#containerImgPlaylist {
+  width: 250px;
+  height: 250px;
+  background-color: #1a1a1d;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#containerImgPlaylist img#imgCriarPlaylist {
+  width: 50%;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#containerImgPlaylist img#imgCriarPlaylist.PlaylistTemImg {
+  width: 177%;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#textoHeaderCriarPlaylist {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 10px;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#textoHeaderCriarPlaylist h1 {
+  font-size: 5em;
+}
+body section.Paginas#PagCriarPlaylist article article#containerMainCriarPlaylist {
+  width: 95%;
+  margin: auto;
+  position: relative;
+  padding-bottom: 100px;
+}
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist h1 {
+  margin: 30px 0px 20px;
+  font-size: 1.5em;
+}
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div {
+  width: 95%;
+  max-width: 300px;
+  position: relative;
+  background-color: #232327;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 10px;
+}
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div input {
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  background: none;
+  color: #fff;
+}
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div input:focus {
+  outline: none;
+}
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.Paginas#PagCriarPlaylist article div#containerMusicasPesquisadasCriarPlaylist {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  margin-top: 20px;
+  display: none;
+  padding: 20px 0px;
+  background-color: #1a1a1d;
+  z-index: 2;
+}
+body section.Paginas#PagCriarPlaylist article div#containerMusicasPesquisadasCriarPlaylist section {
+  max-width: none;
+}
+body section.Paginas#PagCriarPlaylist article div#containerMusicasAddCriarPlaylist {
+  margin-top: 50px;
+  padding-bottom: 100px;
+}
+body section.Paginas#PagCriarPlaylist article div#containerMusicasAddCriarPlaylist section {
+  max-width: none;
+}
+body section.Paginas#PagCriarPlaylist button#btnPostarPlaylist {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 130px;
+  right: 30px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(0, 255, 255);
+  cursor: pointer;
+  z-index: 2;
+  border: none;
+}
+body section.Paginas#PagCriarPlaylist button#btnPostarPlaylist:hover {
+  transition: 100ms scale ease-in-out;
+  scale: 1.1;
+}
+body section.Paginas#PagCriarPlaylist button#btnPostarPlaylist img {
+  width: 70%;
+  height: 870%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.562);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div {
+  width: 95%;
+  max-width: 500px;
+  height: auto;
+  background-color: #1a1a1d;
+  padding: 20px;
+  border-radius: 20px;
+}
+body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div p {
+  padding: 10px 0px;
+}
+body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div input {
+  margin-bottom: 30px;
+}
+body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div input, body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div textarea {
+  width: calc(100% - 30px);
+  background-color: #232327;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  resize: none;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+}
+body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div input:focus, body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div textarea:focus {
+  outline: none;
+}
+body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div input::-webkit-clear-button, body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div textarea::-webkit-clear-button {
+  display: none;
+}
+body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div div {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist div div button {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #1F1F22;
+  margin-top: 30px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+body section.Paginas#PagPerfilOutroUser {
+  padding: 0px;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser {
+  width: calc(100% - 40px);
+  height: 400px;
+  background-image: url(../Imgs/Banners/fitaCassete.avif);
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: end;
+  padding: 20px;
+  gap: 40px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser.RepetirBackgroundPerfilUser {
+  background-repeat: repeat;
+  background-size: contain;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#blurHeaderPagPerfilOutroUser {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  left: 0px;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.329);
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+  z-index: 2;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#containerImgHeaderPagPerfilOutroUser {
+  width: 250px;
+  height: 250px;
+  z-index: 1;
+  background-color: #1a1a1d;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  background-position: center center;
+  background-size: cover;
+  margin-left: 20px;
+  display: none;
+  align-items: center;
+  justify-content: baseline;
+  overflow: hidden;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#containerImgHeaderPagPerfilOutroUser img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#parteTextoPagPerfilOutroUser {
+  margin-bottom: 40px;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#parteTextoPagPerfilOutroUser h1 {
+  font-size: 10vw;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#parteTextoPagPerfilOutroUser span#viewsSemanais {
+  display: none;
+  color: #ffffff;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerBtnsPagPerfilOutroUser {
+  position: absolute;
+  bottom: -50px;
+  left: 20px;
+  z-index: 2;
+  display: flex;
+  align-items: end;
+  gap: 40px;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerBtnsPagPerfilOutroUser button#darPlayPagPerfilOutroUser {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  background-image: url(../Imgs/Icons/DarPlay200.png);
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerBtnsPagPerfilOutroUser button#btnSeguirPagPerfilOutroUser {
+  background-color: transparent;
+  border: 2px solid #fff;
+  padding: 12px 35px;
+  color: #fff;
+  border-radius: 30px;
+  background-color: #1a1a1d;
+  cursor: pointer;
+}
+body section.Paginas#PagPerfilOutroUser article#containerMusicasPagPerfilOutroUser {
+  width: 100%;
+  padding: 0;
+}
+body section.Paginas#PagPerfilOutroUser article#containerMusicasPagPerfilOutroUser section {
+  width: 100%;
+  max-width: none;
+  padding-bottom: 50px;
+}
+body section.Paginas#PagAdicionarLetra article#primeiraPartAdicionarLetra {
+  width: 100%;
+  min-height: 100vh;
+}
+body section.Paginas#PagAdicionarLetra article#primeiraPartAdicionarLetra textarea#textareaAddLetraMusica {
+  width: 95%;
+  min-height: 100vh;
+  background-color: transparent;
+  border: none;
+  margin: auto;
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 1.5em;
+  outline: none;
+  color: #fff;
+}
+body article#TelaTocandoAgora {
+  width: 350px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  z-index: 5;
+  background-color: #1a1a1d;
+  box-shadow: -8px 6px 18px 0px rgba(0, 0, 0, 0.4);
+  padding: 25px 20px;
+  overflow-y: auto;
+  transition: 1s right ease-in-out;
+}
+body article#TelaTocandoAgora::-webkit-scrollbar {
+  width: 1px; /* Largura da barra de rolagem */
+}
+body article#TelaTocandoAgora.TelaTocandoAgoraOpen {
+  right: 0px;
+}
+body article#TelaTocandoAgora div#tituloTelaTocandoAgora {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+body article#TelaTocandoAgora div#tituloTelaTocandoAgora button#fecharTelaTocandoAgora {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: none;
+  background-image: url("../Imgs/Icons/x.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+body article#TelaTocandoAgora div#containerMusicaTelaTocanAgora {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(41, 41, 46, 0.568627451);
+  overflow: hidden;
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+body article#TelaTocandoAgora div#containerMusicaTelaTocanAgora div#containerImgMusicaTelaTocandoAgora {
+  width: 100%;
+  height: 290px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  overflow: hidden;
+  border-radius: 10px;
+}
+body article#TelaTocandoAgora div#containerMusicaTelaTocanAgora div#containerImgMusicaTelaTocandoAgora img#imgMusicaTelaTocandoAgora {
+  width: 100%;
+  height: 141%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
+}
+body article#TelaTocandoAgora div#containerMusicaTelaTocanAgora div#containerImgMusicaTelaTocandoAgora img#imgMusicaTelaTocandoAgora.imgMusicaTelaTocandoAgoraTreeFy {
+  width: 100%;
+  height: 100%;
+}
+body article#TelaTocandoAgora div#containerMusicaTelaTocanAgora h1#NomeMusicaTelaTocandoAgora {
+  margin: 10px 0px;
+  width: 90%;
+  color: #fff;
+  font-style: normal;
+  line-height: 24px;
+  z-index: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body article#TelaTocandoAgora div#containerMusicaTelaTocanAgora p#AutorMusicaTelaTocandoAgora {
+  color: rgba(255, 255, 255, 0.4117647059);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  z-index: 2;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou {
+  width: calc(100% - 40px);
+  margin: 30px 0px;
+  position: relative;
+  overflow-y: auto;
+  background-color: rgba(41, 41, 46, 0.568627451);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou div#containerImgSobreQuemPostou {
+  width: 100%;
+  height: 290px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou div#containerImgSobreQuemPostou div#textoImgSobreQuemPostou {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 3;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou div#containerImgSobreQuemPostou div#textoImgSobreQuemPostou p#pSobreQuemPostou {
+  font-size: 20px;
+  border-radius: 10px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  z-index: 2;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou div#containerImgSobreQuemPostou div#textoImgSobreQuemPostou h1#NomeUserPostouMusicaTelaTocandoAgora {
+  z-index: 2;
+  font-size: 30px;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou div#containerImgSobreQuemPostou div#blurImgUserTelaTocandoAgora {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.329);
+}
+body article#TelaTocandoAgora div#SobreQuemPostou div#containerImgSobreQuemPostou img#imgUserPostouMusicaTelaTocandoAgora {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
+  position: absolute;
+  top: 0px;
+  z-index: 1;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou div#containerInfoUserTelaTocandoAgora {
+  width: 95%;
+  margin: 20px auto 30px;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou div#containerInfoUserTelaTocandoAgora div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou div#containerInfoUserTelaTocandoAgora div p#NumeroOuvintesTelaTocandoAgora {
+  color: rgba(255, 255, 255, 0.4117647059);
+  font-weight: 200;
+  line-height: 20px;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou div#containerInfoUserTelaTocandoAgora button {
+  background-color: transparent;
+  border: 2px solid #fff;
+  padding: 12px 35px;
+  color: #fff;
+  border-radius: 30px;
+  background-color: transparent;
+  cursor: pointer;
+}
+body article#TelaTocandoAgora div#SobreQuemPostou p#descUserTelaTocandoAgora {
+  text-align: justify;
+  color: rgba(255, 255, 255, 0.4117647059);
+  font-weight: 200;
+  line-height: 20px;
+  display: none;
+}
+body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora {
+  margin: 40px 0px 150px;
+  padding: 20px 0;
+  border-radius: 10px;
+  background-color: rgba(41, 41, 46, 0.568627451);
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4);
+}
+body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora h3#infoLista {
+  margin: 10px 0px;
+  width: 90%;
+  margin: 0 auto 20px;
+  color: #fff;
+  font-style: normal;
+  line-height: 24px;
+  z-index: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora div#containerMusicaslistaTelaTocandoAgora .containerMusica .articleContainer .containerMusicaLinha .MusicasLinha {
+  padding: 0 20px;
+  grid-template-columns: repeat(1, 1fr) !important;
+}
+body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora div#containerMusicaslistaTelaTocandoAgora .containerMusica .articleContainer .containerMusicaLinha .MusicasLinha p.GeneroMeuPerfil {
+  display: none !important;
+}
+body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora div#containerMusicaslistaTelaTocandoAgora .containerMusica .articleContainer .containerMusicaLinha .MusicasLinha div p:first-of-type {
+  display: none !important;
+}
+body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora div#containerMusicaslistaTelaTocandoAgora .containerMusica .articleContainer .containerMusicaLinha .MusicasLinha div div.TextoMusicaCaixa p {
+  display: block !important;
+}
+body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora div#containerMusicaslistaTelaTocandoAgora .containerMusica .articleContainer .containerMusicaLinha .MusicasLinha .btnCurtirMeuPerfil {
+  display: none !important;
+}
+body article#BarraMusica {
+  width: calc(100% - 40px);
+  height: 41px;
+  bottom: -100vh;
+  transition: 1s bottom ease-in-out;
+  position: fixed;
+  background-color: #1a1a1d;
+  background-color: #0e0e10;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  z-index: 5;
+  box-shadow: -8px -6px 18px 0px rgba(0, 0, 0, 0.274);
+}
+body article#BarraMusica.BarraMusicaOpen {
+  bottom: 0px;
+}
+body article#BarraMusica div#containerImgLargaEscalaBarraMusica {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  position: absolute;
+  overflow: hidden;
+  left: 10px;
+  transition: 700ms bottom ease-in-out;
+  bottom: -100vh;
+  padding: 20px;
+  background-color: #1a1a1d;
+  box-shadow: 8px -6px 18px 0px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+body article#BarraMusica div#containerImgLargaEscalaBarraMusica:hover button.closeBtn {
+  opacity: 1;
+}
+body article#BarraMusica div#containerImgLargaEscalaBarraMusica button.closeBtn {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  border-radius: 50%;
+  border: none;
+  padding: 10px;
+  background-color: #1a1a1d;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.829);
+  display: flex;
+  opacity: 0;
+  transition: 300ms opacity ease-in-out;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+}
+body article#BarraMusica div#containerImgLargaEscalaBarraMusica button.closeBtn img {
+  width: 100%;
+  height: 100%;
+}
+body article#BarraMusica div#containerImgLargaEscalaBarraMusica div {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+}
+body article#BarraMusica div#containerImgLargaEscalaBarraMusica div img#ImgLargaEscalaBarraMusica {
+  width: 100%;
+  height: 133%;
+  top: -50px;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  position: absolute;
+  border-radius: 5px;
+}
+body article#BarraMusica div#containerImgLargaEscalaBarraMusica div img#ImgLargaEscalaBarraMusica.imgMusicaBarraMusicaTreeFy {
+  height: 100%;
+  top: 0px;
+}
+body article#BarraMusica div#InfosBarraMusica {
+  max-width: 229px;
+  display: flex;
+  align-items: end;
+  justify-content: start;
+  gap: 16px;
+}
+body article#BarraMusica div#InfosBarraMusica div#divImgMusicaBarraMusica {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  overflow: hidden;
+  border-radius: 2px;
+  position: relative;
+}
+body article#BarraMusica div#InfosBarraMusica div#divImgMusicaBarraMusica:hover button.closeBtn {
+  opacity: 1;
+}
+body article#BarraMusica div#InfosBarraMusica div#divImgMusicaBarraMusica button.closeBtn {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border-radius: 50%;
+  border: none;
+  padding: 10px;
+  background-color: #1a1a1d;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.829);
+  display: flex;
+  opacity: 0;
+  transition: 300ms opacity ease-in-out;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+}
+body article#BarraMusica div#InfosBarraMusica div#divImgMusicaBarraMusica button.closeBtn img {
+  width: 100%;
+  height: 100%;
+}
+body article#BarraMusica div#InfosBarraMusica div#divImgMusicaBarraMusica img#imgMusicaBarraMusica {
+  width: 100%;
+  height: 133%;
+  top: -10px;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  position: absolute;
+  cursor: pointer;
+  border-radius: 20px;
+  overflow: hidden;
+}
+body article#BarraMusica div#InfosBarraMusica div#divImgMusicaBarraMusica img#imgMusicaBarraMusica.imgMusicaBarraMusicaTreeFy {
+  height: 100%;
+  top: 0px;
+  border-radius: 20px;
+}
+body article#BarraMusica div#InfosBarraMusica div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+body article#BarraMusica div#InfosBarraMusica div p {
+  width: 100%;
+  max-width: 200px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body article#BarraMusica div#InfosBarraMusica div span {
+  width: 100%;
+  max-width: 200px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4196078431);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+body article#BarraMusica div#InfosBarraMusica img#HeartBarraMusica {
+  width: 15px;
+  height: 15px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center;
+     object-position: center;
+  display: block;
+  cursor: pointer;
+}
+body article#BarraMusica div#PartePlayerBarraMusica {
+  width: calc(90% - 400px);
+  max-width: 500px;
+}
+body article#BarraMusica div#PartePlayerBarraMusica div#controlesBarraMusica {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+body article#BarraMusica div#PartePlayerBarraMusica div#controlesBarraMusica img {
+  width: 16px;
+  height: 16px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  cursor: pointer;
+}
+body article#BarraMusica div#PartePlayerBarraMusica div#controlesBarraMusica img#PlayBtn {
+  width: 24px;
+  height: 24px;
+}
+body article#BarraMusica div#PartePlayerBarraMusica input {
+  width: 100%;
+  margin: 10px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  height: 5px;
+  background: #4C4E54;
+  border-radius: 10px;
+  cursor: pointer;
+}
+body article#BarraMusica div#PartePlayerBarraMusica input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00e1ff;
+}
+body article#BarraMusica div#ConfigsBarraMusica {
+  display: flex;
+  gap: 16px;
+}
+body article#BarraMusica div#ConfigsBarraMusica img {
+  cursor: pointer;
+}
+body article#BarraMusica div#ConfigsBarraMusica img #btnAbrirTelaTocandoAgora {
+  display: none;
+}
+body article#BarraMusica div#ConfigsBarraMusica div#containerControleVolume {
+  display: flex;
+  align-items: center;
+}
+body article#BarraMusica div#ConfigsBarraMusica div#containerControleVolume input {
+  width: 100%;
+  max-width: 100px;
+  margin: 10px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  height: 5px;
+  background: #4C4E54;
+  border-radius: 10px;
+  cursor: pointer;
+}
+body article#BarraMusica div#ConfigsBarraMusica div#containerControleVolume input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00e1ff;
+}
+body article#BarraMusica div#ConfigsBarraMusicaCell {
+  display: none;
+  gap: 20px;
+}
+body article#BarraMusica div#ConfigsBarraMusicaCell img {
+  width: 24px;
+  height: 24px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+body section.containerMusica {
+  margin-bottom: 0px;
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+}
+body section.containerMusica h1 {
+  width: 100%;
+  max-width: 1400px;
+  font-size: 1.5em;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 70px auto 14px;
+  display: block;
+}
+body section.containerMusica .divBtnsScrollHorizontal {
+  position: absolute;
+  right: 0px;
+  top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+body section.containerMusica .divBtnsScrollHorizontal button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  background-color: #1a1a1d;
+}
+body section.containerMusica article.articleContainer {
+  overflow: auto;
+  margin: auto;
+  scroll-behavior: smooth;
+  padding: 0;
+}
+body section.containerMusica article.articleContainer::-webkit-scrollbar {
+  width: 0px; /* Largura da barra de rolagem */
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa {
+  margin: auto;
+  display: flex;
+  gap: 20px;
+  height: 250px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa.SemScroll {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
+  gap: 24px;
+  height: auto;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa {
+  min-width: 205px;
+  height: 244px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  background-color: #1a1a1d;
+  cursor: pointer;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa.ArtistaHistorico div.ContainerImgMusicaCaixa {
+  width: 75%;
+  height: 62%;
+  border-radius: 50%;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.7098039216);
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa.ArtistaHistorico div.ContainerImgMusicaCaixa svg {
+  display: none;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa.ArtistaHistorico div.ContainerImgMusicaCaixa svg.svgTop {
+  top: -2px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa.ArtistaHistorico div.ContainerImgMusicaCaixa svg.svgBottom {
+  bottom: 45px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa.ArtistaHistorico div.ContainerImgMusicaCaixa img {
+  height: 134%;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa:hover div.BtnDarPlay {
+  transition: 200ms opacity ease-in-out;
+  opacity: 1;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.BtnDarPlay {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 30px;
+  right: 5px;
+  opacity: 0;
+  z-index: 4;
+  border-radius: 50%;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.ContainerImgArtistaHistoricoTreeFy img {
+  height: 100% !important;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.ContainerImgMusicaCaixa {
+  width: 100%;
+  height: 77%;
+  z-index: 3;
+  overflow: hidden;
+  position: absolute;
+  display: flex;
+  top: 0px;
+  align-items: center;
+  justify-content: center;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.ContainerImgMusicaCaixa svg {
+  width: 100%;
+  z-index: 3;
+  position: absolute;
+  left: -2px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.ContainerImgMusicaCaixa svg.svgTop {
+  top: 43px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.ContainerImgMusicaCaixa svg.svgBottom {
+  bottom: 111px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.ContainerImgMusicaCaixa svg path {
+  fill: transparent;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.ContainerImgMusicaCaixa img {
+  width: 100%;
+  height: 146%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa .divBlurTextoTreeFy {
+  width: 100%;
+  height: 100%;
+  background-color: #1a1a1d;
+  filter: blur(10px);
+  opacity: 0.6;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 2;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa .divBlurTextoTreeFy img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa .divBlurTexto {
+  width: 100%;
+  height: 100%;
+  background-color: #1a1a1d;
+  filter: blur(10px);
+  opacity: 0.6;
+  position: absolute;
+  bottom: -50px;
+  left: 0px;
+  z-index: 2;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa .divBlurTexto img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa .divBlurTexto2 {
+  width: 100%;
+  height: 100%;
+  background-color: #1a1a1d;
+  filter: blur(10px);
+  opacity: 0.6;
+  position: absolute;
+  bottom: 40px;
+  left: 0px;
+  z-index: 2;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa .divBlurTexto2 img {
+  width: 100%;
+  height: 146%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.TextoMusicaCaixa {
+  width: 100%;
+  /* height: calc(45% - 20px); */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  left: 0px;
+  bottom: -3px;
+  z-index: 3;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.TextoMusicaCaixa p {
+  width: 90%;
+  color: #fff;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  z-index: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.TextoMusicaCaixa span {
+  color: rgba(255, 255, 255, 0.4117647059);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  z-index: 2;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha {
+  width: 100%;
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha {
+  width: calc(100% - 40px);
+  padding: 10px 20px;
+  height: 60px;
+  position: relative;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha:hover {
+  background-color: rgba(35, 35, 39, 0.199);
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div div.DivImgMusicaMeuPerfil {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div div.DivImgMusicaMeuPerfil img.ImgMusicaMeuPerfil {
+  height: 135%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div div.TextoMusicaCaixa {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div div.TextoMusicaCaixa p {
+  width: 90%;
+  color: #fff;
+  font-size: 15px;
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div div.TextoMusicaCaixa span {
+  color: #5d5d63;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha p.GeneroMeuPerfil {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.2862745098);
+  font-weight: 100;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha img.btnCurtirMeuPerfil {
+  width: 20px;
+  height: 20px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  position: absolute;
+  right: 20px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha button.btnAdicionar {
+  max-width: 100px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background-color: transparent;
+  border: 1px solid #4C4E54;
+  color: #fff;
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div.containerBtns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  position: absolute;
+  right: 0px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div.containerBtns button {
+  width: 40px;
+  height: 40px;
+  background-color: #212124;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px;
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div.containerBtns button:hover {
+  transition: 200ms scale ease-in-out;
+  scale: 1.1;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+}
+body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div.containerBtns button img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+body .note {
+  position: fixed;
+  font-size: 20px;
+  color: #000;
+  pointer-events: none;
+  z-index: 20;
+}
+body div#container_popUp_aviso {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 6;
+  background-color: rgba(0, 0, 0, 0.6588235294);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+body div#container_popUp_aviso div#popUp_aviso {
+  width: 95%;
+  max-width: 500px;
+  height: 300px;
+  background-color: #1a1a1d;
+  border-radius: 10px;
+  position: relative;
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+body div#container_popUp_aviso div#popUp_aviso button#fechar_popUp_aviso {
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+  border: none;
+  background-image: url(../Imgs/Icons/x.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+body div#container_popUp_aviso div#popUp_aviso p {
+  width: 80%;
+  font-size: 13px;
+  margin-top: 20px;
+}
+body div#container_popUp_aviso div#popUp_aviso button {
+  margin: auto;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+  color: #000;
+  font-size: 14px;
+}
+body div#container_entar_contato {
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  position: fixed;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6588235294);
+  z-index: 6;
+}
+body div#container_entar_contato div#pag_entrar_contato {
+  width: 95%;
+  max-width: 350px;
+  height: auto;
+  background-color: #1a1a1d;
+  border-radius: 10px;
+  position: relative;
+  text-align: center;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 40px;
+}
+body div#container_entar_contato div#pag_entrar_contato button#fechar_popUp_contato {
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+  border: none;
+  background-image: url(../Imgs/Icons/x.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+body div#container_entar_contato div#pag_entrar_contato div {
+  width: 95%;
+  max-width: 285px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+body div#container_entar_contato div#pag_entrar_contato div button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  border: none;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+body div#container_entar_contato div#pag_entrar_contato div button:hover {
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  scale: 1.05;
+}
+body div#container_entar_contato div#pag_entrar_contato div button img {
+  width: 30px;
+  height: 30px;
+}
+body button#btn_entrar_contato {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+  z-index: 5;
+  border: none;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  background-color: #fff;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+body button#btn_entrar_contato.sairAnimacao {
+  transition: right 1s ease-out, bottom 1s ease-out;
+  right: 30px;
+  bottom: 110px;
+}
+body button#btn_entrar_contato img {
+  width: 90%;
+}
+body section#container_novo_user {
+  width: calc(100% - 40px);
+  height: 100vh;
+  position: fixed;
+  background-color: #1a1a1d;
+  top: 0px;
+  z-index: 6;
+  padding: 20px;
+  overflow: auto;
+  display: none;
+}
+body section#container_novo_user h1 {
+  margin-bottom: 30px;
+}
+body section#container_novo_user article {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+body section#container_novo_user article div {
+  width: 120px;
+  height: 150px;
+  cursor: pointer;
+}
+body section#container_novo_user article div:hover {
+  transition: all 100ms ease-in-out;
+  scale: 1.1;
+}
+body section#container_novo_user article div div.conatiner_img_genero {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+}
+body section#container_novo_user article div div.conatiner_img_genero img {
+  width: 133%;
+  height: 133%;
+  position: absolute;
+  -o-object-fit: cover;
+     object-fit: cover;
+  top: -20px;
+  left: -20px;
+}
+body section#container_novo_user article div div.conatiner_img_genero img.treefy_img_genero {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+body section#container_novo_user article div p {
+  font-size: 12px;
+  text-align: center;
+}/*# sourceMappingURL=Home.css.map */
