@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="Assets/Sass/Home.css">
     <link rel="stylesheet" href="Assets/Sass/HomeResponsivo.css">
+    <link rel="stylesheet" href="Assets/Sass/teste.css">
 </head>
 <body>
     <nav>
@@ -306,7 +307,7 @@
 
                     <div id="containerBtnsEditarMusica">
                         <button onclick="FecharEditarMusica()">Cancelar</button>
-                        <button>Letra da música</button>
+                        <button onclick="Abrir_add_music()">Letra da música</button>
                         <button id="btnSalvarAlteracaoNaMusica" onclick="SalvarEdicaoNaMusica()">Salvar</button>
                     </div>
                 </div>
@@ -511,6 +512,31 @@
         <article id="containerMusicasPagPerfilOutroUser"></article>
     </section>
 
+    <section class="Paginas" id="PagVerLetraMusicaTocando">
+        <article>
+            <pre id="letra_musica_tocando_agora" class="sem_musica">
+                Ainda não aprendemos essa :(
+            </pre>
+        </article>
+    </section>
+
+    <section class="Paginas" id="PagEditarLetraMusica">
+        <article id="primeira_parte_adicionar_letra">
+            <textarea name="" id="textarea_add_letra" cols="30" rows="10" placeholder="Escreva a letra da música aqui..." oninput="Checar_pode_ir_para_sincronizar(this.value)"></textarea>
+            <button onclick="Ir_para_sincronizar()" id="btn_ir_para_sincronizar"><img src="Assets/Imgs/Icons/back50.png"></button>
+        </article>
+
+        <article id="contaienr_sincronizar_musica">
+            <pre id="local_letra_musica_sincronizar"></pre>
+
+            <div id="container_btns_sincronizar_musica">
+                <button onclick="Voltar_Marcar_Letra()">Voltar</button>
+                <button onclick="Marcar_letra()" id="btn_marcar_letra">Começar</button>
+                <button onclick="Zerar_marcacoes()">Zerar</button>
+            </div>
+        </article>
+    </section>
+
     <!--? ------------------ Tela Tocando Agora ------------->
     <article id="TelaTocandoAgora">
        <div id="tituloTelaTocandoAgora">
@@ -610,7 +636,7 @@
         <div id="ConfigsBarraMusica">
             <!--? Letra -->
             <img src="Assets/Imgs/Icons/Videos.png" onclick="AbrirTelaTocandoAgora('OpenViaBtn')" id="btnAbrirTelaTocandoAgora">
-            <img src="Assets/Imgs/Icons/Artistas.png">
+            <img src="Assets/Imgs/Icons/Artistas.png" id="btn_abrir_letra">
 
             <!--? Volume -->
             <div id="containerControleVolume">
@@ -732,6 +758,7 @@
     <script src="Assets/Js/CriarPlaylists.js"></script>
     <script src="Assets/Js/OutrosPerfis.js"></script>
     <script src="Assets/Js/Compartilhar.js"></script>
+    <script src="Assets/Js/LetraMusica.js"></script>
 
     <!-- <script src="CodigosAParte/RecuperarMusicas.js"></script> -->
 

@@ -118,6 +118,9 @@ body {
   font-family: "Inter", sans-serif;
   background: #1a1a1d;
 }
+body::-webkit-scrollbar {
+  width: 1px; /* Largura da barra de rolagem */
+}
 body nav {
   width: 100%;
   max-width: 200px;
@@ -559,6 +562,9 @@ body section.Paginas {
   background: #1a1a1d;
   overflow-x: auto;
   z-index: 4;
+}
+body section.Paginas::-webkit-scrollbar {
+  width: 1px; /* Largura da barra de rolagem */
 }
 body section.Paginas article {
   width: 95%;
@@ -1683,7 +1689,7 @@ body section.Paginas#PagCriarPlaylist button#btnPostarPlaylist:hover {
 }
 body section.Paginas#PagCriarPlaylist button#btnPostarPlaylist img {
   width: 70%;
-  height: 870%;
+  height: 70%;
   -o-object-fit: contain;
      object-fit: contain;
 }
@@ -1858,21 +1864,103 @@ body section.Paginas#PagPerfilOutroUser article#containerMusicasPagPerfilOutroUs
   max-width: none;
   padding-bottom: 50px;
 }
-body section.Paginas#PagAdicionarLetra article#primeiraPartAdicionarLetra {
-  width: 100%;
-  min-height: 100vh;
+body section.Paginas#PagVerLetraMusicaTocando::-webkit-scrollbar {
+  width: 1px; /* Largura da barra de rolagem */
 }
-body section.Paginas#PagAdicionarLetra article#primeiraPartAdicionarLetra textarea#textareaAddLetraMusica {
-  width: 95%;
-  min-height: 100vh;
-  background-color: transparent;
+body section.Paginas#PagVerLetraMusicaTocando article pre#letra_musica_tocando_agora {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.1647058824);
+}
+body section.Paginas#PagVerLetraMusicaTocando article pre#letra_musica_tocando_agora.sem_musica {
+  font-size: 1.5em;
+  font-weight: 800;
+  color: #fff;
+}
+body section.Paginas#PagVerLetraMusicaTocando article pre#letra_musica_tocando_agora span.linha_pre_em_destaque {
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 800;
+}
+body section.Paginas#PagEditarLetraMusica::-webkit-scrollbar {
+  width: 1px; /* Largura da barra de rolagem */
+}
+body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra {
+  height: calc(100vh - 100px);
+  padding: 0;
+}
+body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra textarea#textarea_add_letra {
+  width: 100%;
+  height: 80vh;
+  background: transparent;
   border: none;
-  margin: auto;
+  outline: none;
   display: block;
   font-family: "Inter", sans-serif;
-  font-size: 1.5em;
-  outline: none;
+  font-size: 1.2em;
   color: #fff;
+  padding: 100px 0;
+}
+body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra textarea#textarea_add_letra::-webkit-scrollbar {
+  width: 1px; /* Largura da barra de rolagem */
+}
+body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 130px;
+  right: 30px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(0, 255, 255);
+  cursor: pointer;
+  z-index: 5;
+  border: none;
+}
+body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra button:hover {
+  transition: 100ms scale ease-in-out;
+  scale: 1.1;
+}
+body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra button img {
+  width: 70%;
+  height: 70%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica {
+  display: none;
+}
+body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica pre {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.1647058824);
+}
+body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica pre span.linha_pre_em_destaque {
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 800;
+}
+body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica div#container_btns_sincronizar_musica {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: fixed;
+  bottom: 10px;
+}
+body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica div#container_btns_sincronizar_musica button {
+  padding: 16px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #232327;
+  border: none;
+  cursor: pointer;
+}
+body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica div#container_btns_sincronizar_musica button#btn_marcar_letra {
+  background-color: rgba(0, 225, 255, 0.862745098);
 }
 body article#TelaTocandoAgora {
   width: 350px;
@@ -2094,7 +2182,6 @@ body article#BarraMusica {
   transition: 1s bottom ease-in-out;
   position: fixed;
   background-color: #1a1a1d;
-  background-color: #0e0e10;
   font-size: 12px;
   display: flex;
   align-items: center;
@@ -2225,13 +2312,11 @@ body article#BarraMusica div#InfosBarraMusica div#divImgMusicaBarraMusica img#im
      object-position: center;
   position: absolute;
   cursor: pointer;
-  border-radius: 20px;
   overflow: hidden;
 }
 body article#BarraMusica div#InfosBarraMusica div#divImgMusicaBarraMusica img#imgMusicaBarraMusica.imgMusicaBarraMusicaTreeFy {
   height: 100%;
   top: 0px;
-  border-radius: 20px;
 }
 body article#BarraMusica div#InfosBarraMusica div {
   display: flex;

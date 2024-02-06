@@ -1008,6 +1008,7 @@ document.getElementById('imgMusicaFavoritaTocandoAgora').addEventListener('click
 
 let arrayMusicasPostadasPeloUser = []
 let musicaSelecionadaParaEditar
+let Musica_Editanto_Agora
 async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = false) {
     arrayMusicasPostadasPeloUser = []
     const article = document.createElement('article')
@@ -1204,6 +1205,10 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
 
                 liMostrarCretidos.innerHTML = ''
                 liMostrarCretidos.appendChild(spanCreditos)
+            })
+
+            Editar.addEventListener('click', () => {
+                Musica_Editanto_Agora = TodasMusicas.Musicas[c]
             })
 
             //? Vai checar se as músicas foram curtidas pelo user
@@ -1453,6 +1458,10 @@ function DarPlayMusica(Lista, num, Pausar = false) {
         updateURLParameter('music', Lista.ID)
     
         MusicaTocandoAgora = Lista
+
+        //? Vai pegar as cores da img da música
+        Trocar_cor_barra_musica(Lista.LinkImg)
+
         //? Vai checar se a música foi curtida ou n
         FavoritarDesfavoritarMusica(Lista.ID, 'Checar').then((resolve) => {
             document.getElementById('HeartBarraMusica').src = resolve
