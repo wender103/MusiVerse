@@ -14,7 +14,8 @@ let ultima_img_analizada = ''
 function obterCoresDaImagem(urlDaImagem) {
   return new Promise((resolve, reject) => {
     // Crie a URL para o endpoint da sua API
-    const endpoint = 'http://localhost:3001/getColors'; // Substitua pelo seu endpoint real
+    // const endpoint = 'http://localhost:3001/getColors'; // Substitua pelo seu endpoint real
+    const endpoint = 'https://apicoresimg.onrender.com'; // Substitua pelo seu endpoint real
 
     // Crie a URL completa com o parâmetro da imagem
     const urlCompleta = `${endpoint}?imageUrl=${encodeURIComponent(urlDaImagem)}`;
