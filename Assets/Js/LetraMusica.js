@@ -165,6 +165,9 @@ audioPlayer.addEventListener('timeupdate', function() {
     if(MusicaTocandoAgora.Letra.LetraDaMusica) {
         var tempoAtual = audioPlayer.currentTime
         Destacar_linhas_Musica_Tocando_Agora(tempoAtual)
+    } else {
+        letra_musica_tocando_agora.innerHTML = 'Ainda não aprendemos essa :('
+        letra_musica_tocando_agora.classList.add('sem_musica')
     }
 });
 
