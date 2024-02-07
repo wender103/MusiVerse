@@ -1864,9 +1864,6 @@ body section.Paginas#PagPerfilOutroUser article#containerMusicasPagPerfilOutroUs
   max-width: none;
   padding-bottom: 50px;
 }
-body section.Paginas#PagVerLetraMusicaTocando::-webkit-scrollbar {
-  width: 1px; /* Largura da barra de rolagem */
-}
 body section.Paginas#PagVerLetraMusicaTocando article pre#letra_musica_tocando_agora {
   font-family: "Inter", sans-serif;
   font-size: 1.2em;

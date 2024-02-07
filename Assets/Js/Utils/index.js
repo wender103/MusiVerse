@@ -13,34 +13,33 @@ let ultima_img_analizada = ''
 //? Vai pegar as cores principais da img desejada
 function obterCoresDaImagem(urlDaImagem) {
   return new Promise((resolve, reject) => {
-    // Crie a URL para o endpoint da sua API
-    // const endpoint = 'http://localhost:3001/getColors'; // Substitua pelo seu endpoint real
-    const endpoint = 'https://apicoresimg.onrender.com/getColors'; // Substitua pelo seu endpoint real
+    // const endpoint = 'http://localhost:3001/getColors'
+    const endpoint = 'https://apicoresimg.onrender.com/getColors'
 
     // Crie a URL completa com o parâmetro da imagem
-    const urlCompleta = `${endpoint}?imageUrl=${encodeURIComponent(urlDaImagem)}`;
+    const urlCompleta = `${endpoint}?imageUrl=${encodeURIComponent(urlDaImagem)}`
 
     // Faça uma requisição GET para o endpoint da API
     fetch(urlCompleta)
       .then(response => {
         // Verifique se a resposta da requisição foi bem-sucedida
         if (!response.ok) {
-          throw new Error('Não foi possível obter as cores da imagem');
+          throw new Error('Não foi possível obter as cores da imagem')
         }
         // Parse a resposta JSON
-        return response.json(); // Corrigido: adicionar 'return' aqui
+        return response.json() // Corrigido: adicionar 'return' aqui
       })
       .then(data => {
         // Manipule os dados recebidos
-        // console.log('Cores principais da imagem:', data);
-        resolve(data);
+        // console.log('Cores principais da imagem:', data)
+        resolve(data)
         //? Faça o que precisar com as cores, como atualizar a interface do seu site
       })
       .catch(error => {
-        console.error('Erro ao obter as cores da imagem:', error);
-        reject(error);
-      });
-  });
+        console.error('Erro ao obter as cores da imagem:', error)
+        reject(error)
+      })
+  })
 }
 
 //? Vai pegar a alteração do tamanho da tela

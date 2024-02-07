@@ -1460,6 +1460,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
         MusicaTocandoAgora = Lista
 
         //? Vai pegar as cores da img da música
+        Trocar_Letra()
         Trocar_cor_barra_musica(Lista.LinkImg)
 
         //? Vai checar se a música foi curtida ou n

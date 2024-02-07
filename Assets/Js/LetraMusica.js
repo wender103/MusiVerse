@@ -139,25 +139,38 @@ function Destacar_linhas() {
 const btn_abrir_letra = document.querySelector('#btn_abrir_letra')
 const letra_musica_tocando_agora = document.querySelector('#letra_musica_tocando_agora')
 btn_abrir_letra.addEventListener('click', () => {
+    Abrir_Pagina_Letra_Musica_Tocando()
+})
+
+function Abrir_Pagina_Letra_Musica_Tocando() {
     const PagVerLetraMusicaTocando = document.querySelector('#PagVerLetraMusicaTocando')
     if(PagVerLetraMusicaTocando.style.display != 'block') {
         PagVerLetraMusicaTocando.style.display = 'block'
         document.querySelector('body').style.overflow = 'hidden'
         FecharTelaTocandoAgora()
 
-        if(MusicaTocandoAgora.Letra.LetraDaMusica) {
-            letra_musica_tocando_agora.innerHTML = MusicaTocandoAgora.Letra.LetraDaMusica
-            letra_musica_tocando_agora.classList.remove('sem_musica')
-        } else {
-            letra_musica_tocando_agora.innerHTML = 'Ainda não aprendemos essa :('
-            letra_musica_tocando_agora.classList.add('sem_musica')
-        }
+        Trocar_Letra()
 
     } else {
         PagVerLetraMusicaTocando.style.display = 'none'
         document.querySelector('body').style.overflow = 'auto'
     }
-})
+}
+
+function Trocar_Letra() {
+    // scrollToElement(letra_musica_tocando_agora)
+    // scrollToElement(document.getElementById('PagVerLetraMusicaTocando'))
+    // scrollToElement(document.getElementById('start_letra'))
+    document.getElementById('start_letra').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    if(MusicaTocandoAgora.Letra.LetraDaMusica) {
+        letra_musica_tocando_agora.innerHTML = MusicaTocandoAgora.Letra.LetraDaMusica
+        letra_musica_tocando_agora.classList.remove('sem_musica')
+    } else {
+        letra_musica_tocando_agora.innerHTML = 'Ainda não aprendemos essa :('
+        letra_musica_tocando_agora.classList.add('sem_musica')
+    }
+}
 
 //? Vai seguir a letra da música
 audioPlayer.addEventListener('timeupdate', function() {
@@ -213,13 +226,13 @@ function Trocar_cor_barra_musica(urlDaImagem) {
         document.querySelector('#BarraMusica').style.background = '#1a1a1d'
       }
       
-  
-      const container_cores = document.querySelector('#container_cores')
-      container_cores.innerHTML = ''
-      for (let c = 0; c < resolve.length; c++) {
-        const div = document.createElement('div')
-        div.style.background = resolve[c]
-        container_cores.appendChild(div)
-    }
+      //? Mostra as cores da img na tela
+    //   const container_cores = document.querySelector('#container_cores')
+    //   container_cores.innerHTML = ''
+    //   for (let c = 0; c < resolve.length; c++) {
+    //     const div = document.createElement('div')
+    //     div.style.background = resolve[c]
+    //     container_cores.appendChild(div)
+    //  }
     })
   }
