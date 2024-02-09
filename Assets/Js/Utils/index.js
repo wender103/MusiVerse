@@ -86,3 +86,29 @@ window.addEventListener('resize', function() {
   // Chamar a função para obter o tamanho da tela sempre que a janela for redimensionada
   obterTamanhoDaTela()
 })
+
+function verificarCor(cor) {
+  // Converte a cor para o formato hexadecimal sem o '#'
+  cor = cor.replace("#", "")
+
+  // Divide a cor em seus componentes RGB
+  var r = parseInt(cor.substring(0,2), 16)
+  var g = parseInt(cor.substring(2,4), 16)
+  var b = parseInt(cor.substring(4,6), 16)
+
+  // Calcula o valor da luminosidade
+  var luminosidade = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+
+  // Define os limiares para luminosidade
+  var limiarClaro = 0.7
+  var limiarEscuro = 0.3
+
+  // Verifica se a cor é muito clara ou muito escura e retorna a cor apropriada
+  if (luminosidade >= limiarClaro) {
+      return ["#373737a6", "#000", "#00000038"]// Cor muito clara
+  } else if (luminosidade <= limiarEscuro) {
+      return ["#cfcfcfa6", "#fff", "#7f7e7e56"] // Cor muito escura
+  } else {
+      return cor // Retorna a cor original
+  }
+}

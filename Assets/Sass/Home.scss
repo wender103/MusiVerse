@@ -547,8 +547,22 @@ body {
         overflow-x: auto;
         z-index: 4;
 
+        /* Internet Explorer */
+        &::-ms-scrollbar {
+            width: 1px; /* Largura da barra de rolagem */ 
+            scrollbar-width: 1px;
+        }
+
+        /* Estilo da barra de rolagem */
+        /* Firefox */
+        &::-moz-scrollbar {
+            width: 1px;
+            scrollbar-width: 1px;
+        }
+
         &::-webkit-scrollbar {
-            width: 1px; /* Largura da barra de rolagem */
+            width: 1px;
+            scrollbar-width: 1px;
         }
         
         article {
@@ -2094,18 +2108,29 @@ body {
                 pre#letra_musica_tocando_agora {
                     font-family: "Inter", sans-serif;
                     font-size: 1.2em;
-                    color: #ffffff2a;
+                    font-weight: 800;
+                    color: #00000056;
 
                     &.sem_musica {
                         font-size: 1.5em;
                         font-weight: 800;
                         color: #fff;
                     }
+                    
+                    span {
+                        cursor: pointer;
 
-                    span.linha_pre_em_destaque {
-                        color: #fff;
-                        font-size: 1.5em;
-                        font-weight: 800;
+                        &.linha_pre_anterior {
+                            color: #cfcfcfa6;
+                            font-size: 1.2em;
+                            font-weight: 800;
+                        }
+                        
+                        &.linha_pre_em_destaque {
+                            color: #fff;
+                            font-size: 1.5em;
+                            font-weight: 800;
+                        }
                     }
                 }
             }
@@ -2133,10 +2158,19 @@ body {
                     font-family: "Inter", sans-serif;
                     font-size: 1.2em;
                     color: #fff;
+                    font-weight: 800;
                     padding: 100px 0;
+
+                    &::placeholder {
+                        color: #000;
+                    }
 
                     &::-webkit-scrollbar {
                         width: 1px; /* Largura da barra de rolagem */
+                    }
+
+                    &.Placeholder_claro::placeholder {
+                        color: #fff;
                     }
                 }
 
@@ -2174,9 +2208,16 @@ body {
                 pre {
                     font-family: "Inter", sans-serif;
                     font-size: 1.2em;
-                    color: #ffffff2a;
+                    font-weight: 800;
+                    color: #00000056;
 
-                    span.linha_pre_em_destaque {
+                    span.linha_pre_anterior_add_letra {
+                        color: #cfcfcfa6;
+                        font-size: 1.2em;
+                        font-weight: 800;
+                    }
+
+                    span.linha_pre_em_destaque_add_letra {
                         color: #fff;
                         font-size: 1.5em;
                         font-weight: 800;
@@ -2433,9 +2474,11 @@ body {
             div#containerMusicaslistaTelaTocandoAgora {
                 .containerMusica {
                     .articleContainer {
+                        overflow: hidden;
+
                         .containerMusicaLinha {
                             .MusicasLinha {
-                                padding: 0 20px;
+                                padding: 10px 20px;
                                 grid-template-columns: repeat(1, 1fr) !important;
 
                                 p.GeneroMeuPerfil {

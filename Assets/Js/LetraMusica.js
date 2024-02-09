@@ -1,9 +1,19 @@
 const PagEditarLetraMusica = document.querySelector('#PagEditarLetraMusica')
+let cores_fonte_add_letra
 function Abrir_add_music() {
     PagEditarLetraMusica.style.display = 'block'
     obterCoresDaImagem(Musica_Editanto_Agora.LinkImg).then((resolve) => {
-        PagEditarLetraMusica.style.background = resolve[0]
-        document.getElementById('textarea_add_letra').style.color = resolve[resolve.length -1]
+        const random_number = Math.floor(Math.random() * resolve.length -1)
+        PagEditarLetraMusica.style.background = resolve[random_number]
+
+        cores_fonte_add_letra = verificarCor(resolve[random_number])
+        document.getElementById('textarea_add_letra').style.color = cores_fonte_add_letra[1]
+        if(cores_fonte_add_letra[1] == '#fff') {
+            textarea_add_letra.classList.add('Placeholder_claro')
+        } else {
+            textarea_add_letra.classList.remove('Placeholder_claro')
+        }
+        document.getElementById('contaienr_sincronizar_musica').style.color = cores_fonte_add_letra[2]
         document.querySelector('#BarraMusica').classList.remove('BarraMusicaOpen')
     })
 }
@@ -84,6 +94,19 @@ function Marcar_letra() {
             })
         })
     }
+
+    //? Vai controlar as cores da pag add letra
+    document.querySelector('#contaienr_sincronizar_musica').style.color = cores_fonte_add_letra[2]
+    var linhasAnteriores = document.querySelectorAll('.linha_pre_anterior_add_letra')
+    linhasAnteriores.forEach(function(elemento) {
+        try {
+            elemento.style.color = cores_fonte_add_letra[0]
+        } catch{}
+    })
+
+    try {
+        document.querySelector('#linha_atual_editar_letra').style.color = cores_fonte_add_letra[1]
+    } catch{}
 }
 
 function Limpar_letra() {
@@ -112,8 +135,11 @@ function Destacar_linhas() {
     if (linha_atual < linhas.length) {
         // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
         var linhasAtualizadas = linhas.map(function(linha, index) {
-            if (index === linha_atual) {
-                return '<span class="linha_pre_em_destaque" id="linha_atual_editar_letra">' + linha + '</span>'
+
+        if(index < linha_atual) {
+            return '<span class="linha_pre_anterior_add_letra">' + linha + '</span>'
+        } else if (index === linha_atual) {
+                return '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_editar_letra">' + linha + '</span>'
             } else {
                 return linha
             }
@@ -158,54 +184,97 @@ function Abrir_Pagina_Letra_Musica_Tocando() {
 }
 
 function Trocar_Letra() {
-    // scrollToElement(letra_musica_tocando_agora)
-    // scrollToElement(document.getElementById('PagVerLetraMusicaTocando'))
-    // scrollToElement(document.getElementById('start_letra'))
-    document.getElementById('start_letra').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('start_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
 
     if(MusicaTocandoAgora.Letra.LetraDaMusica) {
-        letra_musica_tocando_agora.innerHTML = MusicaTocandoAgora.Letra.LetraDaMusica
+        // letra_musica_tocando_agora.innerHTML = MusicaTocandoAgora.Letra.LetraDaMusica
+
+        var linhas = MusicaTocandoAgora.Letra.LetraDaMusica.split('\n')
+        
+        for (let c = 0; c < linhas.length; c++) {
+            if (c < linhas.length) {
+                // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+                var linhasAtualizadas = linhas.map(function(linha, index) {
+                    return `<span class="linha_letra_tocando_agora" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
+                })
+
+                // Atualiza o conteúdo do <pre> com as linhas modificadas
+                letra_musica_tocando_agora.innerHTML = linhasAtualizadas.join('\n')
+            }
+        }
+
         letra_musica_tocando_agora.classList.remove('sem_musica')
+
     } else {
         letra_musica_tocando_agora.innerHTML = 'Ainda não aprendemos essa :('
         letra_musica_tocando_agora.classList.add('sem_musica')
     }
 }
 
+function voltar_musica_por_letra(num) {
+    audioPlayer.currentTime = MusicaTocandoAgora.Letra.Tempo[num]
+    setTimeout(() => {
+        PausaDespausarMusica()
+    }, 100)
+}
+
 //? Vai seguir a letra da música
+let musica_trocada_trocar_cor_letra = false
 audioPlayer.addEventListener('timeupdate', function() {
     // Chamar a função desejada aqui
     if(MusicaTocandoAgora.Letra.LetraDaMusica) {
         var tempoAtual = audioPlayer.currentTime
         Destacar_linhas_Musica_Tocando_Agora(tempoAtual)
+
+        //? Vai controlar as cores da letra da música tocando agora
+        try {
+            letra_musica_tocando_agora.style.color = cores_fonte[2]
+        } catch {}
+        var linhasAnteriores = document.querySelectorAll('.linha_pre_anterior')
+        linhasAnteriores.forEach(function(elemento) {
+            try {
+                elemento.style.color = cores_fonte[0]
+            } catch{}
+        })
+
+        try {
+            document.querySelector('#linha_atual').style.color = cores_fonte[1]
+        } catch{}
+
     } else {
+        letra_musica_tocando_agora.style.color = cores_fonte[1]
         letra_musica_tocando_agora.innerHTML = 'Ainda não aprendemos essa :('
         letra_musica_tocando_agora.classList.add('sem_musica')
     }
-});
+})
 
 function Destacar_linhas_Musica_Tocando_Agora(tempoAtual) {
-    var preElemento = document.getElementById('letra_musica_tocando_agora');
-    var linhas = preElemento.innerText.split('\n');
+    var preElemento = document.getElementById('letra_musica_tocando_agora')
+    var linhas = preElemento.innerText.split('\n')
     
     for (let c = 0; c < MusicaTocandoAgora.Letra.Tempo.length; c++) {
         if (tempoAtual + 0.3 >= MusicaTocandoAgora.Letra.Tempo[c]) {
             if (c < linhas.length) {
                 // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
                 var linhasAtualizadas = linhas.map(function(linha, index) {
-                    if (index === c) {
+
+                    if(index < c) {
+                        // Linhas anteriores
+                        return `<span class="linha_letra_tocando_agora linha_pre_anterior" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
+
+                    } else if (index === c) {
                         // Adiciona a classe 'linha_pre_em_destaque' apenas à linha atual
-                        return '<span class="linha_pre_em_destaque" id="linha_atual">' + linha + '</span>';
+                        return `<span class="linha_letra_tocando_agora linha_pre_em_destaque" id="linha_atual" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
                     } else {
-                        return linha;
+                        return `<span class="linha_letra_tocando_agora" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
                     }
-                });
+                })
 
                 // Atualiza o conteúdo do <pre> com as linhas modificadas
-                preElemento.innerHTML = linhasAtualizadas.join('\n');
+                preElemento.innerHTML = linhasAtualizadas.join('\n')
 
                 // Faz o scroll para a linha atual
-                document.getElementById('linha_atual').scrollIntoView({ block: 'center' });
+                document.getElementById('linha_atual').scrollIntoView({ block: 'center' })
             } else {
                 // Finaliza o intervalo após percorrer todas as linhas
             }
@@ -213,20 +282,24 @@ function Destacar_linhas_Musica_Tocando_Agora(tempoAtual) {
     }
 }
 
+let cores_fonte
 function Trocar_cor_barra_musica(urlDaImagem) {
     obterCoresDaImagem(urlDaImagem).then((resolve) => {
-      ultima_img_analizada = urlDaImagem
-      cores_da_img_musica_tocando_agora = resolve
-      const BarraMusica = document.getElementById('BarraMusica')
-      document.getElementById('PagVerLetraMusicaTocando').style.background = resolve[2]
-      if(document.documentElement.clientWidth < 629) {
-        document.querySelector('#BarraMusica').style.background = resolve[2]
-  
-      } else {
-        document.querySelector('#BarraMusica').style.background = '#1a1a1d'
-      }
-      
-      //? Mostra as cores da img na tela
+        ultima_img_analizada = urlDaImagem
+        cores_da_img_musica_tocando_agora = resolve
+        const BarraMusica = document.getElementById('BarraMusica')
+        const random_number = Math.floor(Math.random() * resolve.length -1)
+        document.getElementById('PagVerLetraMusicaTocando').style.background = resolve[random_number]
+        cores_fonte = verificarCor(resolve[random_number])
+            
+        if(document.documentElement.clientWidth < 629) {
+            document.querySelector('#BarraMusica').style.background = resolve[random_number]
+
+        } else {
+            document.querySelector('#BarraMusica').style.background = '#1a1a1d'
+        }
+        
+    //? Mostra as cores da img na tela
     //   const container_cores = document.querySelector('#container_cores')
     //   container_cores.innerHTML = ''
     //   for (let c = 0; c < resolve.length; c++) {
@@ -235,4 +308,4 @@ function Trocar_cor_barra_musica(urlDaImagem) {
     //     container_cores.appendChild(div)
     //  }
     })
-  }
+}

@@ -562,9 +562,21 @@ body section.Paginas {
   background: #1a1a1d;
   overflow-x: auto;
   z-index: 4;
+  /* Internet Explorer */
+  /* Estilo da barra de rolagem */
+  /* Firefox */
+}
+body section.Paginas::-ms-scrollbar {
+  width: 1px; /* Largura da barra de rolagem */
+  scrollbar-width: 1px;
+}
+body section.Paginas::-moz-scrollbar {
+  width: 1px;
+  scrollbar-width: 1px;
 }
 body section.Paginas::-webkit-scrollbar {
-  width: 1px; /* Largura da barra de rolagem */
+  width: 1px;
+  scrollbar-width: 1px;
 }
 body section.Paginas article {
   width: 95%;
@@ -1867,12 +1879,21 @@ body section.Paginas#PagPerfilOutroUser article#containerMusicasPagPerfilOutroUs
 body section.Paginas#PagVerLetraMusicaTocando article pre#letra_musica_tocando_agora {
   font-family: "Inter", sans-serif;
   font-size: 1.2em;
-  color: rgba(255, 255, 255, 0.1647058824);
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.337254902);
 }
 body section.Paginas#PagVerLetraMusicaTocando article pre#letra_musica_tocando_agora.sem_musica {
   font-size: 1.5em;
   font-weight: 800;
   color: #fff;
+}
+body section.Paginas#PagVerLetraMusicaTocando article pre#letra_musica_tocando_agora span {
+  cursor: pointer;
+}
+body section.Paginas#PagVerLetraMusicaTocando article pre#letra_musica_tocando_agora span.linha_pre_anterior {
+  color: rgba(207, 207, 207, 0.6509803922);
+  font-size: 1.2em;
+  font-weight: 800;
 }
 body section.Paginas#PagVerLetraMusicaTocando article pre#letra_musica_tocando_agora span.linha_pre_em_destaque {
   color: #fff;
@@ -1896,10 +1917,23 @@ body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra
   font-family: "Inter", sans-serif;
   font-size: 1.2em;
   color: #fff;
+  font-weight: 800;
   padding: 100px 0;
+}
+body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra textarea#textarea_add_letra::-moz-placeholder {
+  color: #000;
+}
+body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra textarea#textarea_add_letra::placeholder {
+  color: #000;
 }
 body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra textarea#textarea_add_letra::-webkit-scrollbar {
   width: 1px; /* Largura da barra de rolagem */
+}
+body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra textarea#textarea_add_letra.Placeholder_claro::-moz-placeholder {
+  color: #fff;
+}
+body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra textarea#textarea_add_letra.Placeholder_claro::placeholder {
+  color: #fff;
 }
 body section.Paginas#PagEditarLetraMusica article#primeira_parte_adicionar_letra button {
   width: 50px;
@@ -1932,9 +1966,15 @@ body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica {
 body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica pre {
   font-family: "Inter", sans-serif;
   font-size: 1.2em;
-  color: rgba(255, 255, 255, 0.1647058824);
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.337254902);
 }
-body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica pre span.linha_pre_em_destaque {
+body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica pre span.linha_pre_anterior_add_letra {
+  color: rgba(207, 207, 207, 0.6509803922);
+  font-size: 1.2em;
+  font-weight: 800;
+}
+body section.Paginas#PagEditarLetraMusica article#contaienr_sincronizar_musica pre span.linha_pre_em_destaque_add_letra {
   color: #fff;
   font-size: 1.5em;
   font-weight: 800;
@@ -2156,8 +2196,11 @@ body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora h3#infoLista {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora div#containerMusicaslistaTelaTocandoAgora .containerMusica .articleContainer {
+  overflow: hidden;
+}
 body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora div#containerMusicaslistaTelaTocandoAgora .containerMusica .articleContainer .containerMusicaLinha .MusicasLinha {
-  padding: 0 20px;
+  padding: 10px 20px;
   grid-template-columns: repeat(1, 1fr) !important;
 }
 body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora div#containerMusicaslistaTelaTocandoAgora .containerMusica .articleContainer .containerMusicaLinha .MusicasLinha p.GeneroMeuPerfil {
