@@ -1480,7 +1480,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
     
             //? ----------------------------------------------------------
     
-            document.getElementById('BarraMusica').className = 'BarraMusicaOpen'
+            document.getElementById('BarraMusica').classList.add('BarraMusicaOpen')
             const PlayBtn = document.getElementById('PlayBtn')
             PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
     
@@ -1544,14 +1544,16 @@ function DarPlayMusica(Lista, num, Pausar = false) {
                 document.getElementById('AutorMusicaBarraMusica').innerText = Lista.Autor
     
                 //? Vai mudar a informações na barra música para o cell
-                document.getElementById('containerImgMusicaTocandoAgora').style.backgroundImage = `url(${Lista.LinkImg})`
+                // document.getElementById('containerImgMusicaTocandoAgora').style.backgroundImage = `url(${Lista.LinkImg})`
                 document.getElementById('imgMusicaTocandoAgoraPagMusicaTocandoAgora').src = Lista.LinkImg
                 document.getElementById('nomeMusicaTocandoAgoraPagMusicaTocandoAgora').innerText = Lista.NomeMusica
                 document.getElementById('autorMusicaTocandoAgoraPagMusicaTocandoAgora').innerText = Lista.Autor
     
                 //? Vai abir a img em alta escala
                 imgMusicaBarraMusica.addEventListener('click', () => {
-                    document.getElementById('containerImgLargaEscalaBarraMusica').style.bottom = '90px'
+                    if(window.innerWidth > 628) {
+                        document.getElementById('containerImgLargaEscalaBarraMusica').style.bottom = '90px'
+                    }
                 })
                 
                 document.getElementById('btnAbrirContainerImgLargaEscalaBarraMusica').addEventListener('click', () => {
@@ -2116,19 +2118,24 @@ function AddInfoTelaTocandoAgora(Musica) {
                 carregarImagem(TodosOsUsers[c].User.Personalizar.Background, function(imgBackground) {
                     if (imgPerfil) {
                         imgUserPostouMusicaTelaTocandoAgora.src = imgPerfil.src
+                         document.querySelector('#sobre_qm_postou_cell').src = imgPerfil.src
                     } else if (imgBackground) {
                         imgUserPostouMusicaTelaTocandoAgora.src = imgBackground.src
+                         document.querySelector('#sobre_qm_postou_cell').src = imgPerfil.src
                     } else {
                         imgUserPostouMusicaTelaTocandoAgora.src = 'Assets/Imgs/Banners/fitaCassete.avif'
+                         document.querySelector('#sobre_qm_postou_cell').src = 'Assets/Imgs/Banners/fitaCassete.avif'
                     }
                 })
             })
               
 
             NomeUserPostouMusicaTelaTocandoAgora.innerText = TodosOsUsers[c].User.Nome
+            document.querySelector('#nome_qm_postou_cell').innerText = TodosOsUsers[c].User.Nome
             
             try {
                 NumeroOuvintesTelaTocandoAgora.innerText = `${TodosOsUsers[c].User.InfosPerfil.ViewsSemanais.Views} Ouvintes semanais`
+                document.querySelector('#num_ouvintes_cell').innerText = `${TodosOsUsers[c].User.InfosPerfil.ViewsSemanais.Views} Ouvintes semanais`
             } catch{}
 
             //? Vai checar se você segue o user ou se o user pesquisado é você
@@ -2288,6 +2295,12 @@ function RetornarMusicasASeguir() {
 //? Ao clicar na música tocando agora na barra tela música tocando agora, vai abir a aba mostrando todas as músicas do autor
 document.getElementById('containerMusicaTelaTocanAgora').addEventListener('click',() => {
     AbrirPerfilArtista(infoMusicaTocandoAgora)
+    document.querySelector('#PagMusicaTocandoAgora').classList.remove('Open')
+})
+
+//* Ao clicar na música tocando agora cell na barra tela música tocando agora, vai abir a aba mostrando todas as músicas do autor
+document.getElementById('autorMusicaTocandoAgoraPagMusicaTocandoAgora').addEventListener('click',() => {
+    AbrirPerfilArtista(infoMusicaTocandoAgora)
 })
 
 //? Vai abrir a página do user que postou a música ao clicar no perfil dele da tela música tocando agora
@@ -2305,6 +2318,18 @@ document.getElementById('SobreQuemPostou').addEventListener('click', (e) => {
             if(infoMusicaTocandoAgora.EmailUser == TodosOsUsers[c].User.Email) {
                 AbrirPerfilOutroUser(TodosOsUsers[c].User)
             }
+        }
+    }
+})
+
+//* Vai abrir a página do user que postou a música ao clicar no perfil dele da tela música tocando agora
+document.getElementById('container_sobre_qm_postou_cell').addEventListener('click', () => {
+    console.log(1111111);
+    for(let c = 0; c < TodosOsUsers.length; c++) {
+        if(infoMusicaTocandoAgora.EmailUser == TodosOsUsers[c].User.Email) {
+            AbrirPerfilOutroUser(TodosOsUsers[c].User)
+            carregarUserArtistasSeguidos()
+            document.querySelector('#PagMusicaTocandoAgora').classList.remove('Open')
         }
     }
 })

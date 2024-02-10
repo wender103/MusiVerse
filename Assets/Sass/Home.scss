@@ -1624,130 +1624,235 @@ body {
         }
 
         &#PagMusicaTocandoAgora {
-            padding: 0px;
+            padding: 0;
             z-index: 6;
+            transition: bottom 0.7s ease-in-out;
+            position: fixed;
+            bottom: -100vh;
+            display: none;
+            top: auto;
 
             &.Open {
-                display: none;
+                bottom: 0;
+            }
+
+            div#background_PagMusicaTocandoAgora {
+                width: 100%;
+                height: 100vh;
+                position: absolute;
+                top: 0px;
+                z-index: -1;
             }
 
             article {
                 width: 90%;
-                padding: 20px 0px;
-                max-width: 340px;
+                padding: 20px 0 100px;
+                // max-width: 340px;
 
-                div#headerPagMusicaTocandoAgora {
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    position: relative;
+                div#container_primeira_part_tocando_agora_cell {
+                    // width: 100%;
+                    // height: 100vh;
 
-                    img {
-                        left: 0px;
-                        position: absolute;
+                    div#headerPagMusicaTocandoAgora {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+    
+                        img {
+                            left: 0px;
+                            position: absolute;
+                        }
+                    }
+    
+                    div#mainPagMusicaTocandoAgora {
+                        // width: 90%;
+                        margin: 20px auto;
+    
+                        div#containerImgMusicaTocandoAgora {
+                            width: 100%;
+                            height: 89vw;
+                            position: relative;
+                            background-color: #25262cce;
+                            overflow: hidden;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            
+                            img {
+                                width: 100%;
+                                height: 134%;
+                                object-fit: cover;
+                                // display: none;
+                            }
+                        }
+    
+    
+                        div {
+                            h1 {
+                                width: 100%;
+                                // max-width: 200px;
+                                font-size: 18px;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                margin: 20px 0px 10px;
+                            }
+    
+                            p {
+                                width: 100%;
+                                // max-width: 200px;
+                                font-size: 14px;
+                                color: rgba(255, 255, 255, 0.4196078431);
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+                    }
+    
+                    div#controlesPagMusicaTocandoAgora {
+                        width: 100%;
+            
+                        div#containerControles {
+                            width: 80%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            margin: 20px auto;
+            
+                            img {
+                                width: 20px;
+                                height: 20px;
+                                object-fit: contain;
+                                cursor: pointer;
+            
+                                &#PlayBtn {
+                                    width: 28px;
+                                    height: 28px;
+                                }
+                            }
+                        }
+            
+                        input {
+                            width: 100%;
+                            // margin: 10px;
+                            appearance: none;
+                            height: 5px;
+                            background: #4C4E54;
+                            border-radius: 10px;
+                            cursor: pointer;
+            
+                            &::-webkit-slider-thumb {
+                                appearance: none;
+                                width: 10px;
+                                height: 10px;
+                                border-radius: 50%; 
+                                background: #00e1ff;
+                            }
+                        }
                     }
                 }
 
-                div#mainPagMusicaTocandoAgora {
-                    // width: 90%;
-                    margin: 20px auto;
+                div#container_letra_musica_tocando_agora_cell {
+                    width: calc(100% - 20px);
+                    height: calc(300px - 20px);
+                    border-radius: 10px;
+                    margin-top: 40px;
+                    overflow: hidden;
+                    padding: 10px;
 
-                    div#containerImgMusicaTocandoAgora {
-                        width: 100%; /* Define a largura para 100% */
-                        padding-top: 100%; /* Define a altura com base na largura (1:1) */
-                        position: relative; /* Permite posicionar o conteúdo interno */
-                        background-color: #25262cce; /* Cor de fundo, você pode personalizar conforme necessário */
-                        background-size: cover; /* Ajusta a imagem de fundo para cobrir toda a área */
-                        background-repeat: no-repeat;
-                        background-position: center;
+                    pre {
+                        font-family: "Inter", sans-serif;
+                        font-size: 5vw;
+                        white-space: pre-wrap;
+                        font-weight: 800;
+                        color: #00000056;
 
-                        &::before {
-                            content: ""; /* Adiciona um pseudo-elemento para criar conteúdo interno */
-                            display: block;
+                        &.sem_musica_cell {
+                            // font-size: 4vw;
+                            font-weight: 800;
+                            color: #fff;
+                        }
+                        
+                        span {
+                            display: inline-block;
+                            cursor: pointer;
+                            width: 95%;
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                            padding-bottom: 10px;
+
+                            &.linha_pre_anterior {
+                                color: #cfcfcfa6;
+                            }
+                            
+                            &.linha_pre_em_destaque {
+                                color: #fff;
+                                // font-size: 4vw;
+                                font-weight: 800;
+                            }
+                        }
+                    }
+                }
+
+                div#container_sobre_qm_postou_cell {
+                    border-radius: 10px;
+                    overflow: hidden;
+                    cursor: pointer;
+                    margin-top: 40px;
+
+                    div#container_img_sobre_qm_postou_cell {
+                        width: 100%;
+                        height: 78vw;
+                        position: relative;
+                        overflow: hidden;
+                        border-radius: 10px;
+
+                        p {
+                            font-size: 20px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 24px;
+                            z-index: 2;
                             position: absolute;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                            background-image: url('sua-imagem.jpg'); /* Adicione uma imagem de fundo ou personalize conforme necessário */
-                            background-size: cover; /* Ajusta a imagem de fundo para cobrir toda a área */
-                            background-repeat: no-repeat;
-                            background-position: center;
+                            top: 15px;
+                            left: 15px;
                         }
 
                         img {
                             width: 100%;
                             height: 100%;
-                            object-fit: contain;
-                            display: none;
+                            -o-object-fit: cover;
+                            object-fit: cover;
+                            border-radius: 10px;
+                            position: absolute;
+                            top: 0px;
+                            z-index: 1;
                         }
                     }
 
-
-                    div {
-                        h1 {
-                            width: 100%;
-                            // max-width: 200px;
-                            font-size: 18px;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            margin: 20px 0px 10px;
-                        }
-
+                    div#container_infos_qm_postou_cell {
                         p {
-                            width: 100%;
-                            // max-width: 200px;
-                            font-size: 14px;
-                            color: rgba(255, 255, 255, 0.4196078431);
-                            text-overflow: ellipsis;
+                            margin: 10px 0px;
+                            width: 90%;
+                            color: #fff;
+                            font-style: normal;
+                            line-height: 24px;
+                            z-index: 2;
                             white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
                         }
-                    }
-                }
 
-                div#controlesPagMusicaTocandoAgora {
-                    width: 100%;
-        
-                    div#containerControles {
-                        width: 80%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        margin: 20px auto;
-        
-                        img {
-                            width: 20px;
-                            height: 20px;
-                            object-fit: contain;
-                            cursor: pointer;
-        
-                            &#PlayBtn {
-                                width: 28px;
-                                height: 28px;
-                            }
-                        }
-                    }
-        
-                    input {
-                        width: 100%;
-                        // margin: 10px;
-                        appearance: none;
-                        height: 5px;
-                        background: #4C4E54;
-                        border-radius: 10px;
-                        cursor: pointer;
-        
-                        &::-webkit-slider-thumb {
-                            appearance: none;
-                            width: 10px;
-                            height: 10px;
-                            border-radius: 50%; 
-                            background: #00e1ff;
+                        span {
+                            color: rgba(255, 255, 255, 0.4117647059);
+                            font-size: 13px;
+                            font-weight: 500;
+                            line-height: 20px;
                         }
                     }
                 }
@@ -2015,23 +2120,29 @@ body {
                     z-index: 2;
 
                     div#containerImgHeaderPagPerfilOutroUser {
-                        width: 250px;
-                        height: 250px;
+                        max-width: 250px;
+                        max-height: 250px;
+                        min-width: 250px;
+                        min-height: 250px;
                         z-index: 1;
                         background-color: #1a1a1d;
                         box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
                         background-position: center center;
                         background-size: cover;
                         margin-left: 20px;
-                        display: none;
                         align-items: center;
-                        justify-content: baseline;
+                        justify-content: center;
+                        display: none;
                         overflow: hidden;
+                        position: relative;
 
                         img {
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
+                            width: auto; /* Largura automática */
+                            height: 100%; /* Altura 100% para preencher a altura da div */
+                            position: absolute; /* Posicionamento absoluto */
+                            left: 50%; /* Coloca a imagem no centro horizontalmente */
+                            top: 50%; /* Coloca a imagem no centro verticalmente */
+                            transform: translate(-50%, -50%); /* Move a imagem de volta pela metade de sua própria largura e altura */
                         }
                     }
 
@@ -2039,7 +2150,7 @@ body {
                         margin-bottom: 40px;
 
                         h1 {
-                            font-size: 10vw;
+                            font-size: 5vw;
                         }
 
                         span#viewsSemanais {
@@ -2530,6 +2641,12 @@ body {
             bottom: 0px;
         }
 
+        &.BarraMusicaCell {
+            width: 100%;
+            padding: 0 !important;
+            height: auto;
+        }
+
         div#containerImgLargaEscalaBarraMusica {
             width: 300px;
             height: 300px;
@@ -2784,9 +2901,18 @@ body {
             }
         }
 
+        //? Cell --------------------
+        div#InfosBarraMusica {
+            padding: 5px 10px;
+            align-items: center !important;
+        }
+
         div#ConfigsBarraMusicaCell {
+            height: 74px;
             display: none;
             gap: 20px;
+            align-items: center;
+            padding: 0 10px;
 
             img {
                 width: 24px;

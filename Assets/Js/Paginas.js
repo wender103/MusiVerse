@@ -209,9 +209,10 @@ homeCellPhone.addEventListener('click', () => {
 })
 
 const BarraMusica = document.getElementById('BarraMusica')
-BarraMusica.addEventListener('click', () => {
-    if(window.visualViewport.width <= 628) {
-        FecharPaginas()
+BarraMusica.addEventListener('click', (e) => {
+    let el = e.target
+    console.log(el);
+    if(window.visualViewport.width <= 628 && el.id != 'ConfigsBarraMusicaCell' && el.id != 'PlayCellBarraMusica' && el.id != 'HeartBarraMusica2' && el.id != 'AutorMusicaBarraMusica') {
         document.getElementById('PagMusicaTocandoAgora').classList.add('Open')
     }
 })
@@ -219,7 +220,6 @@ BarraMusica.addEventListener('click', () => {
 const fecharPagMusicaTocandoAgora = document.getElementById('fecharPagMusicaTocandoAgora')
 fecharPagMusicaTocandoAgora.addEventListener('click', () => {
     if(window.visualViewport.width <= 628) {
-        FecharPaginas()
         document.getElementById('PagMusicaTocandoAgora').classList.remove('Open')
     }
 })

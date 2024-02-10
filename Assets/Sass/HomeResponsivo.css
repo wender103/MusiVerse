@@ -112,13 +112,28 @@
     left: 0px !important;
     right: auto !important;
   }
+  article#TelaTocandoAgora {
+    right: -110vw !important;
+  }
+  h1#nomePagPerfilOutroUser {
+    font-size: 10vw !important;
+  }
+  div#containerHeaderPagPerfilOutroUser {
+    align-items: end !important;
+  }
+  div#containerImgHeaderPagPerfilOutroUser {
+    display: none !important;
+  }
   section.Paginas {
     width: 100% !important;
     left: 0px !important;
     right: auto !important;
   }
-  section.Paginas.Open {
+  section.Paginas#PagMusicaTocandoAgora {
     display: block !important;
+  }
+  div.containermusicaPerfilPesquisa {
+    display: none !important;
   }
   article#BarraMusica.BarraMusicaOpen {
     bottom: 60px !important;

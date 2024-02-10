@@ -51,6 +51,13 @@ function obterTamanhoDaTela() {
   // Obter a largura da janela de visualização do navegador
   var larguraDaPagina = document.documentElement.clientWidth
 
+  //? Vai add class no container música tocando agora versão para cell
+  if(larguraDaPagina <= 628) {
+    document.getElementById('BarraMusica').classList.add('BarraMusicaCell')
+  } else {
+    document.getElementById('BarraMusica').classList.remove('BarraMusicaCell')
+  }
+
   // Se a largura da página for maior que 629 e a tela não tiver passado do limite de 629
   if (larguraDaPagina >= 629 && !tela_maior_629) {
     // console.log('Tela Maior que 629')
@@ -72,7 +79,7 @@ function obterTamanhoDaTela() {
         Trocar_cor_barra_musica(urlDaImagem)
         console.log('Analizando a img')
       } else {
-        document.querySelector('#BarraMusica').style.background = cores_da_img_musica_tocando_agora[0]
+        document.querySelector('#BarraMusica').style.background = cor_escolhida_background
       }
     } catch{}
   }
@@ -88,13 +95,19 @@ window.addEventListener('resize', function() {
 })
 
 function verificarCor(cor) {
+  if (typeof cor !== 'string') {
+    console.error('O argumento passado para verificarCor não é uma string.')
+    return ["#373737cc", "#000", "#00000059"]
+  }
+
+  console.log('Verificar cor: ' + cor)
   // Converte a cor para o formato hexadecimal sem o '#'
   cor = cor.replace("#", "")
 
   // Divide a cor em seus componentes RGB
-  var r = parseInt(cor.substring(0,2), 16)
-  var g = parseInt(cor.substring(2,4), 16)
-  var b = parseInt(cor.substring(4,6), 16)
+  var r = parseInt(cor.substring(0, 2), 16)
+  var g = parseInt(cor.substring(2, 4), 16)
+  var b = parseInt(cor.substring(4, 6), 16)
 
   // Calcula o valor da luminosidade
   var luminosidade = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
@@ -105,10 +118,34 @@ function verificarCor(cor) {
 
   // Verifica se a cor é muito clara ou muito escura e retorna a cor apropriada
   if (luminosidade >= limiarClaro) {
-      return ["#373737a6", "#000", "#00000038"]// Cor muito clara
+    return ["#373737cc", "#000", "#00000059"]// Cor muito clara
   } else if (luminosidade <= limiarEscuro) {
-      return ["#cfcfcfa6", "#fff", "#7f7e7e56"] // Cor muito escura
+    return ["#cfcfcfa6", "#fff", "#7f7e7e7a"] // Cor muito escura
   } else {
-      return cor // Retorna a cor original
+    return ["#373737cc", "#000", "#00000059"]
+  }
+}
+
+function scrollParaSpanNoCentro(preId, spanId) {
+  // Obtém o elemento span
+  var span = document.getElementById(spanId);
+  // Obtém o elemento <pre> pai do span
+  var pre = document.getElementById(preId);
+  
+  // Verifica se os elementos foram encontrados
+  if (span && pre) {
+      // Calcula a posição do span em relação ao topo do <pre>
+      var posicaoSpan = span.offsetTop - pre.offsetTop;
+      
+      // Calcula a metade da altura do <pre>
+      var metadeAlturaPre = pre.offsetHeight / 2;
+      
+      // Calcula a posição de rolagem para centralizar o span
+      var posicaoScroll = posicaoSpan - metadeAlturaPre + (span.offsetHeight / 2);
+      
+      // Rola o <pre> para a posição calculada
+      pre.scrollTop = posicaoScroll;
+  } else {
+      console.error("Elemento não encontrado. Verifique os IDs fornecidos.");
   }
 }

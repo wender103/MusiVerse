@@ -1469,61 +1469,59 @@ body section.Paginas#PagPlaylist article#containerPagPlaylist div#containerMusic
   width: 100%;
 }
 body section.Paginas#PagMusicaTocandoAgora {
-  padding: 0px;
+  padding: 0;
   z-index: 6;
+  transition: bottom 0.7s ease-in-out;
+  position: fixed;
+  bottom: -100vh;
+  display: none;
+  top: auto;
 }
 body section.Paginas#PagMusicaTocandoAgora.Open {
-  display: none;
+  bottom: 0;
+}
+body section.Paginas#PagMusicaTocandoAgora div#background_PagMusicaTocandoAgora {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  z-index: -1;
 }
 body section.Paginas#PagMusicaTocandoAgora article {
   width: 90%;
-  padding: 20px 0px;
-  max-width: 340px;
+  padding: 20px 0 100px;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#headerPagMusicaTocandoAgora {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#headerPagMusicaTocandoAgora {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#headerPagMusicaTocandoAgora img {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#headerPagMusicaTocandoAgora img {
   left: 0px;
   position: absolute;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora {
   margin: 20px auto;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora {
-  width: 100%; /* Define a largura para 100% */
-  padding-top: 100%; /* Define a altura com base na largura (1:1) */
-  position: relative; /* Permite posicionar o conteúdo interno */
-  background-color: rgba(37, 38, 44, 0.8078431373); /* Cor de fundo, você pode personalizar conforme necessário */
-  background-size: cover; /* Ajusta a imagem de fundo para cobrir toda a área */
-  background-repeat: no-repeat;
-  background-position: center;
-}
-body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora::before {
-  content: ""; /* Adiciona um pseudo-elemento para criar conteúdo interno */
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("sua-imagem.jpg"); /* Adicione uma imagem de fundo ou personalize conforme necessário */
-  background-size: cover; /* Ajusta a imagem de fundo para cobrir toda a área */
-  background-repeat: no-repeat;
-  background-position: center;
-}
-body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora img {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora {
   width: 100%;
-  height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-  display: none;
+  height: 89vw;
+  position: relative;
+  background-color: rgba(37, 38, 44, 0.8078431373);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora div h1 {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora img {
+  width: 100%;
+  height: 134%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div h1 {
   width: 100%;
   font-size: 18px;
   text-overflow: ellipsis;
@@ -1532,7 +1530,7 @@ body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora
   text-overflow: ellipsis;
   margin: 20px 0px 10px;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora div p {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div p {
   width: 100%;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.4196078431);
@@ -1541,28 +1539,28 @@ body section.Paginas#PagMusicaTocandoAgora article div#mainPagMusicaTocandoAgora
   overflow: hidden;
   text-overflow: ellipsis;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora {
   width: 100%;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora div#containerControles {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora div#containerControles {
   width: 80%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 20px auto;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora div#containerControles img {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora div#containerControles img {
   width: 20px;
   height: 20px;
   -o-object-fit: contain;
      object-fit: contain;
   cursor: pointer;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora div#containerControles img#PlayBtn {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora div#containerControles img#PlayBtn {
   width: 28px;
   height: 28px;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora input {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora input {
   width: 100%;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -1572,13 +1570,97 @@ body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocando
   border-radius: 10px;
   cursor: pointer;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#controlesPagMusicaTocandoAgora input::-webkit-slider-thumb {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora input::-webkit-slider-thumb {
   -webkit-appearance: none;
           appearance: none;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: #00e1ff;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_letra_musica_tocando_agora_cell {
+  width: calc(100% - 20px);
+  height: 280px;
+  border-radius: 10px;
+  margin-top: 40px;
+  overflow: hidden;
+  padding: 10px;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_letra_musica_tocando_agora_cell pre {
+  font-family: "Inter", sans-serif;
+  font-size: 5vw;
+  white-space: pre-wrap;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.337254902);
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_letra_musica_tocando_agora_cell pre.sem_musica_cell {
+  font-weight: 800;
+  color: #fff;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_letra_musica_tocando_agora_cell pre span {
+  display: inline-block;
+  cursor: pointer;
+  width: 95%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding-bottom: 10px;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_letra_musica_tocando_agora_cell pre span.linha_pre_anterior {
+  color: rgba(207, 207, 207, 0.6509803922);
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_letra_musica_tocando_agora_cell pre span.linha_pre_em_destaque {
+  color: #fff;
+  font-weight: 800;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_sobre_qm_postou_cell {
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-top: 40px;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_sobre_qm_postou_cell div#container_img_sobre_qm_postou_cell {
+  width: 100%;
+  height: 78vw;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_sobre_qm_postou_cell div#container_img_sobre_qm_postou_cell p {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  z-index: 2;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_sobre_qm_postou_cell div#container_img_sobre_qm_postou_cell img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 10px;
+  position: absolute;
+  top: 0px;
+  z-index: 1;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_sobre_qm_postou_cell div#container_infos_qm_postou_cell p {
+  margin: 10px 0px;
+  width: 90%;
+  color: #fff;
+  font-style: normal;
+  line-height: 24px;
+  z-index: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_sobre_qm_postou_cell div#container_infos_qm_postou_cell span {
+  color: rgba(255, 255, 255, 0.4117647059);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
 }
 body section.Paginas#PagCriarPlaylist article {
   width: 100%;
@@ -1807,30 +1889,35 @@ body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#contain
   z-index: 2;
 }
 body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#containerImgHeaderPagPerfilOutroUser {
-  width: 250px;
-  height: 250px;
+  max-width: 250px;
+  max-height: 250px;
+  min-width: 250px;
+  min-height: 250px;
   z-index: 1;
   background-color: #1a1a1d;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
   background-position: center center;
   background-size: cover;
   margin-left: 20px;
-  display: none;
   align-items: center;
-  justify-content: baseline;
+  justify-content: center;
+  display: none;
   overflow: hidden;
+  position: relative;
 }
 body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#containerImgHeaderPagPerfilOutroUser img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  width: auto; /* Largura automática */
+  height: 100%; /* Altura 100% para preencher a altura da div */
+  position: absolute; /* Posicionamento absoluto */
+  left: 50%; /* Coloca a imagem no centro horizontalmente */
+  top: 50%; /* Coloca a imagem no centro verticalmente */
+  transform: translate(-50%, -50%); /* Move a imagem de volta pela metade de sua própria largura e altura */
 }
 body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#parteTextoPagPerfilOutroUser {
   margin-bottom: 40px;
 }
 body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#parteTextoPagPerfilOutroUser h1 {
-  font-size: 10vw;
+  font-size: 5vw;
 }
 body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#parteTextoPagPerfilOutroUser span#viewsSemanais {
   display: none;
@@ -2233,6 +2320,11 @@ body article#BarraMusica {
 body article#BarraMusica.BarraMusicaOpen {
   bottom: 0px;
 }
+body article#BarraMusica.BarraMusicaCell {
+  width: 100%;
+  padding: 0 !important;
+  height: auto;
+}
 body article#BarraMusica div#containerImgLargaEscalaBarraMusica {
   width: 300px;
   height: 300px;
@@ -2468,9 +2560,16 @@ body article#BarraMusica div#ConfigsBarraMusica div#containerControleVolume inpu
   border-radius: 50%;
   background: #00e1ff;
 }
+body article#BarraMusica div#InfosBarraMusica {
+  padding: 5px 10px;
+  align-items: center !important;
+}
 body article#BarraMusica div#ConfigsBarraMusicaCell {
+  height: 74px;
   display: none;
   gap: 20px;
+  align-items: center;
+  padding: 0 10px;
 }
 body article#BarraMusica div#ConfigsBarraMusicaCell img {
   width: 24px;

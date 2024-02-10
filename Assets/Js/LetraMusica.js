@@ -156,8 +156,6 @@ function Destacar_linhas() {
             btn_marcar_letra.innerHTML = 'Salvar'
             marcar = false
         }
-    } else {
-        // Finaliza o intervalo após percorrer todas as linhas
     }
 }
 
@@ -184,6 +182,7 @@ function Abrir_Pagina_Letra_Musica_Tocando() {
 }
 
 function Trocar_Letra() {
+    Trocar_Letra_cell()
     document.getElementById('start_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
 
     if(MusicaTocandoAgora.Letra.LetraDaMusica) {
@@ -211,10 +210,39 @@ function Trocar_Letra() {
     }
 }
 
+function Trocar_Letra_cell() {
+    // document.getElementById('start_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+    const pre_musica_tocando_agora_cell = document.querySelector('#pre_musica_tocando_agora_cell')
+
+    if(MusicaTocandoAgora.Letra.LetraDaMusica) {
+        // pre_musica_tocando_agora_cell.innerHTML = MusicaTocandoAgora.Letra.LetraDaMusica
+
+        var linhas = MusicaTocandoAgora.Letra.LetraDaMusica.split('\n')
+        
+        for (let c = 0; c < linhas.length; c++) {
+            if (c < linhas.length) {
+                // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+                var linhasAtualizadas = linhas.map(function(linha, index) {
+                    return `<span class="linha_letra_tocando_agora" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
+                })
+
+                // Atualiza o conteúdo do <pre> com as linhas modificadas
+                pre_musica_tocando_agora_cell.innerHTML = linhasAtualizadas.join('\n')
+            }
+        }
+
+        pre_musica_tocando_agora_cell.classList.remove('sem_musica_cell')
+
+    } else {
+        pre_musica_tocando_agora_cell.innerHTML = 'Ainda não aprendemos essa :('
+        pre_musica_tocando_agora_cell.classList.add('sem_musica_cell')
+    }
+}
+
 function voltar_musica_por_letra(num) {
     audioPlayer.currentTime = MusicaTocandoAgora.Letra.Tempo[num]
     setTimeout(() => {
-        PausaDespausarMusica()
+        // PausaDespausarMusica()
     }, 100)
 }
 
@@ -225,21 +253,9 @@ audioPlayer.addEventListener('timeupdate', function() {
     if(MusicaTocandoAgora.Letra.LetraDaMusica) {
         var tempoAtual = audioPlayer.currentTime
         Destacar_linhas_Musica_Tocando_Agora(tempoAtual)
+        Destacar_linhas_Musica_Tocando_Agora_cell(tempoAtual)
+        Trocar_cores_letra()
 
-        //? Vai controlar as cores da letra da música tocando agora
-        try {
-            letra_musica_tocando_agora.style.color = cores_fonte[2]
-        } catch {}
-        var linhasAnteriores = document.querySelectorAll('.linha_pre_anterior')
-        linhasAnteriores.forEach(function(elemento) {
-            try {
-                elemento.style.color = cores_fonte[0]
-            } catch{}
-        })
-
-        try {
-            document.querySelector('#linha_atual').style.color = cores_fonte[1]
-        } catch{}
 
     } else {
         letra_musica_tocando_agora.style.color = cores_fonte[1]
@@ -247,6 +263,44 @@ audioPlayer.addEventListener('timeupdate', function() {
         letra_musica_tocando_agora.classList.add('sem_musica')
     }
 })
+
+function Trocar_cores_letra() {
+    console.log('Trocar_cores_letra')
+
+    //? Vai controlar as cores da letra da música tocando agora
+    try {
+        letra_musica_tocando_agora.style.color = cores_fonte[2]
+        document.querySelector('#pre_musica_tocando_agora_cell').style.color = cores_fonte[2]
+    } catch {}
+
+    var linhasAnteriores = document.querySelectorAll('.linha_pre_anterior')
+    linhasAnteriores.forEach(function(elemento) {
+        try {
+            elemento.style.color = cores_fonte[0]
+        } catch{}
+    })
+    
+    try {
+        document.querySelector('#linha_atual').style.color = cores_fonte[1]
+        document.querySelector('#linha_atual_cell').style.color = cores_fonte[1]
+    } catch{}
+
+    //? Cell --------------
+    try {
+        document.querySelector('#pre_musica_tocando_agora_cell').style.color = cores_fonte[2]
+    } catch {}
+
+    var linhas_anteriores_cell = document.querySelectorAll('.linha_pre_anterior_cell')
+    linhas_anteriores_cell.forEach(function(elemento) {
+        try {
+            elemento.style.color = cores_fonte[0]
+        } catch{}
+    })
+    
+    try {
+        document.querySelector('#linha_atual_cell').style.color = cores_fonte[1]
+    } catch{}
+}
 
 function Destacar_linhas_Musica_Tocando_Agora(tempoAtual) {
     var preElemento = document.getElementById('letra_musica_tocando_agora')
@@ -282,22 +336,68 @@ function Destacar_linhas_Musica_Tocando_Agora(tempoAtual) {
     }
 }
 
+function Destacar_linhas_Musica_Tocando_Agora_cell(tempoAtual) {
+    var preElemento = document.getElementById('pre_musica_tocando_agora_cell')
+    var linhas = preElemento.innerText.split('\n')
+    
+    for (let c = 0; c < MusicaTocandoAgora.Letra.Tempo.length; c++) {
+        if (tempoAtual + 0.3 >= MusicaTocandoAgora.Letra.Tempo[c]) {
+            if (c < linhas.length) {
+                // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+                var linhasAtualizadas = linhas.map(function(linha, index) {
+
+                    if(index < c) {
+                        // Linhas anteriores
+                        return `<span class="linha_letra_tocando_agora_cell linha_pre_anterior" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
+
+                    } else if (index === c) {
+                        // Adiciona a classe 'linha_pre_em_destaque' apenas à linha atual
+                        return `<span class="linha_letra_tocando_agora_cell linha_pre_em_destaque" id="linha_atual_cell" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
+                    } else {
+                        return `<span class="linha_letra_tocando_agora_cell" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
+                    }
+                })
+
+                // Atualiza o conteúdo do <pre> com as linhas modificadas
+                preElemento.innerHTML = linhasAtualizadas.join('\n')
+
+                // Faz o scroll para a linha atual
+                try {
+                    scrollParaSpanNoCentro('container_letra_musica_tocando_agora_cell', 'linha_atual_cell')
+                } catch{}
+            } else {
+                // Finaliza o intervalo após percorrer todas as linhas
+            }
+        }
+    }
+}
+
 let cores_fonte
+let cor_escolhida_background
 function Trocar_cor_barra_musica(urlDaImagem) {
     obterCoresDaImagem(urlDaImagem).then((resolve) => {
         ultima_img_analizada = urlDaImagem
         cores_da_img_musica_tocando_agora = resolve
         const BarraMusica = document.getElementById('BarraMusica')
         const random_number = Math.floor(Math.random() * resolve.length -1)
-        document.getElementById('PagVerLetraMusicaTocando').style.background = resolve[random_number]
-        cores_fonte = verificarCor(resolve[random_number])
+        cor_escolhida_background = resolve[random_number]
+        document.getElementById('PagVerLetraMusicaTocando').style.background = cor_escolhida_background
+        cores_fonte = verificarCor(cor_escolhida_background)
+        document.getElementById('background_PagMusicaTocandoAgora').style.backgroundImage = `linear-gradient(to bottom, ${cor_escolhida_background}, #1a1a1dd6, #1a1a1d)`
+        document.getElementById('container_letra_musica_tocando_agora_cell').style.background = cor_escolhida_background
             
         if(document.documentElement.clientWidth < 629) {
-            document.querySelector('#BarraMusica').style.background = resolve[random_number]
+            BarraMusica.style.background = cor_escolhida_background
+            document.querySelector('#NomeMusicaBarraMusica').style.color = cores_fonte[1]
+            document.querySelector('#AutorMusicaBarraMusica').style.color = cores_fonte[1]
 
         } else {
-            document.querySelector('#BarraMusica').style.background = '#1a1a1d'
+            BarraMusica.style.background = '#1a1a1d'
+            document.querySelector('#NomeMusicaBarraMusica').style.color = '#fff'
+            document.querySelector('#AutorMusicaBarraMusica').style.color = 'rgba(255, 255, 255, 0.4196078431)'
         }
+
+        Trocar_cores_letra()
         
     //? Mostra as cores da img na tela
     //   const container_cores = document.querySelector('#container_cores')
