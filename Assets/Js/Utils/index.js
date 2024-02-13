@@ -99,8 +99,6 @@ function verificarCor(cor) {
     console.error('O argumento passado para verificarCor não é uma string.')
     return ["#373737cc", "#000", "#00000059"]
   }
-
-  console.log('Verificar cor: ' + cor)
   // Converte a cor para o formato hexadecimal sem o '#'
   cor = cor.replace("#", "")
 
@@ -148,4 +146,31 @@ function scrollParaSpanNoCentro(preId, spanId) {
   } else {
       console.error("Elemento não encontrado. Verifique os IDs fornecidos.");
   }
+}
+
+//? Gerador de cores escuras
+function gerarCorAleatoria() {
+  // Gerar valores aleatórios para os componentes RGB
+  const r = Math.floor(Math.random() * 256)
+  const g = Math.floor(Math.random() * 256)
+  const b = Math.floor(Math.random() * 256)
+
+  // Calcular a luminosidade da cor (média dos valores RGB)
+  const luminosidade = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+
+  // Se a luminosidade for muito baixa, ajustar os valores de cor
+  if (luminosidade < 0.5) {
+      // Tornar a cor mais clara
+      return `rgb(${r + 50}, ${g + 50}, ${b + 50})`
+  } else {
+      return `rgb(${r}, ${g}, ${b})`
+  }
+}
+
+function rolarAteOTopoDoElemento(elemento) {
+  // Verifica se o elemento foi passado corretamente
+  if (!elemento) return;
+
+  // Faz o site rolar até o topo do elemento
+  elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }

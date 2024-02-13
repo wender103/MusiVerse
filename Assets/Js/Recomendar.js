@@ -271,7 +271,7 @@ function ArtistasMaisOuvidosHistorico(Artistas) {
 
         //? Ao clicar no nome do Autor
         div.addEventListener('click', () => {
-          AbrirPerfilArtista(TodasMusicas.Musicas[b])
+          AbrirPaginas('artist', TodasMusicas.Musicas[b].ID)
         })
       }
     }
@@ -424,7 +424,8 @@ function RecomendarAutoresPlaylistsHistorico() {
           articleContainerPlaylistFavoritaPerfil.appendChild(containerPlaylistFavoritaPerfil)
 
           containerPlaylistFavoritaPerfil.addEventListener('click', () => {
-            AbrirPerfilArtista(TodasMusicas.Musicas[c])
+            AbrirPaginas('artist', TodasMusicas.Musicas[c].ID)
+
           })
 
            containerPlaylistFavoritaPerfil.addEventListener('contextmenu', function (e) {
@@ -483,7 +484,7 @@ function randomMusics() {
 }
 
 //? Escolher Gêneros Musicais
-const musicasPorGenero = {};
+const musicasPorGenero = {}
 let todosGenerosSeparados = []
 let generosUnicos = []
 const contaier_escolher_generos = document.getElementById('contaier_escolher_generos')
@@ -491,20 +492,20 @@ function Escolher_Generos_Musicais() {
   if (currentUser.User.GostoMusical.Escolher_Generos) {
 
     TodasMusicas.Musicas.forEach(Musica => {
-      const generosSeparados = Musica.Genero.split(',');
+      const generosSeparados = Musica.Genero.split(',')
 
       generosSeparados.forEach(genero => {
         todosGenerosSeparados.push(genero)
-        const generoFormatado = formatarTexto(genero.trim());
+        const generoFormatado = formatarTexto(genero.trim())
 
         if (!generosUnicos.includes(generoFormatado)) {
-          generosUnicos.push(generoFormatado);
-          musicasPorGenero[generoFormatado] = [];
+          generosUnicos.push(generoFormatado)
+          musicasPorGenero[generoFormatado] = []
         }
 
-        musicasPorGenero[generoFormatado].push(Musica);
-      });
-    });
+        musicasPorGenero[generoFormatado].push(Musica)
+      })
+    })
 
     // Agora você tem um objeto musicasPorGenero que contém arrays de músicas para cada gênero
 
@@ -555,4 +556,25 @@ function Escolher_Generos_Musicais() {
 
     })
   }
+}
+
+let array_ultimas_pesquisas = []
+
+function SalvarUltimasPesquisas(Pesquisa) {
+  if(currentUser.User.GostoMusical.Historico.UltimasPesquisas) {
+    array_ultimas_pesquisas = currentUser.User.GostoMusical.Historico.UltimasPesquisas
+  }
+
+  array_ultimas_pesquisas.push(Pesquisa)
+
+  //? Vai atualizar o historico do user
+  if (array_ultimas_pesquisas.length > 6) {
+    //? Vai manter 5 casas no array
+    array_ultimas_pesquisas = array_ultimas_pesquisas.slice(-6) // Mantém apenas os últimos 5 elementos
+  }
+
+  currentUser.User.GostoMusical.Historico.UltimasPesquisas = array_ultimas_pesquisas
+  db.collection('Users').doc(currentUser.User.Id).update({ GostoMusical: currentUser.User.GostoMusical }).then(() => {
+    console.log('Hitorico atualizado, ultimas pesquisas.')
+  })
 }

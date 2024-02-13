@@ -1,40 +1,60 @@
 //? Vai pegar a ID na url da pag
-function obterValoresDaURL() {
-  // Obtém a URL atual
-  var urlAtual = window.location.href
+function obterValoresDaURL(Comando = 'Tocar Música') {
+    // Obtém a URL atual
+    var urlAtual = window.location.href
 
-  // Cria um novo objeto URL com a URL atual
-  var url = new URL(urlAtual)
+    // Cria um novo objeto URL com a URL atual
+    var url = new URL(urlAtual)
 
-  // Obtém os parâmetros de pesquisa da URL
-  var parametros = url.searchParams
+    // Obtém os parâmetros de pesquisa da URL
+    var parametros = url.searchParams
 
-  // Obtém os valores de music, artist, playlist e profile
-  var music = parametros.get('music')
-  var artist = parametros.get('artist')
-  var playlist = parametros.get('playlist')
-  var profile = parametros.get('profile')
+    // Obtém o valor da chave 'music' da URL
+    var music = parametros.get('music')
 
-  if(artist != undefined && artist != null) {
-    InfosUrl.Page.Name = 'artist'
-    InfosUrl.Page.ID = artist
-  } else if(playlist != undefined && playlist != null) {
-    InfosUrl.Page.Name = 'playlist'
-    InfosUrl.Page.ID = playlist
-  } else if(profile != undefined && profile != null) {
-    InfosUrl.Page.Name = 'profile'
-    InfosUrl.Page.ID = profile
-  }
+    // Obtém o valor da chave 'artist', 'playlist', 'profile' ou 'page' da URL
+    var artist = parametros.get('artist')
+    var playlist = parametros.get('playlist')
+    var profile = parametros.get('profile')
+    var page = parametros.get('page')
 
-  if(music != null && music != '' && music != undefined) {
-    InfosUrl.Music = music
-  }
-  
-  tocarMusicaDaUrl(music, InfosUrl.Page)
+    // Verifica se 'artist', 'playlist', 'profile' ou 'page' está definido na URL
+    if (artist !== null) {
+        InfosUrl.Page.Name = 'artist'
+        InfosUrl.Page.ID = artist
+    } else if (playlist !== null) {
+        InfosUrl.Page.Name = 'playlist'
+        InfosUrl.Page.ID = playlist
+    } else if (profile !== null) {
+        InfosUrl.Page.Name = 'profile'
+        InfosUrl.Page.ID = profile
+    } else if (page !== null) {
+        if(page == undefined || page == '') {
+            InfosUrl.Page.Name = 'Home'
+        } else {
+            InfosUrl.Page.Name = page
+        }
+        InfosUrl.Page.ID = undefined
+    }
+
+    // Define o valor da chave 'Music'
+    InfosUrl.Music = music || ''
+
+    // Verifica o comando e executa a função correspondente
+    if (Comando === 'Tocar Música') {
+        tocarMusicaDaUrl(InfosUrl.Music, InfosUrl.Page)
+    } else if (Comando === 'Abrir Página') {
+        AbrirPaginas(InfosUrl.Page)
+    } else {
+        tocarMusicaDaUrl(InfosUrl.Music, InfosUrl.Page)
+        if(InfosUrl.Name != '' && InfosUrl.Page.ID != '') {
+            AbrirPaginas(InfosUrl.Page.Name, InfosUrl.Page.ID, true, true)
+        }
+    }
 }
-
 function tocarMusicaDaUrl(ID, Page) {
     let MusicaDaUrl
+    let passou = false
 
     //? Vai dar play na música
     try {
@@ -42,7 +62,8 @@ function tocarMusicaDaUrl(ID, Page) {
             if(TodasMusicas.Musicas[c].ID == ID) {
                 MusicaDaUrl = TodasMusicas.Musicas[c]
 
-                if(Page.Name == 'artist') {
+                if(Page.Name == 'artist' && !passou) {
+                    passou = true
                     try {
                         AbrirPerfilArtista(MusicaDaUrl)
                     } catch{}
@@ -70,7 +91,8 @@ function tocarMusicaDaUrl(ID, Page) {
         }
     } catch{}
 
-    if(Page.Name == 'artist') {
+    if(Page.Name == 'artist' && !passou) {
+        passou = true
         for(let c = 0; c < TodasMusicas.Musicas.length; c++) {
             if(TodasMusicas.Musicas[c].ID == Page.ID) {
                 try {

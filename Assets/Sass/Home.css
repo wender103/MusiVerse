@@ -385,7 +385,7 @@ body div#containerNotification img {
 body div#containerNotification p {
   color: #fff;
 }
-body div#btnVoltarPagina {
+body div.btnVoltarPagina {
   position: absolute;
   top: 33px;
   left: 33px;
@@ -393,9 +393,9 @@ body div#btnVoltarPagina {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  z-index: 5;
+  z-index: 3;
 }
-body div#btnVoltarPagina button {
+body div.btnVoltarPagina button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -406,12 +406,15 @@ body div#btnVoltarPagina button {
   cursor: pointer;
   background-color: #1a1a1d;
 }
-body div#btnVoltarPagina button img {
+body div.btnVoltarPagina button img {
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-body div#btnVoltarPagina button.btnBloqueado img {
+body div.btnVoltarPagina button.btnBloqueado {
+  cursor: auto;
+}
+body div.btnVoltarPagina button.btnBloqueado img {
   opacity: 0.3;
 }
 body div#SearchBar {
@@ -578,35 +581,55 @@ body section.Paginas::-webkit-scrollbar {
   width: 1px;
   scrollbar-width: 1px;
 }
+body section.Paginas button.btn_back_cell {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  z-index: 5;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+body section.Paginas button.btn_back_cell img {
+  width: 90%;
+  height: 90%;
+  rotate: 180deg;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 body section.Paginas article {
   width: 95%;
   margin: auto;
   padding: 100px 0px;
 }
-body section.Paginas#PagPesquisa {
+body section.Paginas#PagPesquisar {
   z-index: 3;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom 50% center;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa {
   max-width: 1400px;
   margin: auto;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa h1 {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa h1 {
   font-size: 1.5em;
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa {
   width: 100%;
   margin: 20px auto;
   display: flex;
   align-items: start;
   justify-content: space-between;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa {
   width: 280px;
   height: 280px;
   background-position: center;
@@ -622,14 +645,14 @@ body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containe
   gap: 10px;
   cursor: pointer;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa div.DarkOverlayPerfilPesquisar {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa div.DarkOverlayPerfilPesquisar {
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.37);
   z-index: 1;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa img {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa img {
   width: 150px;
   height: 150px;
   -o-object-fit: cover;
@@ -639,7 +662,7 @@ body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containe
   z-index: 2;
   display: none;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa h1 {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.partePerfilPesquisa h1 {
   width: 95%;
   margin: 0px auto;
   text-align: center;
@@ -647,7 +670,7 @@ body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containe
   font-size: 2em;
   z-index: 2;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa {
   width: calc(100% - 320px);
   max-height: 280px;
   overflow: hidden;
@@ -656,7 +679,7 @@ body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containe
   background-color: #1a1a1d;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa {
   width: calc(100% - 20px);
   display: flex;
   align-items: center;
@@ -664,37 +687,37 @@ body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containe
   cursor: pointer;
   padding: 10px;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa:hover {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa:hover {
   background-color: #232327;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa {
   display: flex;
   gap: 20px;
   align-items: center;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa img {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa img {
   width: 50px;
   height: 50px;
   -o-object-fit: cover;
      object-fit: cover;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa div.containerTextoPerfilPesquisa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa div.containerTextoPerfilPesquisa {
   display: flex;
   flex-direction: column;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa div.containerTextoPerfilPesquisa span {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa div.divInfosMusicaPerfilPesquisa div.containerTextoPerfilPesquisa span {
   color: #5d5d63;
   font-size: 12px;
   font-weight: 500;
   line-height: 20px;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa img.heartPerfilPesquisa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa div.containerPerfilPesquisa div.containermusicaPerfilPesquisa div.musicasPerfilPesquisa img.heartPerfilPesquisa {
   width: 20px;
   height: 20px;
   -o-object-fit: contain;
      object-fit: contain;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa {
   margin-bottom: 60px;
   width: 100%;
   max-width: 1400px;
@@ -702,7 +725,7 @@ body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.cont
   overflow: hidden;
   position: relative;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa h1 {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa h1 {
   width: 100%;
   max-width: 1400px;
   font-size: 1.5em;
@@ -712,14 +735,17 @@ body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.cont
   margin: 70px auto 14px;
   display: block;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa h1#h1_genero {
+  margin-top: 0;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer {
   width: 100%;
   overflow: auto;
   margin: auto;
   scroll-behavior: smooth;
   padding: 0;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 24px;
@@ -727,7 +753,10 @@ body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.cont
   width: 100%;
   padding: 0px 0px 30px !important;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer articlearticle_ultimas_pesquisas {
+  height: 151px;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists {
   min-width: 205px;
   height: 244px;
   display: flex;
@@ -740,30 +769,30 @@ body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.cont
   background-color: #1e1e20;
   cursor: pointer;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.containerImgPlaylist {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.containerImgPlaylist {
   width: 100%;
   height: 100%;
   margin: auto;
   overflow: hidden;
   position: relative;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.containerImgPlaylist img {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.containerImgPlaylist img {
   width: 100%;
-  height: 146%;
+  height: 159%;
   display: block;
   -o-object-fit: cover;
      object-fit: cover;
   position: absolute;
   top: -43px;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa {
   width: 85%;
   margin: 20px auto 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa p {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa p {
   width: 90%;
   color: #fff;
   font-size: 17px;
@@ -774,18 +803,118 @@ body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.cont
   overflow: hidden;
   text-overflow: ellipsis;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa span {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa span {
   color: rgba(255, 255, 255, 0.4117647059);
   font-size: 13px;
   font-weight: 500;
   line-height: 20px;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerMusica article.articleContainer {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article#article_genero {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
+  gap: 24px;
+  height: auto;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article#article_genero div.container_genero {
+  min-width: 205px;
+  height: 244px;
+  display: flex;
+  flex-direction: column;
+  background-position: center;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  background-color: #1e1e20;
+  cursor: pointer;
+  background-color: blue;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article#article_genero div.container_genero div.conatiner_img_genero {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  overflow: hidden;
+  position: absolute;
+  rotate: 25deg;
+  right: -15px;
+  bottom: -15px;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article#article_genero div.container_genero div.conatiner_img_genero img {
+  width: 100%;
+  height: 159%;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  top: -43px;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article#article_genero div.container_genero p {
+  max-width: 90%;
+  margin: auto;
+  font-size: 1.4em;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 10px;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerMusica article.articleContainer {
   width: 100%;
 }
-body section.Paginas#PagPesquisa article#containerResultadoPesquisa section.containerMusica article.articleContainer article.containerMusicaCaixa {
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerMusica article.articleContainer article.containerMusicaCaixa {
   width: 100%;
   padding-top: 0px !important;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerMusica article.articleContainer article.containerMusicaCaixa div.containerPlaylists {
+  min-width: 205px;
+  height: 244px;
+  display: flex;
+  flex-direction: column;
+  background-position: center;
+  position: relative;
+  border-radius: 0px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  background-color: #1e1e20;
+  cursor: pointer;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerMusica article.articleContainer article.containerMusicaCaixa div.containerPlaylists div.containerImgPlaylist {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerMusica article.articleContainer article.containerMusicaCaixa div.containerPlaylists div.containerImgPlaylist img {
+  width: 100%;
+  height: 159%;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  top: -43px;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerMusica article.articleContainer article.containerMusicaCaixa div.containerPlaylists div.TextoMusicaCaixa {
+  width: 85%;
+  margin: 20px auto 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerMusica article.articleContainer article.containerMusicaCaixa div.containerPlaylists div.TextoMusicaCaixa p {
+  width: 90%;
+  color: #fff;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerMusica article.articleContainer article.containerMusicaCaixa div.containerPlaylists div.TextoMusicaCaixa span {
+  color: rgba(255, 255, 255, 0.4117647059);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
 }
 body section.Paginas#PagAdicionarMusica article#containerAddMusic {
   width: 100%;
@@ -2714,7 +2843,7 @@ body section.containerMusica article.articleContainer article.containerMusicaCai
 }
 body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.ContainerImgMusicaCaixa img {
   width: 100%;
-  height: 146%;
+  height: 159%;
   -o-object-fit: cover;
      object-fit: cover;
   -o-object-position: center;

@@ -258,15 +258,15 @@ audioPlayer.addEventListener('timeupdate', function() {
 
 
     } else {
-        letra_musica_tocando_agora.style.color = cores_fonte[1]
-        letra_musica_tocando_agora.innerHTML = 'Ainda não aprendemos essa :('
-        letra_musica_tocando_agora.classList.add('sem_musica')
+        try {
+            letra_musica_tocando_agora.style.color = cores_fonte[1]
+            letra_musica_tocando_agora.innerHTML = 'Ainda não aprendemos essa :('
+            letra_musica_tocando_agora.classList.add('sem_musica')
+        } catch{}
     }
 })
 
 function Trocar_cores_letra() {
-    console.log('Trocar_cores_letra')
-
     //? Vai controlar as cores da letra da música tocando agora
     try {
         letra_musica_tocando_agora.style.color = cores_fonte[2]

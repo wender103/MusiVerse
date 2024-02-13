@@ -56,13 +56,13 @@ document.addEventListener("DOMContentLoaded", function () {
                   const containerUserNavBar = document.getElementById('containerUserNavBar')
                   containerUserNavBar.style.background = currentUser.User.Personalizar.BackgroundEmail
                   const LetraNomePerfilUser = document.getElementById('LetraNomePerfilUser')
-                  LetraNomePerfilUser.innerText = currentUser.InfoEmail.email.charAt(0)
+                  LetraNomePerfilUser.innerText = currentUser.InfoEmail.email.charAt(0).toUpperCase()
                   LetraNomePerfilUser.style.display = 'block'
 
                   const imgPerfilUserNavCell = document.getElementById('imgPerfilUserNavCell')
                   imgPerfilUserNavCell.style.background = currentUser.User.Personalizar.BackgroundEmail
                   const LetraNomePerfilUserNavCell = document.getElementById('LetraNomePerfilUserNavCell')
-                  LetraNomePerfilUserNavCell.innerText = currentUser.InfoEmail.email.charAt(0)
+                  LetraNomePerfilUserNavCell.innerText = currentUser.InfoEmail.email.charAt(0).toUpperCase()
                   LetraNomePerfilUserNavCell.style.display = 'block'
                 }
                 
@@ -72,14 +72,14 @@ document.addEventListener("DOMContentLoaded", function () {
                   const containerUserNavBar = document.getElementById('containerUserNavBar')
                   containerUserNavBar.style.background = currentUser.User.Personalizar.BackgoundEmail
                   const LetraNomePerfilUser = document.getElementById('LetraNomePerfilUser')
-                  LetraNomePerfilUser.innerText = currentUser.InfoEmail.email.charAt(0)
+                  LetraNomePerfilUser.innerText = currentUser.InfoEmail.email.charAt(0).toUpperCase()
                   LetraNomePerfilUser.style.display = 'block'
                   
                   
                   const imgPerfilUserNavCell = document.getElementById('imgPerfilUserNavCell')
                   imgPerfilUserNavCell.style.background = currentUser.User.Personalizar.BackgoundEmail
                   const LetraNomePerfilUserNavCell = document.getElementById('LetraNomePerfilUserNavCell')
-                  LetraNomePerfilUserNavCell.innerText = currentUser.InfoEmail.email.charAt(0)
+                  LetraNomePerfilUserNavCell.innerText = currentUser.InfoEmail.email.charAt(0).toUpperCase()
                   LetraNomePerfilUserNavCell.style.display = 'block'
                 } catch {}
               }
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
 
         try {
-          obterValoresDaURL()
+          obterValoresDaURL('All')
         } catch{}
       }).catch((e) => {
         location.href = `Error.html`

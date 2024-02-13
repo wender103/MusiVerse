@@ -319,7 +319,7 @@ body {
     }
 
     //? ----------------------
-    div#btnVoltarPagina {
+    div.btnVoltarPagina {
         position: absolute;
         top: 33px;
         left: 33px;
@@ -327,7 +327,7 @@ body {
         align-items: center;
         justify-content: space-between;
         gap: 10px;
-        z-index: 5;
+        z-index: 3;
 
         button {
             width: 40px;
@@ -354,6 +354,8 @@ body {
             // }
             
             &.btnBloqueado {
+                cursor: auto;
+
                 img {
                     opacity: 0.3;
                 }
@@ -564,6 +566,28 @@ body {
             width: 1px;
             scrollbar-width: 1px;
         }
+
+        //* Button back cell ----------------
+        button.btn_back_cell {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: transparent;
+            z-index: 5;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border: none;
+
+            img {
+                width: 90%;
+                height: 90%;
+                rotate: 180deg;
+                object-fit: contain;
+            }
+        }
         
         article {
             width: 95%;
@@ -572,7 +596,7 @@ body {
             padding: 100px 0px;
         }
 
-        &#PagPesquisa {
+        &#PagPesquisar {
             z-index: 3;
             background-size: cover;
             background-repeat: no-repeat;
@@ -714,6 +738,10 @@ body {
                         line-height: 24px;
                         margin: 70px auto 14px;
                         display: block;
+
+                        &#h1_genero {
+                            margin-top: 0;
+                        }
                     }
 
                     article.articleContainer {
@@ -730,6 +758,10 @@ body {
                             height: auto;
                             width: 100%;
                             padding: 0px 0px 30px!important;
+
+                            &article_ultimas_pesquisas {
+                                height: 151px;
+                            }
 
                             div.containerPlaylists {
                                 min-width: 205px;
@@ -756,7 +788,7 @@ body {
 
                                     img {
                                         width: 100%;
-                                        height: 146%;
+                                        height: 159%;
                                         display: block;
                                         object-fit: cover;
                                         position: absolute;
@@ -792,6 +824,58 @@ body {
                                 }
 
                             }
+
+                            &#article_genero {
+                                display: grid;
+                                grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
+                                gap: 24px;
+                                height: auto;
+
+                                div.container_genero {
+                                    min-width: 205px;
+                                    height: 244px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    background-position: center;
+                                    position: relative;
+                                    border-radius: 10px;
+                                    overflow: hidden;
+                                    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+                                    background-color: #1e1e20;
+                                    //padding: 10px;
+                                    cursor: pointer;
+                                    background-color: blue;
+    
+                                    div.conatiner_img_genero {
+                                        width: 150px;
+                                        height: 150px;
+                                        margin: auto;
+                                        overflow: hidden;
+                                        position: absolute;
+                                        rotate: 25deg;
+                                        right: -15px;
+                                        bottom: -15px;
+    
+                                        img {
+                                            width: 100%;
+                                            height: 159%;
+                                            display: block;
+                                            object-fit: cover;
+                                            position: absolute;
+                                            top: -43px;
+                                        }
+                                    }
+
+                                    p {
+                                        max-width: 90%;
+                                        margin: auto;
+                                        font-size: 1.4em;
+                                        font-weight: 900;
+                                        text-align: center;
+                                        margin-top: 10px;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -803,6 +887,69 @@ body {
                         article.containerMusicaCaixa {
                             width: 100%;
                             padding-top: 0px !important;
+
+                            //? Playlist -------------------
+                            div.containerPlaylists {
+                                min-width: 205px;
+                                height: 244px;
+                                display: flex;
+                                flex-direction: column;
+                                background-position: center;
+                                position: relative;
+                                border-radius: 0px;
+                                overflow: hidden;
+                                box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+                                background-color: #1e1e20;
+                                //padding: 10px;
+                                cursor: pointer;
+
+                                div.containerImgPlaylist {
+                                    width: 100%;
+                                    height: 100%;
+                                    margin: auto;
+                                    overflow: hidden;
+                                    position: relative;
+                                    //border-radius: 10px;
+                                    //box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+
+                                    img {
+                                        width: 100%;
+                                        height: 159%;
+                                        display: block;
+                                        object-fit: cover;
+                                        position: absolute;
+                                        top: -43px;
+                                    }
+                                }
+
+                                div.TextoMusicaCaixa {
+                                    width: 85%;
+                                    margin: 20px auto 10px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+
+                                    p {
+                                        width: 90%;
+                                        color: #fff;
+                                        font-size: 17px;
+                                        font-style: normal;
+                                        font-weight: 500;
+                                        line-height: 24px;
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+
+                                    span {
+                                        color: rgba(255, 255, 255, 0.4117647059);
+                                        font-size: 13px;
+                                        font-weight: 500;
+                                        line-height: 20px;
+                                    }
+                                }
+
+                            }
                         }
                     }
                 }
@@ -3119,7 +3266,7 @@ body {
                         
                         img {
                             width: 100%;
-                            height: 146%;
+                            height: 159%;
                             object-fit: cover;
                             object-position: center;
                         }

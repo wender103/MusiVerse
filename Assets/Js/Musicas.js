@@ -111,7 +111,7 @@ setTimeout(() => {
     document.getElementById('CarregamentoTela1').style.display = 'none'
 }, 5000)
 
-async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa', PesquisarEmail = false, Artista = false, ClassArticle) {
+async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa', PesquisarEmail = false, Artista = false, ClassArticle, Comando) {
     if(maxMusicas == 'Indeterminado') {
         maxMusicas = TodasMusicas.Musicas.length
     }
@@ -120,9 +120,11 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
     
     if(ClassArticle) {
         article.classList.add('containerMusicaCaixa', 'SemScroll')
+
     } else {
       article.className = 'containerMusicaCaixa'
     }
+
     let contadorMusicasPorSection = 0
     
     if(Pesquisa == 'Aleatórias') {
@@ -231,6 +233,12 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
                 }
 
                 DarPlayMusica(arrayMusicasRetornadas[c], c)
+
+                if(Comando == 'Salvar pesquisa') {
+                    //? Vai salvar a pesquisa
+                    const pesquisa = {TipoPesquisa: 'music', ID: arrayMusicasRetornadas[c].ID}
+                    SalvarUltimasPesquisas(pesquisa)
+                }
             }
         })
 
@@ -285,7 +293,13 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
             irParaArtista.innerText = 'Ir para o artista'
 
             irParaArtista.addEventListener('click', () => {
-                AbrirPerfilArtista(arrayMusicasRetornadas[c])
+                AbrirPaginas('artist', arrayMusicasRetornadas[c].ID)
+
+                if(Comando == 'Salvar pesquisa') {
+                    //? Vai salvar a pesquisa
+                    const pesquisa = {TipoPesquisa: 'artist', ID: arrayMusicasRetornadas[c].ID}
+                    SalvarUltimasPesquisas(pesquisa)
+                }
             })
 
             liIrParaArtistaClickMusic.innerHTML = ''
@@ -308,7 +322,14 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
                 document.querySelector('#menuCreditosAutor').appendChild(autorCreditos)
 
                 autorCreditos.addEventListener('click', () => {
-                   AbrirPerfilArtista(arrayMusicasRetornadas[c])
+                    document.querySelector('#containerMenuCreditos').style.display = 'none'
+                    AbrirPaginas('artist', arrayMusicasRetornadas[c].ID)
+
+                    if(Comando == 'Salvar pesquisa') {
+                        //? Vai salvar a pesquisa
+                        const pesquisa = {TipoPesquisa: 'artist', ID: arrayMusicasRetornadas[c].ID}
+                        SalvarUltimasPesquisas(pesquisa)
+                    }
                 })
 
                 const NomeUserCreditos = document.createElement('span')
@@ -325,8 +346,14 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
                         }
 
                         NomeUserCreditos.addEventListener('click', () => {
-                            AbrirPerfilOutroUser(TodosOsUsers[con].User)
+                            AbrirPaginas('artist', TodosOsUsers[con].User)
                             closeMenuCreditos()
+
+                            if(Comando == 'Salvar pesquisa') {
+                                //? Vai salvar a pesquisa
+                                const pesquisa = {TipoPesquisa: 'profile', ID: TodosOsUsers[con].User}
+                                SalvarUltimasPesquisas(pesquisa)
+                            }
                         })
                     }
                 }
@@ -349,7 +376,13 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
         })
   
         span.addEventListener('click', () => {
-          AbrirPerfilArtista(arrayMusicasRetornadas[c])
+            AbrirPaginas('artist', arrayMusicasRetornadas[c].ID)
+
+            if(Comando == 'Salvar pesquisa') {
+                //? Vai salvar a pesquisa
+                const pesquisa = {TipoPesquisa: 'artist', ID: arrayMusicasRetornadas[c].ID}
+                SalvarUltimasPesquisas(pesquisa)
+            }
         })
   
       } else if(Estilo == 'Linha') {
@@ -423,7 +456,7 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
         })
   
         AutorDaMusica.addEventListener('click', () => {
-          AbrirPerfilArtista(arrayMusicasRetornadas[c])
+            AbrirPaginas('artist', arrayMusicasRetornadas[c].ID)
         })
       }
     }
@@ -512,7 +545,7 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
   }
   
 
-async function RetornarPerfil(Pesquisa, Local, PerfilDe = 'User') {
+async function RetornarPerfil(Pesquisa, Local, PerfilDe = 'User', Comando) {
     let feito = false
 
     //? ------------------------------------
@@ -537,11 +570,17 @@ async function RetornarPerfil(Pesquisa, Local, PerfilDe = 'User') {
             if(PesquisaFormatada.includes(Nome) || Nome.includes(PesquisaFormatada) && !feito) {
                 feito = true
 
-                DarkOverlay.addEventListener('click', () => {
-                    AbrirPerfilOutroUser(TodosOsUsers[c].User)
+                Perfil.addEventListener('click', () => {
+                    AbrirPaginas('profile', TodosOsUsers[c].User.Id)
+
+                    if(Comando == 'Salvar pesquisa') {
+                        //? Vai salvar a pesquisa
+                        const pesquisa = {TipoPesquisa: 'profile', ID: TodosOsUsers[c].User.Id}
+                        SalvarUltimasPesquisas(pesquisa)
+                    }
                 })
 
-                DarkOverlay.addEventListener('contextmenu', function (e) {
+                Perfil.addEventListener('contextmenu', function (e) {
                     e.preventDefault()
 
                     const containerOptionsClickMusic = document.getElementById('containerOptionsClickMusic')
@@ -679,7 +718,7 @@ async function RetornarPerfil(Pesquisa, Local, PerfilDe = 'User') {
                                 irParaArtista.innerText = 'Ir para o artista'
 
                                 irParaArtista.addEventListener('click', () => {
-                                   AbrirPerfilArtista(TodasMusicas.Musicas[i])
+                                    AbrirPaginas('artist', TodasMusicas.Musicas[i].ID)
                                 })
 
                                 liIrParaArtistaClickMusic.innerHTML = ''
@@ -700,7 +739,8 @@ async function RetornarPerfil(Pesquisa, Local, PerfilDe = 'User') {
                                     document.querySelector('#menuCreditosAutor').appendChild(autorCreditos)
 
                                     autorCreditos.addEventListener('click', () => {
-                                        AbrirPerfilArtista(TodasMusicas.Musicas[i])
+                                        document.querySelector('#containerMenuCreditos').style.display = 'none'         
+                                        AbrirPaginas('artist', TodasMusicas.Musicas[i].ID)
                                     })
 
                                     const NomeUserCreditos = document.createElement('span')
@@ -717,7 +757,7 @@ async function RetornarPerfil(Pesquisa, Local, PerfilDe = 'User') {
                                             }
 
                                             NomeUserCreditos.addEventListener('click', () => {
-                                                AbrirPerfilOutroUser(TodosOsUsers[con].User)
+                                                AbrirPaginas('profile', TodosOsUsers[con].User.Id)
                                                 closeMenuCreditos()
                                             })
                                         }
@@ -754,7 +794,7 @@ async function RetornarPerfil(Pesquisa, Local, PerfilDe = 'User') {
 
                             //? Ao clicar no nome do Autor
                             Autor.addEventListener('click', () => {
-                                AbrirPerfilArtista(TodasMusicas.Musicas[i])
+                                AbrirPaginas('artist', TodasMusicas.Musicas[i].ID)
                             })
                         }
                     }
@@ -896,7 +936,8 @@ async function RetornarMusicasFavoritas(Email, Local, MusicaFavoritaOuPostada) {
                         irParaArtista.innerText = 'Ir para o artista'
 
                         irParaArtista.addEventListener('click', () => {
-                            AbrirPerfilArtista(musicasFavoritasUser[numMusicasFavoritas])
+                            AbrirPaginas('artist', musicasFavoritasUser[numMusicasFavoritas].ID)
+
                         })
 
                         liIrParaArtistaClickMusic.innerHTML = ''
@@ -917,7 +958,8 @@ async function RetornarMusicasFavoritas(Email, Local, MusicaFavoritaOuPostada) {
                             document.querySelector('#menuCreditosAutor').appendChild(autorCreditos)
 
                             autorCreditos.addEventListener('click', () => {
-                                AbrirPerfilArtista(musicasFavoritasUser[numMusicasFavoritas])
+                                document.querySelector('#containerMenuCreditos').style.display = 'none'
+                                AbrirPaginas('artist', musicasFavoritasUser[numMusicasFavoritas].ID)
                             })
 
                             const NomeUserCreditos = document.createElement('span')
@@ -934,7 +976,7 @@ async function RetornarMusicasFavoritas(Email, Local, MusicaFavoritaOuPostada) {
                                     }
 
                                     NomeUserCreditos.addEventListener('click', () => {
-                                        AbrirPerfilOutroUser(TodosOsUsers[con].User)
+                                        AbrirPaginas('profile', TodosOsUsers[con].User.Id)
                                         closeMenuCreditos()
                                     })
                                 }
@@ -971,7 +1013,8 @@ async function RetornarMusicasFavoritas(Email, Local, MusicaFavoritaOuPostada) {
 
                     //? Ao clicar no nome do Autor
                     AutorDaMusica.addEventListener('click', () => {
-                        AbrirPerfilArtista(musicasFavoritasUser[numMusicasFavoritas])
+                        AbrirPaginas('artist', musicasFavoritasUser[numMusicasFavoritas].ID)
+
                     })
                 }
             }
@@ -1144,7 +1187,7 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
                 irParaArtista.innerText = 'Ir para o artista'
 
                 irParaArtista.addEventListener('click', () => {
-                    AbrirPerfilArtista(TodasMusicas.Musicas[c])
+                    AbrirPaginas('artist', TodasMusicas.Musicas[c].ID)
                 })
 
                 liIrParaArtistaClickMusic.innerHTML = ''
@@ -1167,7 +1210,8 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
                     document.querySelector('#menuCreditosAutor').appendChild(autorCreditos)
 
                     autorCreditos.addEventListener('click', () => {
-                        AbrirPerfilArtista(TodasMusicas.Musicas[c])
+                        document.querySelector('#containerMenuCreditos').style.display = 'none'
+                        AbrirPaginas('artist', TodasMusicas.Musicas[c].ID)
                     })
 
                     const NomeUserCreditos = document.createElement('span')
@@ -1184,7 +1228,7 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
                             }
 
                             NomeUserCreditos.addEventListener('click', () => {
-                                AbrirPerfilOutroUser(TodosOsUsers[con].User)
+                                AbrirPaginas('profile', TodosOsUsers[con].User.Id)
                                 closeMenuCreditos()
                             })
                         }
@@ -1236,7 +1280,7 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
 
             //? Ao clicar no nome do Autor
             AutorDaMusica.addEventListener('click', () => {
-                AbrirPerfilArtista(TodasMusicas.Musicas[c])
+                AbrirPaginas('artist', TodasMusicas.Musicas[c].ID)
             })
         }
     }
@@ -1258,36 +1302,64 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
 
 //? Vai pesquisar pelas músicas
 const inputPesquisa = document.getElementById('inputPesquisa')
+let texto_pesqusia = ''
 inputPesquisa.addEventListener('keypress', (e) => {
-    if(e.keyCode == 13 && inputPesquisa.value.trim() != "") {
-        // SalvarHistoricoDePaginas(document.getElementById('PagPesquisa'))
-        document.getElementById('containerResultadoPesquisa').innerHTML = ''
+    if(e.keyCode == 13) {
+        Checar_pesquisar()
+    }
+})
 
+function Checar_pesquisar(Metodo) {
+    if(inputPesquisa.value.trim() != "" && inputPesquisa.value != texto_pesqusia && Metodo != 'Btn') {
+        texto_pesqusia = inputPesquisa.value
+        AbrirPaginas('Pesquisar', undefined, true, true, 'Pesquisar')
+    } else {
+        if(document.getElementById('PagPesquisar').style.display != 'block' && inputPesquisa.value == '') {
+            AbrirPaginas('Pesquisar', undefined, true, true, 'Historico')
+
+        } else {
+            AbrirPaginas('Pesquisar', undefined, true, true, 'Abrir')
+        }
+    }
+}
+
+function Pesquisar(Comando) {
+    
+    if(Comando == 'Pesquisar') {
+        document.getElementById('containerResultadoPesquisa').innerHTML = ''
         //? Indo ali ---------------------------------
-        if(formatarTexto(inputPesquisa.value).includes(formatarTexto('we live, we love, we lie'))) {
+        if(formatarTexto(texto_pesqusia).includes(formatarTexto('we live, we love, we lie'))) {
             for(let c = 0; c < TodasMusicas.Musicas.length; c++) {
                 if(TodasMusicas.Musicas[c].NomeMusica == 'BEAT INDO ALI - MEME VIRAL') {
                     DarPlayMusica(TodasMusicas.Musicas[c], c)
 
-                    document.getElementById('PagPesquisa').style.backgroundImage = `url('https://i.ytimg.com/vi/9LFqwZPlih4/sddefault.jpg')`
+                    document.getElementById('PagPesquisar').style.backgroundImage = `url('https://i.ytimg.com/vi/9LFqwZPlih4/sddefault.jpg')`
                 }
             }
         } else {
-            document.getElementById('PagPesquisa').style.backgroundImage = ``
+            document.getElementById('PagPesquisar').style.backgroundImage = ``
         }
         
         //? Vai pesquisar por um perfil
-        RetornarPerfil(inputPesquisa.value, document.getElementById('containerResultadoPesquisa'))
+        RetornarPerfil(texto_pesqusia, document.getElementById('containerResultadoPesquisa'), 'User', 'Salvar pesquisa')
 
         //? Vai pesquisar por Playlists
-        RetornarPlayList(inputPesquisa.value, document.getElementById('containerResultadoPesquisa'), 'Caixa')
+        RetornarPlayList(texto_pesqusia, document.getElementById('containerResultadoPesquisa'), 'Caixa', null, 'Salvar pesquisa')
         
         //? Vai pesquisar por músicas
-        RetornarMusicas(inputPesquisa.value, document.getElementById('containerResultadoPesquisa'), 'Indeterminado', 'Caixa', false, false, 'SemScroll')
-        document.querySelector('body').style.overflowY = 'hidden'
-        document.getElementById('PagPesquisa').style.display = 'block'
+        RetornarMusicas(texto_pesqusia, document.getElementById('containerResultadoPesquisa'), 'Indeterminado', 'Caixa', false, false, 'SemScroll', 'Salvar pesquisa')
+        
+    } else if(Comando == 'Historico') {
+        document.getElementById('containerResultadoPesquisa').innerHTML = ''
+        RetornarUltimasPesquisas(document.getElementById('containerResultadoPesquisa'))
+        RetornarGeneros(document.getElementById('containerResultadoPesquisa'))
     }
-})
+
+    if(Comando == 'Pesquisar' || Comando == 'Abrir') {
+        document.querySelector('body').style.overflowY = 'hidden'
+        document.getElementById('PagPesquisar').style.display = 'block'
+    }
+}
 
 //? Vai pegar as músicas postadas pelo user ao abrir o perfil
 const btnMeuPerfil = document.getElementById('btnMeuPerfil')
@@ -1370,7 +1442,7 @@ function abrirFavoritosBtnNoHome() {
     FecharPaginas()
     document.getElementById('localMusicasCurtidas').innerHTML = ''
     RetornarMusicasFavoritas(currentUser.InfoEmail.email, document.getElementById('localMusicasCurtidas'), 'Favoritas')
-    AbrirPaginas(4, 3)
+    AbrirPaginas('Favoritas')
 }
 
 let trocouDeMusica = false
@@ -1616,7 +1688,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
     
             //? Vai abrir a aba com as músicas do autor ques está ouvindo a música
             document.getElementById('AutorMusicaBarraMusica').addEventListener('click', () => {
-                AbrirPerfilArtista(Lista)
+                AbrirPaginas('artist', Lista.ID)
             })
             
             resolve('Música iniciada')
@@ -1636,10 +1708,11 @@ const InfosUrl = {
 function updateURLParameter(Tipo, ID) {
     removerParametros()
     if(Tipo != 'music') {
-        InfosUrl.Page.Name = Tipo;
-        InfosUrl.Page.ID = ID;
+        InfosUrl.Page.Name = Tipo
+        InfosUrl.Page.ID = ID
+        
     } else {
-        InfosUrl.Music = ID;
+        InfosUrl.Music = ID
     }
 
     let link = ''
@@ -1648,8 +1721,12 @@ function updateURLParameter(Tipo, ID) {
         link = `music=${InfosUrl.Music}`
     }
 
-    if(InfosUrl.Page.Name != '' && InfosUrl.Music != '') {
+    if(InfosUrl.Page.Name != '' && InfosUrl.Music != '' && ID != '' && ID != undefined) {
         link = `${link}&${InfosUrl.Page.Name}=${InfosUrl.Page.ID}`
+
+    } else if(ID == undefined && InfosUrl.Page.Name != undefined) {
+        link = `${link}&page=${InfosUrl.Page.Name}`
+
     } else if(InfosUrl.Music == '') {
         link = `${InfosUrl.Page.Name}=${InfosUrl.Page.ID}`
     }
@@ -1925,6 +2002,12 @@ async function RetornarMusicasArtista(Artista, Local, PegarLista) {
         
                     AbrirTelaTocandoAgora(Artista)
                     DarPlayMusica(TodasMusicas.Musicas[c], numContador)
+
+                    if(Comando == 'Salvar pesquisa') {
+                        //? Vai salvar a pesquisa
+                        const pesquisa = {TipoPesquisa: 'music', ID: TodasMusicas.Musicas[c].ID}
+                        SalvarUltimasPesquisas(pesquisa)
+                    }
                 }
             })
 
@@ -1992,7 +2075,8 @@ async function RetornarMusicasArtista(Artista, Local, PegarLista) {
                     document.querySelector('#menuCreditosAutor').appendChild(autorCreditos)
 
                     autorCreditos.addEventListener('click', () => {
-                        AbrirPerfilArtista(TodasMusicas.Musicas[c])
+                        document.querySelector('#containerMenuCreditos').style.display = 'none'
+                        AbrirPaginas('artist', TodasMusicas.Musicas[c].ID)
                     })
 
                     const NomeUserCreditos = document.createElement('span')
@@ -2009,7 +2093,7 @@ async function RetornarMusicasArtista(Artista, Local, PegarLista) {
                             }
 
                             NomeUserCreditos.addEventListener('click', () => {
-                                AbrirPerfilOutroUser(TodosOsUsers[con].User)
+                                AbrirPaginas('profile', TodosOsUsers[con].User.Id)
                                 closeMenuCreditos()
                             })
                         }
@@ -2294,13 +2378,14 @@ function RetornarMusicasASeguir() {
 
 //? Ao clicar na música tocando agora na barra tela música tocando agora, vai abir a aba mostrando todas as músicas do autor
 document.getElementById('containerMusicaTelaTocanAgora').addEventListener('click',() => {
-    AbrirPerfilArtista(infoMusicaTocandoAgora)
+    AbrirPaginas('artist', infoMusicaTocandoAgora.ID)
+
     document.querySelector('#PagMusicaTocandoAgora').classList.remove('Open')
 })
 
 //* Ao clicar na música tocando agora cell na barra tela música tocando agora, vai abir a aba mostrando todas as músicas do autor
 document.getElementById('autorMusicaTocandoAgoraPagMusicaTocandoAgora').addEventListener('click',() => {
-    AbrirPerfilArtista(infoMusicaTocandoAgora)
+    AbrirPaginas('artist', infoMusicaTocandoAgora.ID)
 })
 
 //? Vai abrir a página do user que postou a música ao clicar no perfil dele da tela música tocando agora
@@ -2309,14 +2394,13 @@ document.getElementById('SobreQuemPostou').addEventListener('click', (e) => {
     if(el.id == 'btnSeguirUserTelaTocandoAgora') {
         for(let c = 0; c < TodosOsUsers.length; c++) {
             if(infoMusicaTocandoAgora.EmailUser == TodosOsUsers[c].User.Email) {
-                AbrirPerfilOutroUser(TodosOsUsers[c].User)
-                carregarUserArtistasSeguidos()
+                AbrirPaginas('profile', TodosOsUsers[c].User.Id, true, false,'Seguir User')
             }
         }
     } else if(document.getElementById('PagPerfilOutroUser').style.display != 'block'){
         for(let c = 0; c < TodosOsUsers.length; c++) {
             if(infoMusicaTocandoAgora.EmailUser == TodosOsUsers[c].User.Email) {
-                AbrirPerfilOutroUser(TodosOsUsers[c].User)
+                AbrirPaginas('profile', TodosOsUsers[c].User.Id)
             }
         }
     }
@@ -2324,11 +2408,9 @@ document.getElementById('SobreQuemPostou').addEventListener('click', (e) => {
 
 //* Vai abrir a página do user que postou a música ao clicar no perfil dele da tela música tocando agora
 document.getElementById('container_sobre_qm_postou_cell').addEventListener('click', () => {
-    console.log(1111111);
     for(let c = 0; c < TodosOsUsers.length; c++) {
         if(infoMusicaTocandoAgora.EmailUser == TodosOsUsers[c].User.Email) {
-            AbrirPerfilOutroUser(TodosOsUsers[c].User)
-            carregarUserArtistasSeguidos()
+            AbrirPaginas('profile', TodosOsUsers[c].User.Id, true, false,'Seguir User')
             document.querySelector('#PagMusicaTocandoAgora').classList.remove('Open')
         }
     }
@@ -2359,7 +2441,7 @@ function FecharTelaTocandoAgora() {
 
 //? Vai retornar as playlists
 let arrayMusicasPlaylist = []
-function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null) {
+function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando) {
     let PesquisaFormatada = formatarTexto(Pesquisa)
     let contadorMusicasLinha = 0
     
@@ -2421,6 +2503,12 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null) {
                     //? Ao clicar no nome do user
                     span.addEventListener('click', () => {
                         AbrirPerfilOutroUser(userDonoDaPlaylist.User)
+
+                        if(Comando == 'Salvar pesquisa') {
+                            //? Vai salvar a pesquisa
+                            const pesquisa = {TipoPesquisa: 'profile', ID: userDonoDaPlaylist.User.Id}
+                            SalvarUltimasPesquisas(pesquisa)
+                        }
                     })
 
                     //? Vai abrir a playlist
@@ -2429,6 +2517,12 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null) {
 
                         if(el != span) {
                             AbrirPlaylist(TodasMusicas.Playlists[c])
+
+                            if(Comando == 'Salvar pesquisa') {
+                                //? Vai salvar a pesquisa
+                                const pesquisa = {TipoPesquisa: 'playlist', ID: TodasMusicas.Playlists[c].ID}
+                                SalvarUltimasPesquisas(pesquisa)
+                            }
                         }
 
                     })
@@ -2511,18 +2605,18 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null) {
                             }
                         })
                 
-                        FavoritarDesfavoritarMusica(TodasMusicas.Playlists[c].Musicas.ID, 'Checar').then((resolve) => {
+                        FavoritarDesfavoritarMusica(TodasMusicas.Playlists[c].Musicas[i].ID, 'Checar').then((resolve) => {
                             Heart.src = resolve
                         })
                 
                         Heart.addEventListener('click', () => {
-                            FavoritarDesfavoritarMusica(TodasMusicas.Playlists[c].Musicas.ID, 'Editar').then((resolve) => {
+                            FavoritarDesfavoritarMusica(TodasMusicas.Playlists[c].Musicas[i].ID, 'Editar').then((resolve) => {
                                 Heart.src = resolve
                             })
                         })
                 
                         AutorDaMusica.addEventListener('click', () => {
-                           AbrirPerfilArtista(TodasMusicas.Playlists[c])
+                            AbrirPaginas('artist', TodasMusicas.Playlists[c].Musicas[i].ID)
                         })
                     }
                 }
@@ -2624,16 +2718,19 @@ let pagCarregada = false
 function AbrirPerfilArtista(arrayArtista, PegarLista) {
     FecharPaginas()
     const imgPerfilArtista = document.getElementById('imgPerfilArtista')
-    if(arrayArtista.LinkImg.includes ('treefy')) {
-        imgPerfilArtista.classList.add('imgPerfilArtistaTreeFy')
-    } else {
+    try {
+        if(arrayArtista.LinkImg.includes ('treefy')) {
+            imgPerfilArtista.classList.add('imgPerfilArtistaTreeFy')
+        } else {
+            imgPerfilArtista.classList.remove('imgPerfilArtistaTreeFy')
+        }
+    } catch (error) {
         imgPerfilArtista.classList.remove('imgPerfilArtistaTreeFy')
     }
     imgPerfilArtista.src = arrayArtista.LinkImg
     document.getElementById('NomeArtista').innerText = arrayArtista.Autor
     document.getElementById('containerMusicasArtista').innerHTML = ''
     document.querySelector('body').style.overflow = 'hidden'
-    SalvarHistoricoDePaginas(document.getElementById('PagArtistas'))
     RetornarMusicasArtista(arrayArtista.Autor, document.getElementById('containerMusicasArtista'), PegarLista)
 
     setTimeout(() => {
@@ -2644,7 +2741,8 @@ function AbrirPerfilArtista(arrayArtista, PegarLista) {
         coletarHistorico(arrayArtista.Autor, 'Autor')
     }
 
-    updateURLParameter('artist', arrayArtista.ID)
+    // updateURLParameter('artist', arrayArtista.ID)
+    document.querySelector('#PagArtistas').style.display = 'block'
 }
 
 function hideMenu() {

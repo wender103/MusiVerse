@@ -27,7 +27,7 @@
 
         <ul>
             <li style="color: #0FF;" class="linkPagina">Home</li>
-            <li>Explore</li>
+            <li onclick="Checar_pesquisar('Btn')">Pesquisar</li>
             <li class="linkPagina" id="btnMeuPerfil">Meu Perfil</li>
         </ul>
 
@@ -127,11 +127,11 @@
 
     <!--? Tela Principal | Home -->
     <main>
-        <div id="btnVoltarPagina">
-            <button id="btnBackPag" class="btnBloqueado" onclick="VolatarPaginaAnterior()">
+        <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
                 <img src="Assets/Imgs/Icons/BackPag.png">
             </button>
-            <button id="btnNextPag" class="btnBloqueado" onclick="ProxmaPagina()">
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
                 <img src="Assets/Imgs/Icons/NextPag.png">
             </button>
         </div>
@@ -183,11 +183,39 @@
     </main>
 
     <!--? ------------------ Páginas ----------------->
-    <section class="Paginas" id="PagPesquisa">
+    <section class="Paginas" id="PagPesquisar">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+        
+        <!--? Voltar no pc -->
+        <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <article id="containerResultadoPesquisa"></article>
     </section>
 
     <section class="Paginas" id="PagAdicionarMusica">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <article id="containerAddMusic">
             <div id="PrimeirosPassosYT">
                 <h1>Poste suas músicas favoritas aqui</h1>
@@ -256,6 +284,20 @@
     </section>
 
     <section class="Paginas" id="PagMeuPerfil">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <article id="containerMeuPerfil">
             <div id="coainerBackgroundPerfil">
                 <div id="blurBackgroundPerfil"></div>
@@ -319,6 +361,20 @@
     <section class="Paginas" id="PagPlaylists"></section>
 
     <section class="Paginas" id="PagFavoritas">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <article id="containerMusicasFavoritas">
             <div id="backgroundPagMusicasFavoritas"></div>
 
@@ -334,6 +390,20 @@
     </section>
 
     <section class="Paginas" id="PagArtistas">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <article id="containerArtista">
             <div id="coainerBackgroundArtista">
                 <div id="blurBackgroundArtista">
@@ -359,6 +429,20 @@
     </section>
 
     <section class="Paginas" id="PagPlaylist">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <article id="containerPagPlaylist">
             <div id="coainerBackgroundPagPlaylist">
                 <div id="blurBackgroundPagPlaylist"></div>
@@ -383,6 +467,20 @@
     </section>
 
     <section class="Paginas" id="PagMusicaTocandoAgora">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <div id="background_PagMusicaTocandoAgora"></div>
 
         <article>
@@ -447,6 +545,20 @@
     </section>
 
     <section class="Paginas" id="PagCriarPlaylist">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <article>
             <div id="containerHeaderCriarPlaylist">
                 <div id="containerImgPlaylist">
@@ -503,12 +615,40 @@
     </section>
 
     <section class="Paginas" id="PagAdicionarLetra">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <article id="primeiraPartAdicionarLetra">
             <textarea name="" id="textareaAddLetraMusica" cols="30" rows="10" placeholder="Adicione aqui seus versos..."></textarea>
         </article>
     </section>
 
     <section class="Paginas" id="PagPerfilOutroUser">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <div id="headerPagPerfilOutroUser">
             <div id="blurHeaderPagPerfilOutroUser"></div>
 
@@ -534,6 +674,20 @@
     </section>
 
     <section class="Paginas" id="PagVerLetraMusicaTocando">
+        <button class="btn_back_cell">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
         <article>
             <div id="start_letra"></div>
 
