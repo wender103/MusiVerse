@@ -565,6 +565,13 @@ function SalvarUltimasPesquisas(Pesquisa) {
     array_ultimas_pesquisas = currentUser.User.GostoMusical.Historico.UltimasPesquisas
   }
 
+  //? Vai fazer com q caso sejá um valor repetido vai ficar em primeiro lugar
+  for(let c = 0; c < array_ultimas_pesquisas.length; c++) {
+    if(array_ultimas_pesquisas[c].ID == Pesquisa.ID) {
+      array_ultimas_pesquisas.splice(c, 1)
+    }
+  }
+
   array_ultimas_pesquisas.push(Pesquisa)
 
   //? Vai atualizar o historico do user
@@ -574,7 +581,5 @@ function SalvarUltimasPesquisas(Pesquisa) {
   }
 
   currentUser.User.GostoMusical.Historico.UltimasPesquisas = array_ultimas_pesquisas
-  db.collection('Users').doc(currentUser.User.Id).update({ GostoMusical: currentUser.User.GostoMusical }).then(() => {
-    console.log('Hitorico atualizado, ultimas pesquisas.')
-  })
+  db.collection('Users').doc(currentUser.User.Id).update({ GostoMusical: currentUser.User.GostoMusical })
 }

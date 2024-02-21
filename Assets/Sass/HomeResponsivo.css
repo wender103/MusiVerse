@@ -104,6 +104,19 @@
   nav {
     left: -100vw !important;
   }
+  div.btnVoltarPagina {
+    display: none !important;
+  }
+  div#SearchBar {
+    right: 10px !important;
+  }
+  button.btn_back_cell {
+    display: block !important;
+  }
+  button.btn_back_cell#btn_back_cell_pag_pesquisar {
+    top: 37px;
+    left: 5px;
+  }
   div#navCelular {
     display: flex !important;
   }
@@ -111,6 +124,9 @@
     width: 100% !important;
     left: 0px !important;
     right: auto !important;
+  }
+  section#containerFavoritasDoPerfil {
+    margin: 30px auto -30px !important;
   }
   article#TelaTocandoAgora {
     right: -110vw !important;
@@ -195,6 +211,17 @@
   }
 }
 @media screen and (max-width: 500px) {
+  article#article_genero {
+    grid-template-columns: repeat(auto-fill, minmax(158px, 1fr)) !important;
+  }
+  article#article_genero div.container_genero {
+    min-width: 155px !important;
+    height: 194px !important;
+  }
+  article#article_genero div.container_genero div.conatiner_img_genero {
+    width: 130px !important;
+    height: 130px !important;
+  }
   div.TextoMusicaCaixa p {
     font-size: 0.8em !important;
   }
@@ -202,7 +229,8 @@
     display: none !important;
   }
   div#headerMusicasFavorias {
-    padding: 20px !important;
+    padding: 15px !important;
+    margin-left: 50px !important;
   }
   div#headerMusicasFavorias img#imgMusicaFavoritaTocandoAgora {
     display: none;

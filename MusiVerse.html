@@ -56,6 +56,7 @@
     <div id="navCelular">
         <ul>
             <li id="homeCellPhone"><img src="Assets/Imgs/Icons/Home.png"> <p>Home</p></li>
+            <li onclick="Checar_pesquisar('Btn')"><img src="Assets/Imgs/Icons/search.png"> <p>Pesquisar</p></li>
             <!-- <li><img src="Assets/Imgs/Icons//Faixas.png"> <p>Favoritas</p></li> -->
             <li><img src="Assets/Imgs/Icons/Biblioteca.png"> <p>Biblioteca</p></li>
             <li><img src="Assets/Imgs/Icons/friends.png"> <p>Amigos</p></li>
@@ -136,11 +137,6 @@
             </button>
         </div>
 
-        <div id="SearchBar">
-            <img src="Assets/Imgs/Icons/search.png">
-            <input type="text" placeholder="Pesquisar" id="inputPesquisa">
-        </div>
-
         <section id="MusicasAleatoriasBanner">
             <article>
                 <!-- <img src="https://images.unsplash.com/photo-1594623930572-300a3011d9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG11c2ljJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=1000&q=60"> -->
@@ -184,9 +180,14 @@
 
     <!--? ------------------ Páginas ----------------->
     <section class="Paginas" id="PagPesquisar">
-        <button class="btn_back_cell">
+        <button class="btn_back_cell" id="btn_back_cell_pag_pesquisar" onclick="VolatarPaginaAnterior('Btn_Click')">
             <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
         </button>
+
+        <div id="SearchBar">
+            <img src="Assets/Imgs/Icons/search.png">
+            <input type="text" placeholder="Pesquisar" id="inputPesquisa">
+        </div>
         
         <!--? Voltar no pc -->
         <div class="btnVoltarPagina">
@@ -202,7 +203,7 @@
     </section>
 
     <section class="Paginas" id="PagAdicionarMusica">
-        <button class="btn_back_cell">
+        <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">
             <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
         </button>
 
@@ -284,7 +285,7 @@
     </section>
 
     <section class="Paginas" id="PagMeuPerfil">
-        <button class="btn_back_cell">
+        <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">
             <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
         </button>
 
@@ -361,7 +362,7 @@
     <section class="Paginas" id="PagPlaylists"></section>
 
     <section class="Paginas" id="PagFavoritas">
-        <button class="btn_back_cell">
+        <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">
             <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
         </button>
 
@@ -390,7 +391,7 @@
     </section>
 
     <section class="Paginas" id="PagArtistas">
-        <button class="btn_back_cell">
+        <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">
             <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
         </button>
 
@@ -429,7 +430,7 @@
     </section>
 
     <section class="Paginas" id="PagPlaylist">
-        <button class="btn_back_cell">
+        <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">
             <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
         </button>
 
@@ -467,19 +468,6 @@
     </section>
 
     <section class="Paginas" id="PagMusicaTocandoAgora">
-        <button class="btn_back_cell">
-            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
-        </button>
-
-         <!--? Voltar no pc -->
-         <div class="btnVoltarPagina">
-            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
-                <img src="Assets/Imgs/Icons/BackPag.png">
-            </button>
-            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
-                <img src="Assets/Imgs/Icons/NextPag.png">
-            </button>
-        </div>
 
         <div id="background_PagMusicaTocandoAgora"></div>
 
@@ -545,7 +533,7 @@
     </section>
 
     <section class="Paginas" id="PagCriarPlaylist">
-        <button class="btn_back_cell">
+        <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">
             <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
         </button>
 
@@ -615,7 +603,7 @@
     </section>
 
     <section class="Paginas" id="PagAdicionarLetra">
-        <button class="btn_back_cell">
+        <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">
             <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
         </button>
 
@@ -635,7 +623,7 @@
     </section>
 
     <section class="Paginas" id="PagPerfilOutroUser">
-        <button class="btn_back_cell">
+        <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">
             <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
         </button>
 
@@ -674,19 +662,9 @@
     </section>
 
     <section class="Paginas" id="PagVerLetraMusicaTocando">
-        <button class="btn_back_cell">
+        <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">
             <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
         </button>
-
-         <!--? Voltar no pc -->
-         <div class="btnVoltarPagina">
-            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
-                <img src="Assets/Imgs/Icons/BackPag.png">
-            </button>
-            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
-                <img src="Assets/Imgs/Icons/NextPag.png">
-            </button>
-        </div>
 
         <article>
             <div id="start_letra"></div>

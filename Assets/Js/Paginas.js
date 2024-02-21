@@ -304,6 +304,7 @@ const BarraMusica = document.getElementById('BarraMusica')
 BarraMusica.addEventListener('click', (e) => {
     let el = e.target
     if(window.visualViewport.width <= 628 && el.id != 'ConfigsBarraMusicaCell' && el.id != 'PlayCellBarraMusica' && el.id != 'HeartBarraMusica2' && el.id != 'AutorMusicaBarraMusica') {
+        document.querySelector('body').style.overflow = 'hidden'
         document.getElementById('PagMusicaTocandoAgora').classList.add('Open')
     }
 })
@@ -312,6 +313,7 @@ const fecharPagMusicaTocandoAgora = document.getElementById('fecharPagMusicaToca
 fecharPagMusicaTocandoAgora.addEventListener('click', () => {
     if(window.visualViewport.width <= 628) {
         document.getElementById('PagMusicaTocandoAgora').classList.remove('Open')
+        document.querySelector('body').style.overflow = 'auto'
     }
 })
 
@@ -361,7 +363,7 @@ function RetornarUltimasPesquisas(Local) {
     article.id = 'article_ultimas_pesquisas'
     h1.innerText = 'Buscas recentes'
 
-    for(a = 0; a < ultimasPesquisas.length; a++) {
+    for(a = ultimasPesquisas.length -1; a >= 0; a--) {
         if(ultimasPesquisas[a].TipoPesquisa == 'music') {
             for (let c = 0; c < TodasMusicas.Musicas.length; c++) {
                 if(TodasMusicas.Musicas[c].ID == ultimasPesquisas[a].ID) {

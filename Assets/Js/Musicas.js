@@ -850,7 +850,14 @@ async function RetornarMusicasFavoritas(Email, Local, MusicaFavoritaOuPostada) {
                     img.className = 'ImgMusicaMeuPerfil'
                     Genero.className = 'GeneroMeuPerfil'
 
-                    contador.innerText = contadorMusicasLinha
+                    
+                    if(contadorMusicasLinha < 10) {
+                        contador.innerText = `0${contadorMusicasLinha}`
+
+                    } else {
+                        contador.innerText = contadorMusicasLinha
+                    }
+
                     img.src = TodasMusicas.Musicas[contadorTodasAsMusicas].LinkImg
                     Nome.innerText = TodasMusicas.Musicas[contadorTodasAsMusicas].NomeMusica
                     Nome.title = TodasMusicas.Musicas[contadorTodasAsMusicas].NomeMusica
@@ -1086,7 +1093,13 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
             Editar.className = 'BtnsEditarMusicaLinha'
             Excluir.className = 'BtnsEditarMusicaLinha'
 
-            contador.innerText = contadorMusicasLinha
+            if(contadorMusicasLinha < 10) {
+                contador.innerText = `0${contadorMusicasLinha}`
+
+            } else {
+                contador.innerText = contadorMusicasLinha
+            }
+            
             img.src = TodasMusicas.Musicas[c].LinkImg
 
             img.src = TodasMusicas.Musicas[c].LinkImg
@@ -2566,7 +2579,12 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                         img.className = 'ImgMusicaMeuPerfil'
                         Genero.className = 'GeneroMeuPerfil'
                 
-                        contador.innerText = contadorMusicasLinha
+                        if(contadorMusicasLinha < 10) {
+                            contador.innerText = `0${contadorMusicasLinha}`
+
+                        } else {
+                            contador.innerText = contadorMusicasLinha
+                        }
                         img.src = TodasMusicas.Playlists[c].Musicas[i].LinkImg
                         if(img.src.includes('treefy')) {
                             divImg.classList.add('DivImgMusicaMeuPerfil', 'DivImgMusicaMeuPerfilTreeFy')
@@ -2654,6 +2672,8 @@ function AbrirPlaylist(Playlist) {
     
     if(Playlist.Descricao.trim() != '') {
         document.getElementById('descPlaylist').innerText = Playlist.Descricao
+    } else {
+        document.getElementById('descPlaylist').innerText = ''
     }
 
     document.getElementById('containerMusicasPagPlaylist').innerHTML = ''
