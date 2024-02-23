@@ -41,7 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
               try {
                 Escolher_Generos_Musicais()
-            } catch (error){console.warn(error)}
+              } catch (error){console.warn(error)}
+
+              try {
+                Checar_Se_Tem_Pedidos()
+              } catch (error) {
+                console.warn(error)
+              }
 
               try {
                 if(currentUser.InfoEmail.photoURL != null) {

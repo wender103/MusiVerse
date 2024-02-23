@@ -1,3 +1,4 @@
+let gerenciarPresencaChamada = false
 //? Vai pegar a ID na url da pag
 function obterValoresDaURL(Comando = 'Tocar Música') {
     // Obtém a URL atual
@@ -50,6 +51,12 @@ function obterValoresDaURL(Comando = 'Tocar Música') {
         if(InfosUrl.Name != '' && InfosUrl.Page.ID != '') {
             AbrirPaginas(InfosUrl.Page.Name, InfosUrl.Page.ID, true, true)
         }
+    }
+
+    // Chamada da função para gerenciar a presença do usuário
+    if(!gerenciarPresencaChamada) {
+        gerenciarPresencaChamada = true
+        gerenciarPresencaUsuario()
     }
 }
 function tocarMusicaDaUrl(ID, Page) {

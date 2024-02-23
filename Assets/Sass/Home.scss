@@ -318,6 +318,286 @@ body {
         }
     }
 
+    //? Aba Amigos
+    div#container_aba_amigos {
+        width: 350px;
+        height: calc(var(--vh, 1vh) * 100);
+        padding: 0px 20px;
+        position: fixed;
+        right: -100vw;
+        background-color: rgb(26, 26, 29);
+        box-shadow: rgba(0, 0, 0, 0.4) -8px 6px 18px 0px;
+        overflow-y: auto;
+        transition: 1s right ease-in-out;
+        z-index: 5;
+        overflow: hidden;
+
+        div#container_btn_aba_amigos {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 25px;
+            
+            p {
+                font-size: 1.2em;
+                font-weight: 800;
+            }
+            
+            button#fechar_aba_amigos {
+                width: 20px;
+                height: 20px;
+                background-color: transparent;
+                border: none;
+                background-image: url(../Imgs/Icons/x.png);
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                cursor: pointer;
+            }
+        }
+
+        
+        div#container_amigos {
+            width: 100%;
+            height: calc(100% - 150px);
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            margin-top: 25px;
+            gap: 20px;
+
+            &::-webkit-scrollbar {
+                width: 1px; /* Largura da barra de rolagem */
+            }
+            
+            div.container_perfil_amigo {
+                width: calc(100% - 20px);
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: rgba(41, 41, 46, 0.568627451);
+                box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.26);
+                padding: 10px;
+                
+                div.primeira_parte_perfil_amigo {
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+
+                    div.container_img_perfil_amigo {
+                        width: 70px;
+                        height: 70px;
+                        position: relative;
+                        
+                        div {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                            overflow: hidden;
+                            
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+            
+                        span {
+                            width: 15px;
+                            height: 15px;
+                            border-radius: 50%;
+                            background-color: rgb(0, 255, 0);
+                            position: absolute;
+                            bottom: 2.5px;
+                            right: 2.5px;
+            
+                            &.ball_offline {
+                                background-color: rgb(255, 0, 0);
+                            }
+                        }
+                    }
+    
+                    div.container_texto_perfil_amigo {
+                        p {
+                            font-size: 1.2em;
+                            font-weight: bold;
+                        }
+    
+                        span {
+                            color: rgb(0, 255, 0);
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            font-size: 0.7em;
+                            font-weight: 700;
+    
+                            &.span_offline {
+                                color: rgb(255, 0, 0);
+                            }
+                        }
+                    }
+                }
+
+                div.container_musica_ouvindo_amigo {
+                    width: 70px;
+                    height: 70px;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    position: relative;
+                    
+                    div.container_play_musica_amigo {
+                        width: 100%;
+                        height: 100%;
+                        background-color: #0000004f;
+                        transition: 200ms opacity ease-in-out;
+                        opacity: 0;
+                        z-index: 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: absolute;
+                        cursor: pointer;
+
+                        img.play_musica_amigo {
+                            width: 30px;
+                            height: 30px;
+                            // position: absolute;
+                            rotate: 180deg;
+                            top: 50%;
+                        }
+                    }
+                    
+                    div.container_img_musica_ouvindo_amigo {
+                        img {
+                            width: 140%;
+                            height: 140%;
+                            top: -15px;
+                            left: -13px;
+                            object-fit: cover;
+                            position: absolute;
+                        }
+                    }
+                }
+            }
+        }
+
+        div#container_input_add_amigos {
+            width: calc(100% - 40px);
+            height: 40px;
+            position: absolute;
+            bottom: 20px;
+            padding: 0 20px;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+
+            input {
+                border: none;
+                padding: 11px 23px;
+                background-color: rgba(75, 75, 75, 0.4705882353);
+                display: block;
+                border-radius: 0px;
+                color: #fff;
+            }
+
+            button {
+                width: 40px;
+                height: 40px;
+                color: #fff;
+                background-color: rgba(75, 75, 75, 0.4705882353);
+                border: none;
+                cursor: pointer;
+            }
+        }
+    }
+
+    div#fundo_pedido_amizade {
+        width: calc(100% - 200px);
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 7;
+        transition: 1s  background-color ease-in-out;
+        background-color: transparent;
+        display: none;
+
+        &.Open_pedidos {
+            display: block !important;
+            background-color: rgba(0, 0, 0, 0.76);
+        }
+        
+        div#container_pedido_amizade {
+            width: calc(95% - 40px);
+            max-width: 460px;
+            height: 160px;
+            border-radius: 10px;
+            position: absolute;
+            right: -550px;
+            bottom: 20px;
+            padding: 20px;
+            background-color: #212124;
+            box-shadow: rgba(0, 0, 0, 0.568) -8px 6px 18px 0px;
+            transition: 1s right ease-in-out;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            &.Open_pedidos {
+                right: 20px !important;
+            }
+    
+            div#container_perfil_pedido {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+    
+                div#container_img_perfil_pedido {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    overflow: hidden;
+    
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                div {
+                    p {
+                        font-size: 1.5em;
+                        font-weight: bold;
+                    }
+
+                    span {
+                        font-size: 0.9em;
+                    }
+                }
+            }
+    
+            div#container_btns_pedido_amizade {
+                display: flex;
+                gap: 20px;
+    
+                button {
+                    width: 100%;
+                    padding: 10px 15px;
+                    border-radius: 5px;
+                    background-color: #00e1ff93;
+                    color: #fff;
+                    border: none;
+                    cursor: pointer;
+
+                    &#btn_recusar_pedido_amizade {
+                        background-color: rgba(255, 0, 0, 0.253);
+                    }
+                }
+            }
+        }
+    }
+
     //? ----------------------
     div.btnVoltarPagina {
         position: absolute;

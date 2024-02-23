@@ -37,7 +37,7 @@
             <li class="linkPagina"><img src="Assets/Imgs/Icons/Albuns.png">Playlists</li>
             <li class="linkPagina" id="btnMusicasFavoritas"><img src="Assets/Imgs/Icons/Faixas.png">Favoritas</li>
             <!-- <li class="linkPagina"><img src="Assets/Imgs/Icons/Artistas.png"> Artistas</li> -->
-            <li class="linkPagina"><img src="Assets/Imgs/Icons/friends.png"> Amigos</li>
+            <li class="linkPagina" onclick="Abrir_Aba_Amigos()"><img src="Assets/Imgs/Icons/friends.png"> Amigos</li>
         </ul>
 
         <span>Outros</span>
@@ -124,6 +124,68 @@
     <div id="containerNotification">
         <img src="Assets/Imgs/Icons/checkmark.png" id="imgNotification">
         <p id="msgNotification">Link copiado para a área de transferência!</p>
+    </div>
+
+    <!--? Aba Amigos -->
+    <div id="container_aba_amigos">
+        <div id="container_btn_aba_amigos">
+            <p>Amigos</p>
+            <button id="fechar_aba_amigos" onclick="Fehcar_Aba_Amigos()"></button>
+        </div>
+
+        <div id="container_amigos">
+            <div class="container_perfil_amigo">
+                <div class="primeira_parte_perfil_amigo">
+                    <div class="container_img_perfil_amigo">
+                        <div>
+                            <img src="Assets/Imgs/Banners/fitaCassete.avif">
+                        </div>
+                        <span class="ball_offline"></span>
+                    </div>
+    
+                    <div class="container_texto_perfil_amigo">
+                        <p>Teste</p>
+                        <span class="span_offline">Offline...</span>
+                    </div>
+                </div>
+
+                <div class="container_musica_ouvindo_amigo">
+                    <div class="container_play_musica_amigo">
+                        <img src="Assets/Imgs/Icons/Play.png" class="play_musica_amigo">
+                    </div>
+
+                    <div class="container_img_musica_ouvindo_amigo">
+                        <!-- <img src="Assets/Imgs/Icons/Rectangle 39.png" class="img_musica_ouvindo_amigo"> -->
+                        <img src="https://storage.googleapis.com/musiverse-e89c0.appspot.com/MusicasPostadas/snzfkPiaJvD3QZKUMdn3/Nova_Chance_Thaiane_Seghetto___Topic_thumbnail.jpg" class="img_musica_ouvindo_amigo">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="container_input_add_amigos">
+            <input type="email" id="input_add_amigo" placeholder="Adionar pelo email">
+            <button onclick="Checar_add_amigo()"><p>+</p></button>
+        </div>
+    </div>
+
+    <div id="fundo_pedido_amizade">
+        <div id="container_pedido_amizade">
+            <div id="container_perfil_pedido">
+                <div id="container_img_perfil_pedido">
+                    <img src="Assets/Imgs/Banners/fitaCassete.avif" id="img_user_pedido">
+                </div>
+    
+                <div>
+                    <p id="nome_user_pedido_amizade">Zezin</p>
+                    <span>quer ser seu amigo</span>
+                </div>
+            </div>
+    
+            <div id="container_btns_pedido_amizade">
+                <button id="btn_aceitar_pedido_amizade">Aceitar</button>
+                <button id="btn_recusar_pedido_amizade">Recusar</button>
+            </div>
+        </div>
     </div>
 
     <!--? Tela Principal | Home -->
@@ -914,6 +976,8 @@
     <script src="Assets/Js/OutrosPerfis.js"></script>
     <script src="Assets/Js/Compartilhar.js"></script>
     <script src="Assets/Js/LetraMusica.js"></script>
+    <script src="Assets/Js/Amigos.js"></script>
+    <script src="Assets/Js/Online.js"></script>
 
     <!-- <script src="CodigosAParte/RecuperarMusicas.js"></script> -->
 

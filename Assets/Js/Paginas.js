@@ -5,10 +5,12 @@ let EventoNasPagsAdd = false
 
 
 for (let c = 0; c < linkPagina.length; c++) {
-    linkPagina[c].addEventListener('click', () => {
-        let New_name = removerEspacosEAcentos(linkPagina[c].innerText)
-        AbrirPaginas(New_name)
-    })
+    if(linkPagina[c].innerText != 'Amigos') {
+        linkPagina[c].addEventListener('click', () => {
+            let New_name = removerEspacosEAcentos(linkPagina[c].innerText)
+            AbrirPaginas(New_name)
+        })
+    }
     
 }
 
