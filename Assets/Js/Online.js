@@ -44,7 +44,11 @@ function gerenciarPresencaUsuario() {
     
             for(let c = 0; c < Amigos.length; c++) {
                 if(Amigos[c] == userID) {
-                    Carregar_Amigos(userID, userData)
+                    Atualizar_Amigo(userID, userData).then((resp) => {
+                        if(resp == 'Amigo não encontrado') {
+                            Carregar_Amigos(userID, userData)
+                        }
+                    })
                     break // Sai do loop assim que encontrar um amigo
                 }
             }

@@ -495,6 +495,7 @@ body div#container_aba_amigos div#container_amigos div.container_perfil_amigo di
   border-radius: 5px;
   overflow: hidden;
   position: relative;
+  display: none;
 }
 body div#container_aba_amigos div#container_amigos div.container_perfil_amigo div.container_musica_ouvindo_amigo div.container_play_musica_amigo {
   width: 100%;
@@ -512,7 +513,6 @@ body div#container_aba_amigos div#container_amigos div.container_perfil_amigo di
 body div#container_aba_amigos div#container_amigos div.container_perfil_amigo div.container_musica_ouvindo_amigo div.container_play_musica_amigo img.play_musica_amigo {
   width: 30px;
   height: 30px;
-  rotate: 180deg;
   top: 50%;
 }
 body div#container_aba_amigos div#container_amigos div.container_perfil_amigo div.container_musica_ouvindo_amigo div.container_img_musica_ouvindo_amigo img {
@@ -528,6 +528,7 @@ body div#container_aba_amigos div#container_input_add_amigos {
   width: calc(100% - 40px);
   height: 40px;
   position: absolute;
+  transition: 700ms bottom ease-in-out;
   bottom: 20px;
   padding: 0 20px;
   left: 0;

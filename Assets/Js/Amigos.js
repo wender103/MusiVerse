@@ -1,4 +1,5 @@
 function Abrir_Aba_Amigos() {
+    FecharTelaTocandoAgora()
     document.querySelector('#container_aba_amigos').style.right = '0'
 }
 
@@ -8,79 +9,183 @@ function Fehcar_Aba_Amigos() {
 
 const container_amigos = document.querySelector('#container_amigos')
 function Carregar_Amigos(Email, UsersData) {
+    console.log('Carregar_Amigos foi chamado');
     let Amigos = currentUser.User.InfosPerfil.Amigos.Aceitos
 
-    container_amigos.innerHTML = ''
     for(let a = 0; a < TodosOsUsers.length; a++) {
-        
-        for (let c = 0; c < Amigos.length; c++) {
-            //* Vai clonar os pefis
-            if(TodosOsUsers[a].User.Email == Amigos[c]) {
-                const container_perfil_amigo = document.createElement('div')
-    
-                const primeira_parte_perfil_amigo = document.createElement('div')
-                const container_img_perfil_amigo = document.createElement('div')
-                const div_container_img = document.createElement('div')
-                const img_perfil = document.createElement('img')
-                const ball_offline = document.createElement('span')
-    
-                const container_texto_perfil_amigo = document.createElement('div')
-                const p = document.createElement('p')
-                const span_offline = document.createElement('span')
+        //* Vai clonar os pefis
+        if(TodosOsUsers[a].User.Email == Email) {
+            const container_perfil_amigo = document.createElement('div')
 
-                const container_musica_ouvindo_amigo = document.createElement('div')
-                const container_play_musica_amigo = document.createElement('div')
-                const play_musica_amigo = document.createElement('img')
-                const container_img_musica_ouvindo_amigo = document.createElement('div')
-                const img_musica_ouvindo_amigo = document.createElement('img')
-    
-                //* Classes
-                container_perfil_amigo.className = 'container_perfil_amigo'
-                primeira_parte_perfil_amigo.className = 'primeira_parte_perfil_amigo'
-                container_img_perfil_amigo.className = 'container_img_perfil_amigo'
-                container_texto_perfil_amigo.className = 'container_texto_perfil_amigo'
-                
-                if(TodosOsUsers[a].User.Email == Email && UsersData.Online == false) {
-                    ball_offline.className = 'ball_offline'
-                    span_offline.className = 'span_offline'
+            const primeira_parte_perfil_amigo = document.createElement('div')
+            const container_img_perfil_amigo = document.createElement('div')
+            const div_container_img = document.createElement('div')
+            const img_perfil = document.createElement('img')
+            const ball_offline = document.createElement('span')
+
+            const container_texto_perfil_amigo = document.createElement('div')
+            const p = document.createElement('p')
+            const span_offline = document.createElement('span')
+
+            const container_musica_ouvindo_amigo = document.createElement('div')
+            const container_play_musica_amigo = document.createElement('div')
+            const play_musica_amigo = document.createElement('img')
+            const container_img_musica_ouvindo_amigo = document.createElement('div')
+            const img_musica_ouvindo_amigo = document.createElement('img')
+
+            //* Classes
+            container_perfil_amigo.id = `container_perfil_amigo_${Email}`
+            container_perfil_amigo.className = 'container_perfil_amigo'
+            primeira_parte_perfil_amigo.className = 'primeira_parte_perfil_amigo'
+            container_img_perfil_amigo.className = 'container_img_perfil_amigo'
+            container_texto_perfil_amigo.className = 'container_texto_perfil_amigo'
+            
+            if(UsersData.Online == false) {
+                ball_offline.className = 'ball_offline'
+                span_offline.className = 'span_offline'
+            }
+
+            container_musica_ouvindo_amigo.className = 'container_musica_ouvindo_amigo'
+            container_img_musica_ouvindo_amigo.className = 'container_img_musica_ouvindo_amigo'
+            container_play_musica_amigo.className = 'container_play_musica_amigo'
+            play_musica_amigo.className = 'play_musica_amigo'
+            img_musica_ouvindo_amigo.className = 'img_musica_ouvindo_amigo'
+
+            
+            //* Textos
+            play_musica_amigo.src = 'Assets/Imgs/Icons/Play.png'
+
+            if(TodosOsUsers[a].User.Personalizar.FotoPerfil != undefined && TodosOsUsers[a].User.Personalizar.FotoPerfil != null && TodosOsUsers[a].User.Personalizar.FotoPerfil != '') {
+                var img = new Image()
+                img.src = TodosOsUsers[a].User.Personalizar.FotoPerfil
+                img.onload = function() {
+                    img_perfil.src = TodosOsUsers[a].User.Personalizar.FotoPerfil
                 }
-
-                container_musica_ouvindo_amigo.className = 'container_musica_ouvindo_amigo'
-                container_img_musica_ouvindo_amigo.className = 'container_img_musica_ouvindo_amigo'
-                container_play_musica_amigo.className = 'container_play_musica_amigo'
-                play_musica_amigo.className = 'play_musica_amigo'
-                img_musica_ouvindo_amigo.className = 'img_musica_ouvindo_amigo'
-    
-                
-                //* Textos
-                play_musica_amigo.src = 'Assets/Imgs/Icons/Play.png'
-
-                if(TodosOsUsers[a].User.Personalizar.FotoPerfil != undefined && TodosOsUsers[a].User.Personalizar.FotoPerfil != null) {
-                    var img = new Image()
-                    img.src = TodosOsUsers[a].User.Personalizar.FotoPerfil
-                    img.onload = function() {
-                        img_perfil.src = img.src
-                    }
-                    img.onerror = function() {
-                        img_perfil.src = `Assets/Imgs/Banners/fitaCassete.avif`
-                    }
-    
-                } else {
+                img.onerror = function() {
                     img_perfil.src = `Assets/Imgs/Banners/fitaCassete.avif`
                 }
-    
-                p.innerText = TodosOsUsers[a].User.Nome
-    
-                if(TodosOsUsers[a].User.Email == Email && UsersData.Online == false) {
+
+            } else {
+                img_perfil.src = `Assets/Imgs/Banners/fitaCassete.avif`
+            }
+
+            p.innerText = TodosOsUsers[a].User.Nome
+
+            if(UsersData.Online == false) {
+                span_offline.innerText = 'Offline...'
+
+            } else if(UsersData.Online == true) {
+                span_offline.innerText = 'Online...'
+            }
+
+            //? Musica ouvindo agora
+            let ListaMusica
+            if(UsersData.Ouvindo.ID) {
+                container_musica_ouvindo_amigo.id = UsersData.Ouvindo.ID
+
+                for (let c = 0; c < TodasMusicas.Musicas.length; c++) {
+                    if(TodasMusicas.Musicas[c].ID == UsersData.Ouvindo.ID) {
+                        ListaMusica = TodasMusicas.Musicas[c]
+                        img_musica_ouvindo_amigo.src = TodasMusicas.Musicas[c].LinkImg
+                        container_musica_ouvindo_amigo.style.display = 'block'
+                    }                        
+                }
+            }
+
+            //* AppendChild
+            div_container_img.appendChild(img_perfil)
+            container_img_perfil_amigo.appendChild(div_container_img)
+            container_img_perfil_amigo.appendChild(ball_offline)
+
+            container_texto_perfil_amigo.appendChild(p)
+            container_texto_perfil_amigo.appendChild(span_offline)
+
+            primeira_parte_perfil_amigo.appendChild(container_img_perfil_amigo)
+            primeira_parte_perfil_amigo.appendChild(container_texto_perfil_amigo)
+
+            container_play_musica_amigo.appendChild(play_musica_amigo)
+            container_img_musica_ouvindo_amigo.appendChild(img_musica_ouvindo_amigo)
+
+            container_musica_ouvindo_amigo.appendChild(container_play_musica_amigo)
+            container_musica_ouvindo_amigo.appendChild(container_img_musica_ouvindo_amigo)
+
+            container_perfil_amigo.appendChild(primeira_parte_perfil_amigo)
+            container_perfil_amigo.appendChild(container_musica_ouvindo_amigo)
+
+            container_amigos.appendChild(container_perfil_amigo)
+
+            //* Funções
+            //? Ao passar o mouse na música tocando agora no perfil amigo vai aparecer um icone de play
+            container_play_musica_amigo.addEventListener('mouseenter', () => {
+                container_play_musica_amigo.style.opacity = '1'
+            })
+
+            //? Ao tirar o mouse na música tocando agora no perfil amigo vai sumir o icone de play
+            container_play_musica_amigo.addEventListener('mouseleave', () => {
+                container_play_musica_amigo.style.opacity = '0'
+            })
+
+            //? Ao clicar vai começar a música
+            container_play_musica_amigo.addEventListener('click', () => {
+                const container_perfil_amigo2 = document.querySelectorAll('.container_perfil_amigo')
+
+                for(let a = 0; a < container_perfil_amigo2.length; a++) {
+                    if(container_perfil_amigo2[a].id == `container_perfil_amigo_${Email}`) {
+                        for (let c = 0; c < TodasMusicas.Musicas.length; c++) {
+                            if(TodasMusicas.Musicas[c].ID == document.querySelectorAll('.container_musica_ouvindo_amigo')[a].id) {
+                                DarPlayMusica(TodasMusicas.Musicas[c])
+                            }                        
+                        }
+                    }
+                }
+            })
+        }
+    }
+}
+
+//? Ao invés de reescrever a lista de amigos ele vai atualizar apenas o amigo no qual mudou algo no banco de dados
+let amigo_encontrado = false
+let limpar_lista_amigo = false
+function Atualizar_Amigo(Email, UsersData) {
+    return new Promise((resolve, reject) => {
+        console.log('Perfil atualizou');
+        const container_perfil_amigo = document.querySelectorAll('.container_perfil_amigo')
+
+        for(let c = 0; c < container_perfil_amigo.length; c++) {
+            if(container_perfil_amigo[c].id == `container_perfil_amigo_${Email}`) {
+                amigo_encontrado = true
+
+                const container_img_perfil_amigo = document.querySelectorAll('.container_img_perfil_amigo')[c]
+                const ball_offline = container_img_perfil_amigo.querySelector('span')
+
+                const container_texto_perfil_amigo = document.querySelectorAll('.container_texto_perfil_amigo')[c]
+                const span_offline = container_texto_perfil_amigo.querySelector('span')
+
+                const container_musica_ouvindo_amigo = document.querySelectorAll('.container_musica_ouvindo_amigo')[c]
+                const container_play_musica_amigo = document.querySelectorAll('.container_play_musica_amigo')[c]
+                const container_img_musica_ouvindo_amigo = document.querySelectorAll('.container_img_musica_ouvindo_amigo')[c]
+                const img_musica_ouvindo_amigo = container_img_musica_ouvindo_amigo.querySelector('img')
+
+                if(UsersData.Online == false) {
+                    ball_offline.className = 'ball_offline'
+                    span_offline.className = 'span_offline'
+                } else {
+                    ball_offline.classList.remove('ball_offline')
+                    span_offline.classList.remove('span_offline')
+                }
+
+                if(UsersData.Online == false) {
                     span_offline.innerText = 'Offline...'
-    
-                } else if(TodosOsUsers[a].User.Email == Email && UsersData.Online == true) {
+
+                } else if(UsersData.Online == true) {
                     span_offline.innerText = 'Online...'
                 }
 
                 //? Musica ouvindo agora
                 let ListaMusica
                 if(UsersData.Ouvindo.ID) {
+                    container_musica_ouvindo_amigo.id = UsersData.Ouvindo.ID    
+
                     for (let c = 0; c < TodasMusicas.Musicas.length; c++) {
                         if(TodasMusicas.Musicas[c].ID == UsersData.Ouvindo.ID) {
                             ListaMusica = TodasMusicas.Musicas[c]
@@ -88,48 +193,27 @@ function Carregar_Amigos(Email, UsersData) {
                             container_musica_ouvindo_amigo.style.display = 'block'
                         }                        
                     }
+                } else {
+                    container_musica_ouvindo_amigo.style.display = 'none'
                 }
-    
-                //* AppendChild
-                div_container_img.appendChild(img_perfil)
-                container_img_perfil_amigo.appendChild(div_container_img)
-                container_img_perfil_amigo.appendChild(ball_offline)
-
-                container_texto_perfil_amigo.appendChild(p)
-                container_texto_perfil_amigo.appendChild(span_offline)
-
-                primeira_parte_perfil_amigo.appendChild(container_img_perfil_amigo)
-                primeira_parte_perfil_amigo.appendChild(container_texto_perfil_amigo)
-
-                container_play_musica_amigo.appendChild(play_musica_amigo)
-                container_img_musica_ouvindo_amigo.appendChild(img_musica_ouvindo_amigo)
-
-                container_musica_ouvindo_amigo.appendChild(container_play_musica_amigo)
-                container_musica_ouvindo_amigo.appendChild(container_img_musica_ouvindo_amigo)
-
-                container_perfil_amigo.appendChild(primeira_parte_perfil_amigo)
-                container_perfil_amigo.appendChild(container_musica_ouvindo_amigo)
-
-                container_amigos.appendChild(container_perfil_amigo)
-
-                //* Funções
-                //? Ao passar o mouse na música tocando agora no perfil amigo vai aparecer um icone de play
-                container_play_musica_amigo.addEventListener('mouseenter', () => {
-                    container_play_musica_amigo.style.opacity = '1'
-                })
-
-                //? Ao tirar o mouse na música tocando agora no perfil amigo vai sumir o icone de play
-                container_play_musica_amigo.addEventListener('mouseleave', () => {
-                    container_play_musica_amigo.style.opacity = '0'
-                })
-
-                //? Ao clicar vai começar a música
-                container_play_musica_amigo.addEventListener('click', () => {
-                    DarPlayMusica(ListaMusica)
-                })
             }
         }
-    }
+
+        if(!amigo_encontrado) {
+            if(!limpar_lista_amigo) {
+                limpar_lista_amigo = true
+                document.querySelector('#container_amigos').innerHTML = ''
+                
+                setTimeout(() => {
+                    limpar_lista_amigo = false
+                }, 1000)
+            }
+
+            resolve('Amigo não encontrado')
+
+        }
+
+    })
 }
 
 const input_add_amigo = document.querySelector('#input_add_amigo')

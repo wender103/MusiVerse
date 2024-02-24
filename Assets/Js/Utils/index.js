@@ -169,21 +169,26 @@ function gerarCorAleatoria() {
 
 function rolarAteOTopoDoElemento(elemento) {
   // Verifica se o elemento foi passado corretamente
-  if (!elemento) return;
+  if (!elemento) return
 
   // Faz o site rolar até o topo do elemento
-  elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  elemento.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 //* View Port cell
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-let vh = window.innerHeight * 0.01;
+let vh = window.innerHeight * 0.01
 // Then we set the value in the --vh custom property to the root of the document
-document.documentElement.style.setProperty('--vh', `${vh}px`);
+document.documentElement.style.setProperty('--vh', `${vh}px`)
 
 // We listen to the resize event
 window.addEventListener('resize', () => {
   // We execute the same script as before
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-});
+  let vh = window.innerHeight * 0.01
+  document.documentElement.style.setProperty('--vh', `${vh}px`)
+})
+
+function arrumar_responsividade() {
+  document.querySelector('#container_amigos').style.height = 'calc(100% - 240px)'
+  document.querySelector('#container_input_add_amigos').style.bottom = '100px'
+}

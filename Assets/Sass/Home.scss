@@ -444,6 +444,7 @@ body {
                     border-radius: 5px;
                     overflow: hidden;
                     position: relative;
+                    display: none;
                     
                     div.container_play_musica_amigo {
                         width: 100%;
@@ -462,7 +463,6 @@ body {
                             width: 30px;
                             height: 30px;
                             // position: absolute;
-                            rotate: 180deg;
                             top: 50%;
                         }
                     }
@@ -485,6 +485,7 @@ body {
             width: calc(100% - 40px);
             height: 40px;
             position: absolute;
+            transition: 700ms bottom ease-in-out;
             bottom: 20px;
             padding: 0 20px;
             left: 0;

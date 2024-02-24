@@ -47,7 +47,12 @@ function Cadastrar() {
                 InfosPerfil: {
                     Seguidores: [],
                     Seguindo: [],
-                    Amigos: [],
+                    Amigos: {
+                        Aceitos: [],
+                        Recusados: [],
+                        Pendentes: [],
+                        Bloqueados: []
+                    },
                     ViewsSemanais: 0,
                 },
                 MusicasPostadas: [],

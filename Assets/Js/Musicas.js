@@ -1568,6 +1568,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
             //? ----------------------------------------------------------
     
             document.getElementById('BarraMusica').classList.add('BarraMusicaOpen')
+            arrumar_responsividade()
             const PlayBtn = document.getElementById('PlayBtn')
             PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
     
@@ -2433,6 +2434,7 @@ document.getElementById('container_sobre_qm_postou_cell').addEventListener('clic
 
 let ultimoNomeAbirTelaTocandoAgora
 function AbrirTelaTocandoAgora(Nome) {
+    Fehcar_Aba_Amigos()
     const TelaTocandoAgora = document.getElementById('TelaTocandoAgora')
 
     if(Nome == 'OpenViaBtn') {
