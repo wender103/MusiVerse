@@ -36,7 +36,7 @@ function obterCoresDaImagem(urlDaImagem) {
         //? Faça o que precisar com as cores, como atualizar a interface do seu site
       })
       .catch(error => {
-        console.error('Erro ao obter as cores da imagem:', error)
+        // console.warn('Erro ao obter as cores da imagem:', error)
         reject(error)
       })
   })
@@ -191,4 +191,16 @@ window.addEventListener('resize', () => {
 function arrumar_responsividade() {
   document.querySelector('#container_amigos').style.height = 'calc(100% - 240px)'
   document.querySelector('#container_input_add_amigos').style.bottom = '100px'
+}
+
+//? Vai colocar a img de perfil do user pesquisado
+function carregarImagem(src, callback) {
+  var img = new Image()
+  img.onload = function() {
+      callback(img)
+  }
+  img.onerror = function() {
+      callback(null)
+  }
+  img.src = src
 }

@@ -9,7 +9,7 @@ function Fehcar_Aba_Amigos() {
 
 const container_amigos = document.querySelector('#container_amigos')
 function Carregar_Amigos(Email, UsersData) {
-    console.log('Carregar_Amigos foi chamado');
+    // console.log('Carregar_Amigos foi chamado');
     let Amigos = currentUser.User.InfosPerfil.Amigos.Aceitos
 
     for(let a = 0; a < TodosOsUsers.length; a++) {
@@ -55,19 +55,18 @@ function Carregar_Amigos(Email, UsersData) {
             //* Textos
             play_musica_amigo.src = 'Assets/Imgs/Icons/Play.png'
 
-            if(TodosOsUsers[a].User.Personalizar.FotoPerfil != undefined && TodosOsUsers[a].User.Personalizar.FotoPerfil != null && TodosOsUsers[a].User.Personalizar.FotoPerfil != '') {
-                var img = new Image()
-                img.src = TodosOsUsers[a].User.Personalizar.FotoPerfil
-                img.onload = function() {
-                    img_perfil.src = TodosOsUsers[a].User.Personalizar.FotoPerfil
-                }
-                img.onerror = function() {
-                    img_perfil.src = `Assets/Imgs/Banners/fitaCassete.avif`
-                }
-
-            } else {
-                img_perfil.src = `Assets/Imgs/Banners/fitaCassete.avif`
-            }
+            
+            carregarImagem(TodosOsUsers[a].User.Personalizar.FotoPerfil, function(imgPerfil) {
+                carregarImagem(TodosOsUsers[a].User.Personalizar.Background, function(imgBackground) {
+                    if (imgPerfil) {
+                        img_perfil.src = imgPerfil.src
+                    } else if (imgBackground) {
+                        img_perfil.src = imgBackground.src
+                    } else {
+                        img_perfil.src = 'Assets/Imgs/Banners/fitaCassete.avif'
+                    }
+                })
+            })
 
             p.innerText = TodosOsUsers[a].User.Nome
 
@@ -139,6 +138,13 @@ function Carregar_Amigos(Email, UsersData) {
                     }
                 }
             })
+
+            container_perfil_amigo.addEventListener('click', (e) => {
+                let el = e.target
+                if(el.className != 'container_play_musica_amigo' && el.className != 'play_musica_amigo' && el.className != 'container_musica_ouvindo_amigo') {
+                    AbrirPaginas('profile', TodosOsUsers[a].User.Id)
+                }
+            })
         }
     }
 }
@@ -148,7 +154,7 @@ let amigo_encontrado = false
 let limpar_lista_amigo = false
 function Atualizar_Amigo(Email, UsersData) {
     return new Promise((resolve, reject) => {
-        console.log('Perfil atualizou');
+        // console.log('Perfil atualizou');
         const container_perfil_amigo = document.querySelectorAll('.container_perfil_amigo')
 
         for(let c = 0; c < container_perfil_amigo.length; c++) {

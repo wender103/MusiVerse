@@ -409,7 +409,7 @@ function RetornarUltimasPesquisas(Local) {
                     div.addEventListener('click', (event) => {
                         
                         if (event.target != span && event.target.className != 'BtnsEditarMusicaLinha') {
-                            AbrirTelaTocandoAgora(Pesquisa)
+                            AbrirTelaTocandoAgora('Pesquisar')
 
                             ListaProxMusica = {
                                 Musicas: TodasMusicas.Musicas,
@@ -562,9 +562,9 @@ function RetornarUltimasPesquisas(Local) {
 
                     img.src = TodasMusicas.Musicas[c].LinkImg
                     if(img.src.includes('treefy')) {
-                    containerImg.classList.add('ContainerImgMusicaCaixa', 'ContainerImgArtistaHistoricoTreeFy')
+                        containerImg.classList.add('ContainerImgMusicaCaixa', 'ContainerImgArtistaHistoricoTreeFy')
                     } else {
-                    containerImg.classList.add('ContainerImgMusicaCaixa')
+                        containerImg.classList.add('ContainerImgMusicaCaixa')
                     }
 
                     divTexto.className = 'TextoMusicaCaixa'
@@ -573,8 +573,8 @@ function RetornarUltimasPesquisas(Local) {
                     divBlurTexto.className = 'divBlurTexto2'
                     divBlurTexto.innerHTML = `<img src="${TodasMusicas.Musicas[c].LinkImg}">`
 
-                    divTexto.appendChild(p)
                     divTexto.appendChild(span)
+                    divTexto.appendChild(p)
 
                     const corAleatoria = `#${((1 << 24) * Math.random() | 0).toString(16).padStart(6, '0')}`
                     // let corSVG = corAleatoria
@@ -596,8 +596,15 @@ function RetornarUltimasPesquisas(Local) {
                     article.appendChild(div)
 
                     //? Ao clicar no nome do Autor
-                    div.addEventListener('click', () => {
-                        AbrirPaginas('artist', TodasMusicas.Musicas[c].ID)
+                    div.addEventListener('click', (e) => {
+                        let el = e.target
+                        if(el.className != 'BtnDarPlay') {
+                            AbrirPaginas('artist', TodasMusicas.Musicas[c].ID)
+                        }
+                    })
+
+                    darPlay.addEventListener('click', () => {
+                        Tocar_Artista_Sem_Abrir(TodasMusicas.Musicas[c].Autor)
                     })
                 }
             }

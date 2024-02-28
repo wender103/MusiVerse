@@ -1468,249 +1468,323 @@ let MusicaTocandoAgora = {}
 let MusicaColetarDados = {}
 let salvarHistorico = false
 
+let ListaDarPlay = {}
+let RepetirMusica = false
+
 //? Vai dar play naas músicas
 function DarPlayMusica(Lista, num, Pausar = false) {
-    return new Promise((resolve, reject) => {
-        function AtualizarViewSemanal() {
-            let userEncontrado = false
-    
-            for(let c = 0; c < TodosOsUsers.length; c++) {
-                if(TodosOsUsers[c].User.Email == Lista.EmailUser && userEncontrado == false) {
-                    userEncontrado = true
-    
-                    db.collection('Users').doc(TodosOsUsers[c].User.Id).get().then((Users) => {
-                            const Usuarios = Users.data()
-                        if(Usuarios.Email == Lista.EmailUser) {
-                            let infosUser = Usuarios.InfosPerfil
+    isPlaying = true
+
+    if(Lista != undefined && ListaDarPlay.Lista != Lista) {
+        ListaDarPlay = {
+            Lista,
+            num,
+            Pausar,
+        }
+
+        if(RepetirMusica) {
+            Repetir_musica()
+        }
+    }
+
+    if(RepetirMusica) {
+        audioPlayer.currentTime = 0
+        audioPlayer.play()
+
+        setTimeout(() => {
+            audioPlayer.play()
+        }, 1000)
+
+    } else {
+        return new Promise((resolve, reject) => {
+            function AtualizarViewSemanal() {
+                let userEncontrado = false
         
-                            let dataHj = new Date()
-                            const DataAtual = `${dataHj.getDate()}${dataHj.getMonth() +1}${dataHj.getFullYear()}`
-                            //? Caso tenha acabado a semana vai zerar as views do user
-                            try {
-                                if(DataAtual - infosUser.ViewsSemanais.Data >= 7) {
-                                    infosUser.ViewsSemanais.Data = DataAtual
-                                    infosUser.ViewsSemanais.Views = 1
-                                } else {
-                                    infosUser.ViewsSemanais.Views = parseInt(infosUser.ViewsSemanais.Views) + 1
+                for(let c = 0; c < TodosOsUsers.length; c++) {
+                    try {
+                        if(TodosOsUsers[c].User.Email == Lista.EmailUser && userEncontrado == false) {
+                            userEncontrado = true
+            
+                            db.collection('Users').doc(TodosOsUsers[c].User.Id).get().then((Users) => {
+                                    const Usuarios = Users.data()
+                                if(Usuarios.Email == Lista.EmailUser) {
+                                    let infosUser = Usuarios.InfosPerfil
+                
+                                    let dataHj = new Date()
+                                    const DataAtual = parseInt(`${dataHj.getDate()}${dataHj.getMonth() +1}${dataHj.getFullYear()}`)
+                                    //? Caso tenha acabado a semana vai zerar as views do user
+                                    try {
+                                        if(DataAtual - parseInt(infosUser.ViewsSemanais.Data) >= 7) {
+                                            infosUser.ViewsSemanais.Data = DataAtual
+                                            infosUser.ViewsSemanais.Views = 1
+                                        } else {
+                                            infosUser.ViewsSemanais.Views = parseInt(infosUser.ViewsSemanais.Views) + 1
+                                        }
+                                    } catch {
+                                        const newInfoUser = {
+                                            Seguidores: infosUser.Seguidores,
+                                            Seguindo: infosUser.Seguindo,
+                                            Amigos: infosUser.Amigos,
+                                            ViewsSemanais: {
+                                                Data: DataAtual,
+                                                Views: 1
+                                            },
+                                        }
+            
+                                        infosUser = newInfoUser
+                                    }
+                
+                                    setTimeout(() => {
+                                        db.collection('Users').doc(TodosOsUsers[c].User.Id).update({ InfosPerfil: infosUser })
+                                    }, 500)
                                 }
-                            } catch {
-                                const newInfoUser = {
-                                    Seguidores: infosUser.Seguidores,
-                                    Seguindo: infosUser.Seguindo,
-                                    Amigos: infosUser.Amigos,
-                                    ViewsSemanais: {
-                                        Data: DataAtual,
-                                        Views: 1
-                                    },
-                                }
-    
-                                infosUser = newInfoUser
-                            }
-        
-                            setTimeout(() => {
-                                db.collection('Users').doc(TodosOsUsers[c].User.Id).update({ InfosPerfil: infosUser })
-                            }, 500)
+                            })
                         }
-                    })
+                    } catch (error) {
+                        console.warn('Algo deu errado ao tentar atribuir a view! Error: ',  + error)
+                    }
                 }
-            }
-        } AtualizarViewSemanal()
-    
-        function EnviarDados() {
-            if(audioPlayer.currentTime) {
-                if(salvarHistorico == false) {
-                    salvarHistorico = true
+            } AtualizarViewSemanal()
         
-                    MusicaColetarDados = {
-                        Musica: Lista.ID
-                    }
-                } else {
-                    MusicaColetarDados = {
-                        Musica: MusicaColetarDados.Musica,
-                        Tempo: audioPlayer.currentTime
-                    }
-        
-                    coletarHistorico(MusicaColetarDados)
-        
-                    salvarHistorico = false
-                    EnviarDados()
-                }
-            }
-        } EnviarDados()
-    
-        AddInfoTelaTocandoAgora(Lista)
-
-        Atualizar_Musica_Ouvindo_Amigo(currentUser.User.Email, Lista.ID)
-    
-        updateURLParameter('music', Lista.ID)
-    
-        MusicaTocandoAgora = Lista
-
-        //? Vai pegar as cores da img da música
-        Trocar_Letra()
-        Trocar_cor_barra_musica(Lista.LinkImg)
-
-        //? Vai checar se a música foi curtida ou n
-        FavoritarDesfavoritarMusica(Lista.ID, 'Checar').then((resolve) => {
-            document.getElementById('HeartBarraMusica').src = resolve
-            document.getElementById('HeartBarraMusica2').src = resolve
-        })
-    
-        if(trocouDeMusica == false) {
-            trocouDeMusica = true
-            document.title = `${Lista.NomeMusica}`
-            
-            setTimeout(() => {
-                fimMusica = false
-                trocouDeMusica = false
-            }, 500)
-    
-            //? ----------------------------------------------------------
-    
-            document.getElementById('BarraMusica').classList.add('BarraMusicaOpen')
-            arrumar_responsividade()
-            const PlayBtn = document.getElementById('PlayBtn')
-            PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
-    
-            const PlayBtn2 = document.getElementById('PlayBtn2')
-            PlayBtn2.src = `Assets/Imgs/Icons/Pause.png`
-    
-            const PlayCellBarraMusica = document.getElementById('PlayCellBarraMusica')
-            PlayCellBarraMusica.src = `Assets/Imgs/Icons/Pause.png`
-    
-            //! Vai passar a música ou voltar usando os btns do teclado
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: Lista.NomeMusica,
-                artist: Lista.Autor,
-                album: '...',
-                artwork: [
-                    { 
-                        src: Lista.LinkImg, 
-                        sizes: '300x300', 
-                        type: 'image/png', 
-                        purpose: 'cover', 
-                        style: 'object-fit: cover'
-                    }
-                ]
-            })
-    
-            navigator.mediaSession.setActionHandler('nexttrack', function() {
-                NextSong()
-            })
-    
-            navigator.mediaSession.setActionHandler('previoustrack', function() {
-                BackSong()
-            })
-    
-            audioPlayer.src = Lista.LinkAudio
-    
-            audioPlayer.addEventListener('canplaythrough', function() {
-                try {
-                    if(!Pausar) {
-                        audioPlayer.play()
-                    } else {
-                        isPlaying = true
-                        PausaDespausarMusica()
-                    }
-                } catch (error) {
-                    console.error('Erro ao reproduzir áudio:', error.message)
-                }
-    
-                //? Vai mudar a informações na barra música para o pc
-                const imgMusicaBarraMusica = document.getElementById('imgMusicaBarraMusica')
-                const ImgLargaEscalaBarraMusica = document.getElementById('ImgLargaEscalaBarraMusica')
-                if(Lista.LinkImg.includes('treefy')) {
-                    imgMusicaBarraMusica.classList.add('imgMusicaBarraMusicaTreeFy')
-                    ImgLargaEscalaBarraMusica.classList.add('imgMusicaBarraMusicaTreeFy')
-                } else {
-                    imgMusicaBarraMusica.classList.remove('imgMusicaBarraMusicaTreeFy')
-                    ImgLargaEscalaBarraMusica.classList.remove('imgMusicaBarraMusicaTreeFy')
-                }
-                imgMusicaBarraMusica.src = Lista.LinkImg
-                ImgLargaEscalaBarraMusica.src = Lista.LinkImg
-                document.getElementById('NomeMusicaBarraMusica').innerText = Lista.NomeMusica
-                document.getElementById('AutorMusicaBarraMusica').innerText = Lista.Autor
-    
-                //? Vai mudar a informações na barra música para o cell
-                // document.getElementById('containerImgMusicaTocandoAgora').style.backgroundImage = `url(${Lista.LinkImg})`
-                document.getElementById('imgMusicaTocandoAgoraPagMusicaTocandoAgora').src = Lista.LinkImg
-                document.getElementById('nomeMusicaTocandoAgoraPagMusicaTocandoAgora').innerText = Lista.NomeMusica
-                document.getElementById('autorMusicaTocandoAgoraPagMusicaTocandoAgora').innerText = Lista.Autor
-    
-                //? Vai abir a img em alta escala
-                imgMusicaBarraMusica.addEventListener('click', () => {
-                    if(window.innerWidth > 628) {
-                        document.getElementById('containerImgLargaEscalaBarraMusica').style.bottom = '90px'
-                    }
-                })
+            function EnviarDados() {
+                if(audioPlayer.currentTime) {
+                    try {
+                        if(salvarHistorico == false) {
+                            salvarHistorico = true
                 
-                document.getElementById('btnAbrirContainerImgLargaEscalaBarraMusica').addEventListener('click', () => {
-                    document.getElementById('containerImgLargaEscalaBarraMusica').style.bottom = '90px'
-                })
+                            MusicaColetarDados = {
+                                Musica: Lista.ID
+                            }
+                        } else {
+                            MusicaColetarDados = {
+                                Musica: MusicaColetarDados.Musica,
+                                Tempo: audioPlayer.currentTime
+                            }
                 
-                //? Vai fechar a img em alta escala
-                document.getElementById('btnFecharContainerImgLargaEscalaBarraMusica').addEventListener('click', () => {
-                    document.getElementById('containerImgLargaEscalaBarraMusica').style.bottom = '-100vh'
-                })
+                            coletarHistorico(MusicaColetarDados)
+                
+                            salvarHistorico = false
+                            EnviarDados()
+                        }
+                    } catch (error) {
+                        console.warn(error)
+                    }
+                }
+            } EnviarDados()
+        
+            AddInfoTelaTocandoAgora(Lista)
     
-                document.getElementById('containerImgLargaEscalaBarraMusica').addEventListener('click', () => {
-                    document.getElementById('containerImgLargaEscalaBarraMusica').style.bottom = '-100vh'
-                })
+            Atualizar_Musica_Ouvindo_Amigo(currentUser.User.Email, Lista.ID)
+        
+            updateURLParameter('music', Lista.ID)
+        
+            MusicaTocandoAgora = Lista
     
-                //? Vai atualizar a barra de progresso da música
-                let progressoMusicaBarraMusica = document.getElementById('progressoMusicaBarraMusica') //? Progresso barra para pc
-                let progressoMusicaTocandoAgora = document.getElementById('progressoMusicaTocandoAgora') //? Progresso barra para cell
+            //? Vai pegar as cores da img da música
+            Trocar_Letra()
+            Trocar_cor_barra_musica(Lista.LinkImg)
     
-                audioPlayer.addEventListener('timeupdate', function() {
-                    const percentProgress = (audioPlayer.currentTime / audioPlayer.duration) * 100
-                    progressoMusicaBarraMusica.value = percentProgress
-                    progressoMusicaTocandoAgora.value = percentProgress
-                })
-            
-                progressoMusicaBarraMusica.addEventListener('input', function() {
-                    const newTime = (progressoMusicaBarraMusica.value / 100) * audioPlayer.duration
-                    audioPlayer.currentTime = newTime
-                })
-    
-                progressoMusicaTocandoAgora.addEventListener('input', function() {
-                    const newTime = (progressoMusicaTocandoAgora.value / 100) * audioPlayer.duration
-                    audioPlayer.currentTime = newTime
-                })
-            })
-    
-            audioPlayer.addEventListener('pause', function() {
-                isPlaying = false
-                PlayBtn.src = `Assets/Imgs/Icons/Play.png`
-                PlayBtn2.src = `Assets/Imgs/Icons/Play.png`
-                PlayCellBarraMusica.src = `Assets/Imgs/Icons/Play.png`
-                document.title = `Musi .-. Verse`
+            //? Vai checar se a música foi curtida ou n
+            FavoritarDesfavoritarMusica(Lista.ID, 'Checar').then((resolve) => {
+                document.getElementById('HeartBarraMusica').src = resolve
+                document.getElementById('HeartBarraMusica2').src = resolve
             })
         
-            audioPlayer.addEventListener('play', function() {
-                isPlaying = true
-                PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
-                PlayBtn2.src = `Assets/Imgs/Icons/Pause.png`
-                PlayCellBarraMusica.src = `Assets/Imgs/Icons/Pause.png`
+            if(trocouDeMusica == false) {
+                trocouDeMusica = true
                 document.title = `${Lista.NomeMusica}`
-            })
-    
-            // //? Ao acabar a música
-            audioPlayer.addEventListener('ended', function() {
-                if(fimMusica == false) {
-                    fimMusica = true
+                
+                setTimeout(() => {
+                    fimMusica = false
+                    trocouDeMusica = false
+                }, 500)
+        
+                //? ----------------------------------------------------------
+        
+                document.getElementById('BarraMusica').classList.add('BarraMusicaOpen')
+                arrumar_responsividade()
+                const PlayBtn = document.getElementById('PlayBtn')
+                PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
+        
+                const PlayBtn2 = document.getElementById('PlayBtn2')
+                PlayBtn2.src = `Assets/Imgs/Icons/Pause.png`
+        
+                const PlayCellBarraMusica = document.getElementById('PlayCellBarraMusica')
+                PlayCellBarraMusica.src = `Assets/Imgs/Icons/Pause.png`
+        
+                //! Vai passar a música ou voltar usando os btns do teclado
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: Lista.NomeMusica,
+                    artist: Lista.Autor,
+                    album: '...',
+                    artwork: [
+                        { 
+                            src: Lista.LinkImg, 
+                            sizes: '300x300', 
+                            type: 'image/png', 
+                            purpose: 'cover', 
+                            style: 'object-fit: cover'
+                        }
+                    ]
+                })
+
+                navigator.mediaSession.setActionHandler('nexttrack', function() {
+                    RepetirMusica = false
                     NextSong()
-                }
-            })
-    
-            //? Vai abrir a aba com as músicas do autor ques está ouvindo a música
-            document.getElementById('AutorMusicaBarraMusica').addEventListener('click', () => {
-                AbrirPaginas('artist', Lista.ID)
-            })
+                })
+
+                navigator.mediaSession.setActionHandler('previoustrack', function() {
+                    BackSong()
+                })
+        
+                audioPlayer.src = Lista.LinkAudio
+        
+                //* audioPlayer.addEventListener('canplaythrough', function() {
+        
+                //* audioPlayer.addEventListener('pause', function() {
             
-            resolve('Música iniciada')
+                //* audioPlayer.addEventListener('play', function() {
+        
+                //* audioPlayer.addEventListener('ended', function() {
+                
+                resolve('Música iniciada')
+            }
+        })
+    }
+}
+
+//* -------------------------
+audioPlayer.addEventListener('canplaythrough', function() {
+    Audio_Tocando(ListaDarPlay.Lista, ListaDarPlay.num, ListaDarPlay.Pausar)
+})
+
+function Audio_Tocando(Lista, num, Pausar = false) {
+    try {
+        if(!Pausar) {
+            audioPlayer.play()
+        } else {
+            isPlaying = true
+            PausaDespausarMusica()
+        }
+    } catch (error) {
+        console.error('Erro ao reproduzir áudio:', error.message)
+    }
+
+    //? Vai mudar a informações na barra música para o pc
+    const imgMusicaBarraMusica = document.getElementById('imgMusicaBarraMusica')
+    const ImgLargaEscalaBarraMusica = document.getElementById('ImgLargaEscalaBarraMusica')
+    try {
+        if(Lista.LinkImg.includes('treefy')) {
+            imgMusicaBarraMusica.classList.add('imgMusicaBarraMusicaTreeFy')
+            ImgLargaEscalaBarraMusica.classList.add('imgMusicaBarraMusicaTreeFy')
+        } else {
+            imgMusicaBarraMusica.classList.remove('imgMusicaBarraMusicaTreeFy')
+            ImgLargaEscalaBarraMusica.classList.remove('imgMusicaBarraMusicaTreeFy')
+        }
+    } catch (error) {
+        imgMusicaBarraMusica.classList.remove('imgMusicaBarraMusicaTreeFy')
+        ImgLargaEscalaBarraMusica.classList.remove('imgMusicaBarraMusicaTreeFy')
+    }
+    imgMusicaBarraMusica.src = Lista.LinkImg
+    ImgLargaEscalaBarraMusica.src = Lista.LinkImg
+    document.getElementById('NomeMusicaBarraMusica').innerText = Lista.NomeMusica
+    document.getElementById('AutorMusicaBarraMusica').innerText = Lista.Autor
+
+    //? Vai mudar a informações na barra música para o cell
+    // document.getElementById('containerImgMusicaTocandoAgora').style.backgroundImage = `url(${Lista.LinkImg})`
+    document.getElementById('imgMusicaTocandoAgoraPagMusicaTocandoAgora').src = Lista.LinkImg
+    document.getElementById('nomeMusicaTocandoAgoraPagMusicaTocandoAgora').innerText = Lista.NomeMusica
+    document.getElementById('autorMusicaTocandoAgoraPagMusicaTocandoAgora').innerText = Lista.Autor
+
+    //? Vai abir a img em alta escala
+    imgMusicaBarraMusica.addEventListener('click', () => {
+        if(window.innerWidth > 628) {
+            document.getElementById('containerImgLargaEscalaBarraMusica').style.bottom = '90px'
         }
     })
+    
+    document.getElementById('btnAbrirContainerImgLargaEscalaBarraMusica').addEventListener('click', () => {
+        document.getElementById('containerImgLargaEscalaBarraMusica').style.bottom = '90px'
+    })
+    
+    //? Vai fechar a img em alta escala
+    document.getElementById('btnFecharContainerImgLargaEscalaBarraMusica').addEventListener('click', () => {
+        document.getElementById('containerImgLargaEscalaBarraMusica').style.bottom = '-100vh'
+    })
+
+    document.getElementById('containerImgLargaEscalaBarraMusica').addEventListener('click', () => {
+        document.getElementById('containerImgLargaEscalaBarraMusica').style.bottom = '-100vh'
+    })
+
+    //? Vai atualizar a barra de progresso da música
+    let progressoMusicaBarraMusica = document.getElementById('progressoMusicaBarraMusica') //? Progresso barra para pc
+    let progressoMusicaTocandoAgora = document.getElementById('progressoMusicaTocandoAgora') //? Progresso barra para cell
+
+    audioPlayer.addEventListener('timeupdate', function() {
+        const percentProgress = (audioPlayer.currentTime / audioPlayer.duration) * 100
+        progressoMusicaBarraMusica.value = percentProgress
+        progressoMusicaTocandoAgora.value = percentProgress
+    })
+
+    progressoMusicaBarraMusica.addEventListener('input', function() {
+        const newTime = (progressoMusicaBarraMusica.value / 100) * audioPlayer.duration
+        audioPlayer.currentTime = newTime
+    })
+
+    progressoMusicaTocandoAgora.addEventListener('input', function() {
+        const newTime = (progressoMusicaTocandoAgora.value / 100) * audioPlayer.duration
+        audioPlayer.currentTime = newTime
+    })
 }
+
+//* ------------------------
+audioPlayer.addEventListener('pause', function() {
+    Esta_Pausado()
+})
+
+function Esta_Pausado() {
+    const PlayBtn = document.getElementById('PlayBtn')
+    const PlayBtn2 = document.getElementById('PlayBtn2')
+    PlayBtn.src = `Assets/Imgs/Icons/Play.png`
+    PlayBtn2.src = `Assets/Imgs/Icons/Play.png`
+    PlayCellBarraMusica.src = `Assets/Imgs/Icons/Play.png`
+    document.title = `Musi .-. Verse`
+}
+
+//* ------------------------
+
+audioPlayer.addEventListener('play', function() {
+    Esta_Tocando(ListaDarPlay.Lista)
+})
+
+function Esta_Tocando(Lista) {
+    const PlayBtn = document.getElementById('PlayBtn')
+    const PlayBtn2 = document.getElementById('PlayBtn2')
+    PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
+    PlayBtn2.src = `Assets/Imgs/Icons/Pause.png`
+    PlayCellBarraMusica.src = `Assets/Imgs/Icons/Pause.png`
+    document.title = `${Lista.NomeMusica}`
+}
+
+//* ------------------------
+
+//? Ao acabar a música
+audioPlayer.addEventListener('ended', function() {
+    Fim_Audio()
+})
+
+function Fim_Audio()  {
+    NextSong()
+}
+
+//* ------------------------
+
+//? Vai abrir a aba com as músicas do autor ques está ouvindo a música
+document.getElementById('AutorMusicaBarraMusica').addEventListener('click', () => {
+    AbrirPaginas('artist', ListaDarPlay.Lista.ID)
+})
+
+//* ------------------------
 
 //? Vai alterar a URL
 const InfosUrl = {
@@ -1801,54 +1875,82 @@ PlayCellBarraMusica.addEventListener('click', function() {
 })
 
 function PausaDespausarMusica() {
-    if(isPlaying == true) {
+    if(!isPlaying) {
+        isPlaying = true
+        PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
+        PlayBtn2.src = `Assets/Imgs/Icons/Pause.png`
+        PlayCellBarraMusica.src = `Assets/Imgs/Icons/Pause.png`
+        audioPlayer.play()
+
+        try {
+            document.title = `${ListaProxMusica.Musicas[ListaProxMusica.Numero].NomeMusica}`
+        } catch{}
+
+    } else {
         document.title = `Musi ._. Verse`
         isPlaying = false
         PlayBtn.src = `Assets/Imgs/Icons/Play.png`
         PlayBtn2.src = `Assets/Imgs/Icons/Play.png`
         PlayCellBarraMusica.src = `Assets/Imgs/Icons/Play.png`
         audioPlayer.pause()
+    }
+}
 
+function Repetir_musica() {
+    if(RepetirMusica == true) {
+        RepetirMusica = false
+        document.getElementById('CicleBtn').src = 'Assets/Imgs/Icons/Cicle.png'
+        document.getElementById('CicleBtn2').src = 'Assets/Imgs/Icons/Cicle.png'
     } else {
-        isPlaying = true
-        PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
-        PlayBtn2.src = `Assets/Imgs/Icons/Pause.png`
-        PlayCellBarraMusica.src = `Assets/Imgs/Icons/Pause.png`
-        audioPlayer.play()
-        // document.title = `${Lista.NomeMusica}`
+        RepetirMusica = true
+        document.getElementById('CicleBtn').src = 'Assets/Imgs/Icons/CicleSelected.png'
+        document.getElementById('CicleBtn2').src = 'Assets/Imgs/Icons/CicleSelected.png'
     }
 }
 
 // //? Vai pular a música
 const NextBtn = document.getElementById('NextBtn')
 NextBtn.addEventListener("click", () => {
+    if(RepetirMusica) {
+        Repetir_musica()
+    }
     NextSong()
 })
 
 const NextBtn2 = document.getElementById('NextBtn2')
 NextBtn2.addEventListener("click", () => {
+    if(RepetirMusica) {
+        Repetir_musica()
+    }
     NextSong()
 })
 
-let RepetirMusica = false
 //? Vai repetir a música
 const CicleBtn = document.getElementById('CicleBtn')
 CicleBtn.addEventListener('click', () => {
-    if(RepetirMusica == true) {
-        RepetirMusica = false
-        CicleBtn.src = 'Assets/Imgs/Icons/Cicle.png'
-    } else {
-        RepetirMusica = true
-        CicleBtn.src = 'Assets/Imgs/Icons/CicleSelected.png'
-    }
+    Repetir_musica()
 })
 
-function NextSong() {
+const CicleBtn2 = document.getElementById('CicleBtn2')
+CicleBtn2.addEventListener('click', () => {
+    Repetir_musica()
+})
 
-    if(RepetirMusica == true) {
-        DarPlayMusica(ListaProxMusica.Musicas[ListaProxMusica.Numero], ListaProxMusica.Numero)
+//? Proxima música
+function NextSong() {
+    if(RepetirMusica) {
+       if(!Array.isArray(ListaProxMusica.Musicas)) {
+            DarPlayMusica(ListaProxMusica.Musicas, 0)
+
+       } else {
+            DarPlayMusica(ListaProxMusica.Musicas[ListaProxMusica.Numero], ListaProxMusica.Numero)
+       }
 
     } else {
+        if(!Array.isArray(ListaProxMusica.Musicas)) {
+            ListaProxMusica.Musicas = TodasMusicas.Musicas
+        }
+
         if(ListaProxMusica.FilaMusicas != undefined && ListaProxMusica.FilaMusicas.Musicas.length > 0) {
             DarPlayMusica(ListaProxMusica.FilaMusicas.Musicas[0], 0)
     
@@ -1856,7 +1958,6 @@ function NextSong() {
             RetornarMusicasASeguir()
     
         } else {
-    
             try {
                 if(ListaProxMusica.Numero + 1 < ListaProxMusica.Musicas.length) {
                     ListaProxMusica.Numero =  ListaProxMusica.Numero + 1
@@ -2182,6 +2283,7 @@ function AddInfoTelaTocandoAgora(Musica) {
     const NomeMusicaTelaTocandoAgora = document.getElementById('NomeMusicaTelaTocandoAgora')
     const AutorMusicaTelaTocandoAgora = document.getElementById('AutorMusicaTelaTocandoAgora')
     const imgUserPostouMusicaTelaTocandoAgora = document.getElementById('imgUserPostouMusicaTelaTocandoAgora')
+    const sobre_qm_postou_cell = document.getElementById('sobre_qm_postou_cell')
     const NomeUserPostouMusicaTelaTocandoAgora = document.getElementById('NomeUserPostouMusicaTelaTocandoAgora')
     const NumeroOuvintesTelaTocandoAgora = document.getElementById('NumeroOuvintesTelaTocandoAgora')
     const btnSeguirUserTelaTocandoAgora = document.getElementById('btnSeguirUserTelaTocandoAgora')
@@ -2201,30 +2303,19 @@ function AddInfoTelaTocandoAgora(Musica) {
     btnSeguirUserTelaTocandoAgora.style.display = ''
     for(let c = 0; c < TodosOsUsers.length; c++) {
         if(TodosOsUsers[c].User.Email == Musica.EmailUser) {
-            //? Vai colocar a img de perfil do user pesquisado
-            function carregarImagem(src, callback) {
-                var img = new Image()
-                img.onload = function() {
-                    callback(img)
-                }
-                img.onerror = function() {
-                    callback(null)
-                }
-                img.src = src
-            }
             
             // Pré-carregue as imagens
             carregarImagem(TodosOsUsers[c].User.Personalizar.FotoPerfil, function(imgPerfil) {
                 carregarImagem(TodosOsUsers[c].User.Personalizar.Background, function(imgBackground) {
                     if (imgPerfil) {
                         imgUserPostouMusicaTelaTocandoAgora.src = imgPerfil.src
-                         document.querySelector('#sobre_qm_postou_cell').src = imgPerfil.src
+                        sobre_qm_postou_cell.src = imgPerfil.src
                     } else if (imgBackground) {
                         imgUserPostouMusicaTelaTocandoAgora.src = imgBackground.src
-                         document.querySelector('#sobre_qm_postou_cell').src = imgPerfil.src
+                        sobre_qm_postou_cell.src = imgBackground.src
                     } else {
                         imgUserPostouMusicaTelaTocandoAgora.src = 'Assets/Imgs/Banners/fitaCassete.avif'
-                         document.querySelector('#sobre_qm_postou_cell').src = 'Assets/Imgs/Banners/fitaCassete.avif'
+                        sobre_qm_postou_cell.src = 'Assets/Imgs/Banners/fitaCassete.avif'
                     }
                 })
             })
@@ -2774,4 +2865,27 @@ function hideMenu() {
     for(let c = 0; c < manusClickDireito.length; c++) {
         manusClickDireito[c].style.display = 'none'
     }
+}
+
+//? Vai tocar a música sem abrir a pág
+function Tocar_Artista_Sem_Abrir(Artista) {
+    let arrayMusicasArtista2 = []
+
+    for (let a = TodasMusicas.Musicas.length - 1; a >= 0; a--) {
+        let ArtistaFormadado = formatarTexto(TodasMusicas.Musicas[a].Autor)
+        let AutorFormadato  =  formatarTexto(Artista)
+
+          if(ArtistaFormadado.includes(AutorFormadato) || AutorFormadato.includes(ArtistaFormadado)) {
+            arrayMusicasArtista2.push(TodasMusicas.Musicas[a])
+        }
+      }
+
+      AbrirTelaTocandoAgora(arrayMusicasArtista2[0])
+
+      ListaProxMusica = {
+          Musicas: arrayMusicasArtista2,
+          Numero: 0,
+      }
+      
+      DarPlayMusica(arrayMusicasArtista2[0], 0)
 }

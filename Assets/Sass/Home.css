@@ -427,6 +427,7 @@ body div#container_aba_amigos div#container_amigos {
   flex-direction: column;
   margin-top: 25px;
   gap: 20px;
+  cursor: pointer;
 }
 body div#container_aba_amigos div#container_amigos::-webkit-scrollbar {
   width: 1px; /* Largura da barra de rolagem */
@@ -1883,6 +1884,7 @@ body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_t
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 20px;
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora img {
   width: 100%;

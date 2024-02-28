@@ -270,8 +270,15 @@ function ArtistasMaisOuvidosHistorico(Artistas) {
         article.appendChild(div)
 
         //? Ao clicar no nome do Autor
-        div.addEventListener('click', () => {
-          AbrirPaginas('artist', TodasMusicas.Musicas[b].ID)
+        div.addEventListener('click', (e) => {
+          let el = e.target
+            if(el.className != 'BtnDarPlay') {
+              AbrirPaginas('artist', TodasMusicas.Musicas[b].ID)
+            }
+        })
+
+        darPlay.addEventListener('click', () => {
+          Tocar_Artista_Sem_Abrir(TodasMusicas.Musicas[b].Autor)
         })
       }
     }
@@ -423,25 +430,32 @@ function RecomendarAutoresPlaylistsHistorico() {
           containerPlaylistFavoritaPerfil.appendChild(iconPlayPlaylistFavoritaPerfil)
           articleContainerPlaylistFavoritaPerfil.appendChild(containerPlaylistFavoritaPerfil)
 
-          containerPlaylistFavoritaPerfil.addEventListener('click', () => {
-            AbrirPaginas('artist', TodasMusicas.Musicas[c].ID)
+          containerPlaylistFavoritaPerfil.addEventListener('click', (e) => {
+            let el = e.target
+            if(el.className != 'iconPlayPlaylistFavoritaPerfil') {
+              AbrirPaginas('artist', TodasMusicas.Musicas[c].ID)
+            }
 
           })
 
            containerPlaylistFavoritaPerfil.addEventListener('contextmenu', function (e) {
-                e.preventDefault()
-                const containerOptionsClickArtista = document.getElementById('containerOptionsClickArtista')
-                autorSelecionadoBtnDireito = TodasMusicas.Musicas[c]
-                // Position the custom menu at the mouse coordinates
-                containerOptionsClickArtista.style.left = e.clientX+ 'px'
-                containerOptionsClickArtista.style.top = e.clientY + 'px'
-                containerOptionsClickArtista.style.display = 'block'
+              e.preventDefault()
+              const containerOptionsClickArtista = document.getElementById('containerOptionsClickArtista')
+              autorSelecionadoBtnDireito = TodasMusicas.Musicas[c]
+              // Position the custom menu at the mouse coordinates
+              containerOptionsClickArtista.style.left = e.clientX+ 'px'
+              containerOptionsClickArtista.style.top = e.clientY + 'px'
+              containerOptionsClickArtista.style.display = 'block'
 
-                // Close the menu when clicking outside of it
-                document.addEventListener('click', hideMenu)
+              // Close the menu when clicking outside of it
+              document.addEventListener('click', hideMenu)
 
-                document.addEventListener('scroll', hideMenu)
-            })
+              document.addEventListener('scroll', hideMenu)
+          })
+
+          iconPlayPlaylistFavoritaPerfil.addEventListener('click', () => {
+            Tocar_Artista_Sem_Abrir(TodasMusicas.Musicas[c].Autor)
+          })
 
             function hideMenu() {
                 document.getElementById('containerOptionsClickMusic').style.display = 'none'
