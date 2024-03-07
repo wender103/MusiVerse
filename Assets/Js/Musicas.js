@@ -1574,7 +1574,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
         
             AddInfoTelaTocandoAgora(Lista)
     
-            Atualizar_Musica_Ouvindo_Amigo(currentUser.User.Email, Lista.ID)
+            Atualizar_Presenca(true, currentUser.InfoEmail.email, Lista.ID);
         
             updateURLParameter('music', Lista.ID)
         

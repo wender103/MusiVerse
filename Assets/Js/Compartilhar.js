@@ -57,6 +57,7 @@ function obterValoresDaURL(Comando = 'Tocar Música') {
     if(!gerenciarPresencaChamada) {
         gerenciarPresencaChamada = true
         gerenciarPresencaUsuario()
+        Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID);
     }
 }
 function tocarMusicaDaUrl(ID, Page) {
