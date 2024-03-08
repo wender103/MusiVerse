@@ -1577,6 +1577,8 @@ function DarPlayMusica(Lista, num, Pausar = false) {
             Atualizar_Presenca(true, currentUser.InfoEmail.email, Lista.ID);
         
             updateURLParameter('music', Lista.ID)
+
+            Atualizar_Perfil_DC(Lista)
         
             MusicaTocandoAgora = Lista
     

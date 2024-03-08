@@ -34,7 +34,8 @@ window.addEventListener("beforeunload", function() {
 
 // Função para enviar informações de presença para a API
 function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
-    // fetch('http://localhost:3000/api/updatePresence', {
+    try {
+        // fetch('http://localhost:3000/api/updatePresence', {
         fetch('https://apipresenca.onrender.com/api/updatePresence', {
         method: 'POST',
         headers: {
@@ -48,12 +49,39 @@ function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
     })
     .then(response => {
         if (response.ok) {
-            console.log('Informações de presença enviadas com sucesso para a API');
+            // console.log('Informações de presença enviadas com sucesso para a API');
         } else {
-            console.error('Erro ao enviar informações de presença para a API');
+            // console.warn('Erro ao enviar informações de presença para a API');
         }
     })
     .catch(error => {
-        console.error('Erro de rede ao enviar informações de presença para a API:', error);
+        // console.error('Erro de rede ao enviar informações de presença para a API:', error);
     });
+    } catch (error) {
+        // console.warn(error)
+    }
+}
+
+//* Atualizar no dc
+function Atualizar_Perfil_DC(Musica) {
+    try {
+        const requestData = {
+            state: `De: ${Musica.Autor}`,
+            details: `Ouvindo: ${Musica.NomeMusica}`,
+            largeImageKey: Musica.LinkImg,
+            largeImageText: Musica.NomeMusica,
+        }
+
+        // fetch('http://localhost:3000/prececa/dc', {
+            fetch('https://apipresencadc.onrender.com/prececa/dc', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .catch(error => console.error('Erro:', error))
+    } catch (error) {
+        // console.warn(error)
+    }
 }
