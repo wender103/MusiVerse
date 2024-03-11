@@ -3,59 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musi .-. Verse | Cadastro</title>
-
+    <title>Cadastro | Login</title>
     <link rel="stylesheet" href="Assets/Sass/Cadastro.css">
 </head>
 <body>
-    <div id="boll1" class="backgroundIcons"></div>
-    <div id="boll2" class="backgroundIcons"></div>
-    <div id="boll3" class="backgroundIcons"></div>
-    <div id="boll4" class="backgroundIcons"></div>
+    <div class="boll" id="boll1"></div>
+    <div class="boll" id="boll2"></div>
+    <div class="boll" id="boll3"></div>
+    <div class="boll" id="boll4"></div>
 
     <main>
-        <section>
-            <p>Welcome to</p>
-            <img src="Assets/Imgs/Icons/LogoWithoutBoll.png">
+        <section id="main_pc">
+            <div id="background_signIn" class="bakground_sections"></div>
+            <section id="container_signIn">
+                <h1>Entrar</h1>
+                <form id="form_login">
+                    <input type="email" placeholder="Email" required id="Email_User_Login" oninput="Atualizar_Input(this)">
+                    <input type="password" placeholder="Senha" required id="Senha_User_Login" oninput="Atualizar_Input(this)">
+                    <p>Esqueceu sua senha?</p>
+                    <button onclick="FazerLogin()">Entrar</button>
+                </form>
+            </section>
+    
+            <div id="background_orange" class="right">
+                <div id="container_background_orange">
+                    <section id="text_signIn">
+                        <h1>Olá, Amigo(a)!</h1>
+                        <button onclick="changeModel()">Entrar</button>
+                    </section>
+    
+                    <section id="text_createAccount">
+                        <h1>Bem Vindo(a)!</h1>
+                        <button onclick="changeModel()">Criar Conta</button>
+                    </section>
+                </div>
+            </div>
+    
+            <div id="background_CreatAcoonout" class="bakground_sections"></div>
+            <section id="container_CreatAcoonout">
+                <h1>Criar Conta</h1>
+                <form id="form_cadastro">
+                    <input type="text" placeholder="Nome de usuário" required id="Nome_User_Cadastro" oninput="Atualizar_Input(this)">
+                    <input type="email" placeholder="Email" required id="Email_User_Cadastro" oninput="Atualizar_Input(this)">
+                    <input type="password" placeholder="Senha" required id="Senha_User_Cadastro" oninput="Atualizar_Input(this)">
+                    <input type="text" placeholder="Chave de acesso" required id="Chave_User_Cadastro" oninput="Atualizar_Input(this)">
+                    <button onclick="Cadastrar()">Criar Conta</button>
+                </form>
+            </section>
+        </section>
 
-            <article>
-                <div class="containerInputCadastro">
-                    <input type="email" placeholder="Email@gmail.com" id="inputEmailUser" oninput="atualizarCadastro()">
-                    <div>
-                        <img src="Assets/Imgs/Icons/userIconWhite.png">
+        <section id="main_mobile">
+            <article id="article_login_mobile">
+                <h1>Entrar</h1>
+                <form id="form_login_mobile">
+                    <input type="email" placeholder="Email" required id="Email_User_Login_Mobile" oninput="Atualizar_Input(this)">
+                    <input type="password" placeholder="Senha" required id="Senha_User_Login_Mobile" oninput="Atualizar_Input(this)">
+                    <div id="perg">
+                        <p>Esqueceu sua senha?</p>
+                        <p id="n_tem_conta_p" onclick="Trocar_tela()">Não tem uma conta?</p>
                     </div>
-                </div>
-                
-                <div class="containerInputCadastro">
-                    <input type="password" placeholder="Senha" id="inputSenhaUser" oninput="atualizarCadastro()">
-                    <div>
-                        <img src="Assets/Imgs/Icons/userIcon2.png">
-                    </div>
-                </div>
+                    <button onclick="FazerLogin()">Entrar</button>
+                </form>
+            </article>
 
-                <div class="containerInputCadastro" id="containerNomeUser">
-                    <input type="text" placeholder="Nome de usuário" id="inputNomeUser" oninput="atualizarCadastro()">
-                    <div>
-                        <img src="Assets/Imgs/Icons/userIconWhite.png">
-                    </div>
-                </div>
-
-                <div class="containerInputCadastro" id="containerChave">
-                    <input type="text" placeholder="Chave de acesso" id="inputChave" oninput="atualizarCadastro()">
-                    <div>
-                        <img src="Assets/Imgs/Icons/key.png">
-                    </div>
-                </div>
-
-                <div>
-                    <button id="btnLogin" onclick="FazerLogin()">Login</button>
-                    <button onclick="Cadastrar()" id="btnCadastro">Cadastrar</button>
-                </div>
+            <article id="article_cadastro_mobile">
+                <h1>Criar Conta</h1>
+                <form id="form_cadastro_mobile">
+                    <input type="text" placeholder="Nome de usuário" required id="Nome_User_Cadastro_Mobile" oninput="Atualizar_Input(this)">
+                    <input type="email" placeholder="Email" required id="Email_User_Cadastro_Mobile" oninput="Atualizar_Input(this)">
+                    <input type="password" placeholder="Senha" required id="Senha_User_Cadastro_Mobile" oninput="Atualizar_Input(this)">
+                    <input type="text" placeholder="Chave de acesso" required id="Chave_User_Cadastro_Mobile" oninput="Atualizar_Input(this)">
+                    <p id="tem_conta_p" onclick="Trocar_tela()">Já tem uma conta?</p>
+                    <button onclick="Cadastrar()">Criar Conta</button>
+                </form>
             </article>
         </section>
     </main>
 
-    <div id="CarregamentoTela1" style="display: none;">
+     <!--? --------------- Tela de Carregamento --------------->
+    <div id="CarregamentoTela1">
         
         <div class="preloader">
             <div class="inner">
@@ -66,20 +92,16 @@
           </div>
           </div>
         </div>
-
-        <div id="containerMensagemAleatoria">
-            <strong style="color: #fff;">Estamos finalizando por aqui</strong>
-            <p id="MensagemAleatoria">Quase terminando...</p>
-        </div>
     </div>
 
-     <!--? Firebase -->
-     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-firestore.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-storage.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-auth.js"></script>
-     <script src="Assets/Js/Firebase.js"></script>
-
-    <script src="Assets/Js/Cadastrar.js"></script>
+    <!--? Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-auth.js"></script>
+    <script src="Assets/Js/Firebase.js"></script>
+    
+    <!--? My Scripts -->
+    <script src="Assets/Js/Cadastro.js"></script>
 </body>
 </html>
