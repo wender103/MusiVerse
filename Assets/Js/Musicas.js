@@ -2426,8 +2426,14 @@ function AddInfoTelaTocandoAgora(Musica) {
 //? Vai retonar a fila de músicas
 function RetornarMusicasASeguir() {
     let RetornarProximasMusicasFeito = false
+
+    //* para o pc
     const containerMusicaslistaTelaTocandoAgora = document.getElementById('containerMusicaslistaTelaTocandoAgora')
     containerMusicaslistaTelaTocandoAgora.innerHTML = ''
+
+    //* para o mobile
+    const container_musicas_a_seguir = document.getElementById('container_musicas_a_seguir')
+    container_musicas_a_seguir.innerHTML = ''
 
     const infoLista = document.getElementById('infoLista');
     
@@ -2475,6 +2481,8 @@ function RetornarMusicasASeguir() {
 
             for (let c = 0; c < proximasQuatroCasas.length; c++) {
                 RetornarMusicas(proximasQuatroCasas[c].ID, containerMusicaslistaTelaTocandoAgora, 'Indeterminado', 'Linha', false, false, 'SemScroll');
+
+                RetornarMusicas(proximasQuatroCasas[c].ID, container_musicas_a_seguir, 'Indeterminado', 'Linha', false, false, 'SemScroll');
             }
         } else {
             infoLista.innerText = 'Sua lista está vazia';

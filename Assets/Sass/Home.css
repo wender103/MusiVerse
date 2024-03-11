@@ -1856,6 +1856,7 @@ body section.Paginas#PagMusicaTocandoAgora div#background_PagMusicaTocandoAgora 
   position: absolute;
   top: 0px;
   z-index: -1;
+  background-image: linear-gradient(#6d6d6d, rgba(26, 26, 29, 0.84), rgb(26, 26, 29));
 }
 body section.Paginas#PagMusicaTocandoAgora article {
   width: 90%;
@@ -1956,6 +1957,7 @@ body section.Paginas#PagMusicaTocandoAgora article div#container_letra_musica_to
   margin-top: 40px;
   overflow: hidden;
   padding: 10px;
+  background-color: #6d6d6d;
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_letra_musica_tocando_agora_cell pre {
   font-family: "Inter", sans-serif;
@@ -2032,6 +2034,29 @@ body section.Paginas#PagMusicaTocandoAgora article div#container_sobre_qm_postou
   font-size: 13px;
   font-weight: 500;
   line-height: 20px;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_prox_musicas_cell {
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-top: 40px;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.3098039216);
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_prox_musicas_cell h3 {
+  margin-bottom: 30px;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_prox_musicas_cell div#container_musicas_a_seguir section.containerMusica article article.containerMusicaLinha {
+  width: 100% !important;
+  padding: 5px 0px !important;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_prox_musicas_cell div#container_musicas_a_seguir section.containerMusica article article.containerMusicaLinha div.MusicasLinha {
+  width: 100% !important;
+  padding: 0 !important;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_prox_musicas_cell div#container_musicas_a_seguir section.containerMusica article article.containerMusicaLinha div.MusicasLinha img.btnCurtirMeuPerfil {
+  display: none !important;
+  right: 0 !important;
 }
 body section.Paginas#PagCriarPlaylist article {
   width: 100%;
@@ -3204,6 +3229,7 @@ body section.containerMusica article.articleContainer article.containerMusicaLin
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 10px;
 }
 body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha div div.DivImgMusicaMeuPerfil img.ImgMusicaMeuPerfil {
   height: 135%;
@@ -3233,12 +3259,13 @@ body section.containerMusica article.articleContainer article.containerMusicaLin
   color: #5d5d63;
   font-size: 12px;
   font-weight: 500;
-  line-height: 20px;
+  line-height: 0px;
 }
 body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha p.GeneroMeuPerfil {
   text-align: center;
   color: rgba(255, 255, 255, 0.2862745098);
   font-weight: 100;
+  font-size: 0.8em;
 }
 body section.containerMusica article.articleContainer article.containerMusicaLinha div.MusicasLinha img.btnCurtirMeuPerfil {
   width: 20px;

@@ -39,7 +39,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.692), rgba(0, 0, 0, 0));
+    background-image: linear-gradient(to top, #1a1a1d, rgba(0, 0, 0, 0));
   }
   div#inforArtista div#containerImgPerfilArtista img#imgPerfilArtista {
     height: 100vw !important;
@@ -64,12 +64,13 @@
     left: 0 !important;
     top: 0 !important;
     z-index: 0 !important;
+    box-shadow: none !important;
   }
   div#inforPagPlaylist div#containerImgPerfilPagPlaylist div#sombra_container_playlist {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.692), rgba(0, 0, 0, 0));
+    background-image: linear-gradient(to top, #1a1a1d, rgba(0, 0, 0, 0));
   }
   div#inforPagPlaylist div#containerImgPerfilPagPlaylist img#imgPerfilPagPlaylist {
     height: 100vw !important;
@@ -151,6 +152,9 @@
   div.containermusicaPerfilPesquisa {
     display: none !important;
   }
+  div#blurHeaderPagPerfilOutroUser {
+    background-image: linear-gradient(to top, #1a1a1d 1%, rgba(0, 0, 0, 0));
+  }
   article#BarraMusica.BarraMusicaOpen {
     bottom: 60px !important;
   }
@@ -190,6 +194,9 @@
   }
   article#BarraMusica div#ConfigsBarraMusicaCell {
     display: flex !important;
+  }
+  div#inforArtista div#containerImgPerfilArtista {
+    box-shadow: none !important;
   }
   div#inforArtista div#containerImgPerfilArtista img#imgPerfilArtista {
     height: 134vw !important;
