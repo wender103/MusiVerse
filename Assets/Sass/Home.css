@@ -1079,6 +1079,7 @@ body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.con
   rotate: 25deg;
   right: -15px;
   bottom: -15px;
+  border-radius: 22px;
 }
 body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article#article_genero div.container_genero div.conatiner_img_genero img {
   width: 100%;
@@ -1418,6 +1419,7 @@ body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgrou
   position: absolute;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.329);
+  background-image: linear-gradient(to top, #1a1a1d, rgba(0, 0, 0, 0));
   left: 0px;
   top: 0px;
 }
@@ -2274,6 +2276,7 @@ body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#blurHea
   left: 0px;
   bottom: 0px;
   background-color: rgba(0, 0, 0, 0.329);
+  background-image: linear-gradient(to top, #1a1a1d, rgba(0, 0, 0, 0));
 }
 body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser {
   width: 100%;
@@ -2325,7 +2328,7 @@ body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#contain
   left: 20px;
   z-index: 2;
   display: flex;
-  align-items: end;
+  align-items: center;
   gap: 40px;
 }
 body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerBtnsPagPerfilOutroUser button#darPlayPagPerfilOutroUser {
@@ -2347,7 +2350,7 @@ body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#contain
   padding: 12px 35px;
   color: #fff;
   border-radius: 30px;
-  background-color: #1a1a1d;
+  background-color: transparent;
   cursor: pointer;
 }
 body section.Paginas#PagPerfilOutroUser article#containerMusicasPagPerfilOutroUser {

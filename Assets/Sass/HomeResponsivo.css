@@ -125,6 +125,7 @@
     width: 100% !important;
     left: 0px !important;
     right: auto !important;
+    padding-bottom: 50px !important;
   }
   section#containerFavoritasDoPerfil {
     margin: 30px auto -30px !important;

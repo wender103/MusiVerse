@@ -37,26 +37,26 @@ function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
     try {
         // fetch('http://localhost:3000/api/updatePresence', {
         fetch('https://apipresenca.onrender.com/api/updatePresence', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            email: Email,
-            isOnline: IsOnline,
-            listeningMusicId: MusicaID
-        }),
-    })
-    .then(response => {
-        if (response.ok) {
-            // console.log('Informações de presença enviadas com sucesso para a API');
-        } else {
-            // console.warn('Erro ao enviar informações de presença para a API');
-        }
-    })
-    .catch(error => {
-        // console.error('Erro de rede ao enviar informações de presença para a API:', error);
-    });
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: Email,
+                isOnline: IsOnline,
+                listeningMusicId: MusicaID
+            }),
+        })
+        .then(response => {
+            if (response.ok) {
+                // console.log('Informações de presença enviadas com sucesso para a API');
+            } else {
+                // console.warn('Erro ao enviar informações de presença para a API');
+            }
+        })
+        .catch(error => {
+            // console.error('Erro de rede ao enviar informações de presença para a API:', error);
+        });
     } catch (error) {
         // console.warn(error)
     }
@@ -71,9 +71,9 @@ function Atualizar_Perfil_DC(Musica) {
             largeImageKey: Musica.LinkImg,
             largeImageText: Musica.NomeMusica,
         }
-
+        
         // fetch('http://localhost:3000/prececa/dc', {
-            fetch('https://apipresencadc.onrender.com/prececa/dc', {
+        fetch('https://apipresencadc.onrender.com/prececa/dc', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

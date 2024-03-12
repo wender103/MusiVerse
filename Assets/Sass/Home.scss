@@ -1137,6 +1137,7 @@ body {
                                         rotate: 25deg;
                                         right: -15px;
                                         bottom: -15px;
+                                        border-radius: 22px;
     
                                         img {
                                             width: 100%;
@@ -1542,6 +1543,7 @@ body {
                         position: absolute;
                         z-index: 1;
                         background-color: rgba(0, 0, 0, 0.329);
+                        background-image: linear-gradient(to top, #1a1a1d, rgba(0, 0, 0, 0));
                         left: 0px;
                         top: 0px;
                     }
@@ -2574,6 +2576,7 @@ body {
                     left: 0px;
                     bottom: 0px;
                     background-color: rgba(0, 0, 0, 0.329);
+                    background-image: linear-gradient(to top, #1a1a1d, rgba(0, 0, 0, 0));
                 }
 
                 div#containerHeaderPagPerfilOutroUser {
@@ -2632,7 +2635,7 @@ body {
                     left: 20px;
                     z-index: 2;
                     display: flex;
-                    align-items: end;
+                    align-items: center;
                     gap: 40px;
 
                     button#darPlayPagPerfilOutroUser {
@@ -2655,7 +2658,8 @@ body {
                         padding: 12px 35px;
                         color: #fff;
                         border-radius: 30px;
-                        background-color: #1a1a1d;
+                        // background-color: #1a1a1d;
+                        background-color: transparent;
                         cursor: pointer;
 
                         &.btnSeguindoUser {
