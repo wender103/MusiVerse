@@ -64,14 +64,14 @@ function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
 
 //* Atualizar no dc
 function Atualizar_Perfil_DC(Musica) {
+    const requestData = {
+        state: `De: ${Musica.Autor}`,
+        details: `Ouvindo: ${Musica.NomeMusica}`,
+        largeImageKey: Musica.LinkImg,
+        largeImageText: Musica.NomeMusica,
+    }
+    
     try {
-        const requestData = {
-            state: `De: ${Musica.Autor}`,
-            details: `Ouvindo: ${Musica.NomeMusica}`,
-            largeImageKey: Musica.LinkImg,
-            largeImageText: Musica.NomeMusica,
-        }
-        
         // fetch('http://localhost:3000/prececa/dc', {
         fetch('https://api-presenca-dc.vercel.app/prececa/dc', {
             method: 'POST',
@@ -80,7 +80,7 @@ function Atualizar_Perfil_DC(Musica) {
             },
             body: JSON.stringify(requestData)
         })
-        .catch(error => console.error('Erro:', error))
+        .catch(error)
     } catch (error) {
         // console.warn(error)
     }

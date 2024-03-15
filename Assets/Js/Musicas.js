@@ -883,8 +883,10 @@ async function RetornarMusicasFavoritas(Email, Local, MusicaFavoritaOuPostada) {
                         if (event.target != AutorDaMusica && event.target != Heart) {
                             ListaProxMusica = {
                                 Musicas: musicasFavoritasUser,
-                                Numero: contadorTodasAsMusicas,
+                                Numero: numMusicasFavoritas,
                             }
+
+                            console.log(ListaProxMusica)
                             
                             DarPlayMusica(musicasFavoritasUser[numMusicasFavoritas], numMusicasFavoritas)
                             AbrirTelaTocandoAgora(musicasFavoritasUser[numMusicasFavoritas])
