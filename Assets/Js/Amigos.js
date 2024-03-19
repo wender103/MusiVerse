@@ -57,7 +57,7 @@ function Carregar_Amigos(Email, UsersData) {
 
             
             //* Textos
-            play_musica_amigo.src = 'Assets/Imgs/Icons/Play.png'
+            play_musica_amigo.src = 'Assets/Imgs/Icons/DarPlay.png'
 
             
             carregarImagem(TodosOsUsers[a].User.Personalizar.FotoPerfil, function(imgPerfil) {
