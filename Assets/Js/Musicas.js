@@ -1440,18 +1440,21 @@ function abrirMeuPerfil() {
             }
             imgTeste2.onerror = function() {
                 document.getElementById('coainerBackgroundPerfil').style.alignItems = 'end'
-                document.getElementById('coteudoHeaderPerfil').style.height = '50%'
+                document.getElementById('coteudoHeaderPerfil').style.height = '37%'
                 document.getElementById('containerImgPerfilUserHeaderUser').style.display = 'none'
             }
         } else {
             document.getElementById('coainerBackgroundPerfil').style.alignItems = 'end'
-            document.getElementById('coteudoHeaderPerfil').style.height = '50%'
+            document.getElementById('coteudoHeaderPerfil').style.height = '37%'
             document.getElementById('containerImgPerfilUserHeaderUser').style.display = 'none'
         }
 
     } else {
         document.getElementById('coainerBackgroundPerfil').style.backgroundImage = `url(Assets/Imgs/Banners/fitaCassete.avif)`
         document.getElementById('coainerBackgroundPerfil').classList.add('RepetirBackgroundPerfilUser')
+        document.getElementById('coainerBackgroundPerfil').style.alignItems = 'end'
+        document.getElementById('coteudoHeaderPerfil').style.height = '37%'
+        document.getElementById('containerImgPerfilUserHeaderUser').style.display = 'none'
     }
 
     document.getElementById('containerMusicasPerfilUser').innerHTML = ''
