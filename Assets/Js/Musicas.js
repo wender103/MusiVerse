@@ -134,6 +134,7 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
     }
     
     let PesquisaFormatada = formatarTexto(Pesquisa)
+    let musica_encontrada = false
     
     let contadorMusicasLinha = 0
     let arrayMusicasRetornadas = []
@@ -183,6 +184,14 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
     shuffleArray(arrayMusicasRetornadas)
   
     for(let c = 0; c < arrayMusicasRetornadas.length && c < maxMusicas; c++) {
+
+        if(!musica_encontrada) {
+            musica_encontrada = true
+            if(document.getElementById('container_n_encontrado')) {
+                document.getElementById('containerResultadoPesquisa').innerHTML = ''
+            }
+        }
+
       contadorMusicasPorSection++
   
       if(Estilo == 'Caixa') {
@@ -2079,15 +2088,15 @@ async function RetornarMusicasArtista(Artista, Local, PegarLista) {
     arrayMusicasArtista = [] //? Vai salvar as músicas do artista pesquisado para poder colocar como lista de prox músicas
     ListaProxMusica = {}
 
-    let musica_encontrada = false
+    let musica_encontrada_artista = false
 
     for(let c = TodasMusicas.Musicas.length -1; c >= 0; c--) {
         let AutorFormadato  =  formatarTexto(TodasMusicas.Musicas[c].Autor)
 
         if(ArtistaFormadado.includes(AutorFormadato) || AutorFormadato.includes(ArtistaFormadado)) {
 
-            if(!musica_encontrada) {
-                musica_encontrada = true
+            if(!musica_encontrada_artista) {
+                musica_encontrada_artista = true
 
                 if(document.getElementById('container_n_encontrado')) {
                     document.getElementById('containerResultadoPesquisa').innerHTML = ''
