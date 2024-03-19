@@ -531,6 +531,7 @@ body div#container_aba_amigos div#container_amigos div.container_perfil_amigo di
   -o-object-fit: cover;
      object-fit: cover;
   position: absolute;
+  opacity: 0.6;
 }
 body div#container_aba_amigos div#container_input_add_amigos {
   width: calc(100% - 40px);
