@@ -376,7 +376,6 @@ let cores_fonte
 let cor_escolhida_background
 function Trocar_cor_barra_musica(urlDaImagem) {
     obterCoresDaImagem(urlDaImagem).then((resolve) => {
-        console.log(resolve);
         ultima_img_analizada = urlDaImagem
         cores_da_img_musica_tocando_agora = resolve
         const BarraMusica = document.getElementById('BarraMusica')
@@ -399,7 +398,7 @@ function Trocar_cor_barra_musica(urlDaImagem) {
         }
 
         Trocar_cores_letra()
-        Atualizar_Presenca(true, currentUser.InfoEmail.email, Lista.ID)
+        Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID)
         
     //? Mostra as cores da img na tela
     //   const container_cores = document.querySelector('#container_cores')

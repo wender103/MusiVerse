@@ -9,7 +9,6 @@ function Fehcar_Aba_Amigos() {
 
 const container_amigos = document.querySelector('#container_amigos')
 function Carregar_Amigos(Email, UsersData) {
-    console.log(UsersData);
     // console.log('Carregar_Amigos foi chamado');
     let Amigos = currentUser.User.InfosPerfil.Amigos.Aceitos
 

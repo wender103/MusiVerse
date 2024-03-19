@@ -61,7 +61,7 @@ function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
     } catch (error) {
         // console.warn(error)
     }
-} Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID)
+}
 
 //* Atualizar no dc
 function Atualizar_Perfil_DC(Musica) {

@@ -89,6 +89,10 @@ document.addEventListener("DOMContentLoaded", function () {
                   LetraNomePerfilUserNavCell.style.display = 'block'
                 } catch {}
               }
+
+              try {
+                Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID)
+              } catch{}
             }
 
           contador++
