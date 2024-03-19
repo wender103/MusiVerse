@@ -1881,10 +1881,28 @@ function removerParametros() {
 
 //? Vai curtir / descurtir a música ao clica no coração
 const HeartBarraMusica = document.getElementById('HeartBarraMusica')
+const HeartBarraMusica2 = document.getElementById('HeartBarraMusica2')
+
 HeartBarraMusica.addEventListener('click', () => {
     FavoritarDesfavoritarMusica(MusicaTocandoAgora.ID, 'Editar')
     .then((resolve) => {
+        HeartBarraMusica2.src = resolve
         HeartBarraMusica.src = resolve
+        document.getElementById('localMusicasCurtidas').innerHTML = ''
+        RetornarMusicasFavoritas(currentUser.InfoEmail.email, document.getElementById('localMusicasCurtidas'), 'Favoritas')
+    })
+    .catch((error) => {
+        alert(error)
+    })
+})
+
+HeartBarraMusica2.addEventListener('click', () => {
+    FavoritarDesfavoritarMusica(MusicaTocandoAgora.ID, 'Editar')
+    .then((resolve) => {
+        HeartBarraMusica2.src = resolve
+        HeartBarraMusica.src = resolve
+        document.getElementById('localMusicasCurtidas').innerHTML = ''
+        RetornarMusicasFavoritas(currentUser.InfoEmail.email, document.getElementById('localMusicasCurtidas'), 'Favoritas')
     })
     .catch((error) => {
         alert(error)
@@ -2049,10 +2067,18 @@ function FavoritarDesfavoritarMusica(IdMusica, OqFazer = 'Editar') {
                             .doc(currentUser.User.Id)
                             .update({ MusicasCurtidas: currentUser.User.MusicasCurtidas })
                             .then(() => {
+                                if(MusicaTocandoAgora.ID == IdMusica) {
+                                    document.getElementById('HeartBarraMusica').src = './Assets/Imgs/Icons/icon _heart_ (1).png'
+                                    document.getElementById('HeartBarraMusica2').src = './Assets/Imgs/Icons/icon _heart_ (1).png'
+                                }
                                 resolve('./Assets/Imgs/Icons/icon _heart_ (1).png')
                             })
         
                         } else {
+                            if(MusicaTocandoAgora.ID == IdMusica) {
+                                document.getElementById('HeartBarraMusica').src = './Assets/Imgs/Icons/icon _heart_.png'
+                                document.getElementById('HeartBarraMusica2').src = './Assets/Imgs/Icons/icon _heart_.png'
+                            }
                             resolve('./Assets/Imgs/Icons/icon _heart_.png')
                         }
                     }
@@ -2067,10 +2093,20 @@ function FavoritarDesfavoritarMusica(IdMusica, OqFazer = 'Editar') {
                             .doc(currentUser.User.Id)
                             .update({ MusicasCurtidas: currentUser.User.MusicasCurtidas })
                             .then(() => {
+                                
+                                if(MusicaTocandoAgora.ID == IdMusica) {
+                                    document.getElementById('HeartBarraMusica').src = './Assets/Imgs/Icons/icon _heart_ (1).png'
+                                    document.getElementById('HeartBarraMusica2').src = './Assets/Imgs/Icons/icon _heart_ (1).png'
+                                }
+
                                 resolve('./Assets/Imgs/Icons/icon _heart_.png')
                             })
         
                         } else {
+                            if(MusicaTocandoAgora.ID == IdMusica) {
+                                document.getElementById('HeartBarraMusica').src = './Assets/Imgs/Icons/icon _heart_.png'
+                                document.getElementById('HeartBarraMusica2').src = './Assets/Imgs/Icons/icon _heart_.png'
+                            }
                             resolve('./Assets/Imgs/Icons/icon _heart_ (1).png')
                         }
                     }

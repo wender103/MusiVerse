@@ -4,7 +4,7 @@ function Abrir_Aba_Amigos() {
 }
 
 function Fehcar_Aba_Amigos() {
-    document.querySelector('#container_aba_amigos').style.right = '-100vw'
+    document.querySelector('#container_aba_amigos').style.right = '-110vw'
 }
 
 const container_amigos = document.querySelector('#container_amigos')

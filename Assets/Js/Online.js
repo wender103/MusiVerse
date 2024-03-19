@@ -44,7 +44,8 @@ function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
             body: JSON.stringify({
                 email: Email,
                 isOnline: IsOnline,
-                listeningMusicId: MusicaID
+                listeningMusicId: MusicaID,
+                colorimg: cor_escolhida_background
             }),
         })
         .then(response => {
