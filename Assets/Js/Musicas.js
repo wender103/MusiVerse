@@ -563,12 +563,20 @@ async function RetornarPerfil(Pesquisa, Local, PerfilDe = 'User', Comando) {
     ContainerMusicas.className = 'containermusicaPerfilPesquisa'
 
     //? ------------------------------------
-    
+    let perfil_encontrado = false
     if(PerfilDe == 'User') {
         for(let c = 0; c < TodosOsUsers.length; c++) {
             const Nome = formatarTexto(TodosOsUsers[c].User.Nome)
 
             if(PesquisaFormatada.includes(Nome) || Nome.includes(PesquisaFormatada) && !feito) {
+                if(!perfil_encontrado) {
+                    perfil_encontrado = true
+
+                    if(document.getElementById('container_n_encontrado')) {
+                        document.getElementById('containerResultadoPesquisa').innerHTML = ''
+                    }
+                }
+
                 feito = true
 
                 Perfil.addEventListener('click', () => {
@@ -1342,7 +1350,12 @@ function Checar_pesquisar(Metodo) {
 function Pesquisar(Comando) {
     
     if(Comando == 'Pesquisar') {
-        document.getElementById('containerResultadoPesquisa').innerHTML = ''
+        document.getElementById('containerResultadoPesquisa').innerHTML = `
+        <div id="container_n_encontrado">
+            <h1 id="h1_nehum_resultado_encontrado">Nehum resultado encontrado para: "${texto_pesqusia}"</h1>
+            <span id="span_infos_n_encontrado">Tente escrevendo o termo da busca de outra forma ou usando outra palavra-chave</span>
+        </div>
+        `
         //? Indo ali ---------------------------------
         if(formatarTexto(texto_pesqusia).includes(formatarTexto('we live, we love, we lie'))) {
             for(let c = 0; c < TodasMusicas.Musicas.length; c++) {
@@ -2066,10 +2079,21 @@ async function RetornarMusicasArtista(Artista, Local, PegarLista) {
     arrayMusicasArtista = [] //? Vai salvar as músicas do artista pesquisado para poder colocar como lista de prox músicas
     ListaProxMusica = {}
 
+    let musica_encontrada = false
+
     for(let c = TodasMusicas.Musicas.length -1; c >= 0; c--) {
         let AutorFormadato  =  formatarTexto(TodasMusicas.Musicas[c].Autor)
 
         if(ArtistaFormadado.includes(AutorFormadato) || AutorFormadato.includes(ArtistaFormadado)) {
+
+            if(!musica_encontrada) {
+                musica_encontrada = true
+
+                if(document.getElementById('container_n_encontrado')) {
+                    document.getElementById('containerResultadoPesquisa').innerHTML = ''
+                }
+            }
+
             contadorMusicasLinhaArtista++
             arrayMusicasArtista.push(TodasMusicas.Musicas[c])
             article.className = 'containerMusicaLinha'
@@ -2580,6 +2604,8 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
     const articleContainer = document.createElement('article')
     articleContainer.className = 'articleContainer'
     const article = document.createElement('article')
+    
+    let playlist_encontrada = false
 
     for(let c = 0; c < TodasMusicas.Playlists.length; c++) {
         let NomePlaylist = formatarTexto(TodasMusicas.Playlists[c].Nome)
@@ -2597,6 +2623,15 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
 
         if(PesquisaPassou) {
             if(TodasMusicas.Playlists[c].Estado == 'Pública') {
+
+                if(!playlist_encontrada) {
+                    playlist_encontrada = true
+
+                    if(document.getElementById('container_n_encontrado')) {
+                        document.getElementById('containerResultadoPesquisa').innerHTML = ''
+                    }
+                }
+
                 if(Formato == 'Caixa') {
                     const container = document.createElement('div')
                     const containerImg = document.createElement('div')

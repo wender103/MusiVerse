@@ -147,6 +147,7 @@
     }
     
     div#SearchBar {
+        width: 280px !important;
         right: 10px !important;
     }
 
@@ -178,8 +179,27 @@
         right: -110vw !important;
     }
 
+    button#btnEditarMeuPerfil {
+        width: 25px !important;
+        height: 25px !important;
+    }
+
+    h1#NomeUserMeuPerfil {
+        font-size: 10vw !important;
+    }
+
     h1#nomePagPerfilOutroUser {
         font-size: 10vw !important;
+    }
+
+    div#container_n_encontrado {
+        h1#h1_nehum_resultado_encontrado {
+            font-size: 4vw !important;
+        }
+        
+        span#span_infos_n_encontrado {
+            font-size: 10px !important;
+        }
     }
 
     div#containerHeaderPagPerfilOutroUser {

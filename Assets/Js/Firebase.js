@@ -131,7 +131,8 @@ try {
     location.href = 'Cadastro.html'
   })
 
-  document.getElementById('imgPerfilUserNavCell').addEventListener('click', () => {
-    location.href = 'Cadastro.html'
+  document.getElementById('btn_abrir_perfil_cell').addEventListener('click', () => {
+    abrirMeuPerfil()
+    AbrirPaginas('MeuPerfil')
   })
 } catch{}

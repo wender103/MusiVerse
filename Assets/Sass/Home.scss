@@ -324,7 +324,7 @@ body {
         height: calc(var(--vh, 1vh) * 100);
         padding: 0px 20px;
         position: fixed;
-        right: -100vw;
+        right: -110vw;
         background-color: rgb(26, 26, 29);
         box-shadow: rgba(0, 0, 0, 0.4) -8px 6px 18px 0px;
         overflow-y: auto;
@@ -895,6 +895,31 @@ body {
                     line-height: 24px;
                 }
                 
+                div#container_n_encontrado {
+                    width: 70%;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    text-align: center;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+
+                    h1#h1_nehum_resultado_encontrado {
+                        font-size: 1.5em;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 24px;
+                    }
+                    
+                    span#span_infos_n_encontrado {
+                        font-size: 0.9em;
+                        color: #6d6d6d;
+                    }
+                }
+
+
                 div.containerPerfilPesquisa {
                     width: 100%;
                     margin: 20px auto;
@@ -1570,6 +1595,12 @@ body {
                             display: flex;
                             align-items: center;
                             justify-content: center;
+
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
                         }
 
                         div#containerImgPerfilUserHeaderUser {
@@ -1596,7 +1627,7 @@ body {
 
                         div#textoCoteudoHeaderPerfil {
                             h1 {
-                                font-size: 5em;
+                                font-size: 5vw;
                             }
                         }
 
@@ -1613,7 +1644,7 @@ body {
                             background-color: #fff;
                             position: absolute;
                             bottom: -50px;
-                            left: 50px;
+                            left: 20px;
                             cursor: pointer;
                         }
                     }
@@ -1632,7 +1663,7 @@ body {
                     z-index: 2;
 
                     div {
-                        width: 95%;
+                        width: calc(95% - 40px);
                         max-width: 500px;
                         height: auto;
                         border-radius: 10px;
@@ -1661,17 +1692,19 @@ body {
                         }
 
                         div {
+                            width: 100%;
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
                             gap: 20px;
+                            padding: 0;
 
                             button {
                                 width: 100%;
                                 padding: 10px 15px;
                                 border-radius: 5px;
                                 background-color: #1F1F22;
-                                margin-top: 50px;
+                                margin-top: 30px;
                                 color: #fff;
                                 border: none;
                                 cursor: pointer;
@@ -1693,7 +1726,7 @@ body {
                     z-index: 2;
 
                     div#conteudoEditarMusica {
-                        width: 95%;
+                        width: calc(95% - 40px);
                         max-width: 500px;
                         height: auto;
                         border-radius: 10px;
@@ -1720,7 +1753,7 @@ body {
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
-                            gap: 20px;
+                            gap: 10px;
 
                             button {
                                 width: 100%;
@@ -2695,7 +2728,7 @@ body {
 
                         span#viewsSemanais {
                             display: none;
-                            color: #ffffff;
+                            color: #ffffff82;
                         }
                     }
                 }

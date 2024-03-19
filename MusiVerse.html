@@ -60,7 +60,7 @@
             <!-- <li><img src="Assets/Imgs/Icons//Faixas.png"> <p>Favoritas</p></li> -->
             <li><img src="Assets/Imgs/Icons/Biblioteca.png"> <p>Biblioteca</p></li>
             <li><img src="Assets/Imgs/Icons/friends.png"> <p>Amigos</p></li>
-            <li><div id="imgPerfilUserNavCell"><p id="LetraNomePerfilUserNavCell"></p></div> <p>Conta</p></li>
+            <li id="btn_abrir_perfil_cell"><div id="imgPerfilUserNavCell"><p id="LetraNomePerfilUserNavCell"></p></div> <p>Conta</p></li>
         </ul>
     </div>
 
@@ -235,7 +235,12 @@
             </button>
         </div>
 
-        <article id="containerResultadoPesquisa"></article>
+        <article id="containerResultadoPesquisa">
+            <div id="container_n_encontrado">
+                <h1 id="h1_nehum_resultado_encontrado">Nehum resultado encontrado para: "${texto_pesqusia}"</h1>
+                <span id="span_infos_n_encontrado">Tente escrevendo o termo da busca de outra forma ou usando outra palavra-chave</span>
+            </div>
+        </article>
     </section>
 
     <section class="Paginas" id="PagAdicionarMusica">
@@ -385,7 +390,7 @@
 
                     <div id="containerBtnsEditarMusica">
                         <button onclick="FecharEditarMusica()">Cancelar</button>
-                        <button onclick="Abrir_add_music()">Letra da música</button>
+                        <button onclick="Abrir_add_music()">Letra</button>
                         <button id="btnSalvarAlteracaoNaMusica" onclick="SalvarEdicaoNaMusica()">Salvar</button>
                     </div>
                 </div>
