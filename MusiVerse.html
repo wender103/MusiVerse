@@ -505,23 +505,24 @@
 
     <section class="Paginas" id="PagMusicaTocandoAgora">
 
-        <div id="background_PagMusicaTocandoAgora"></div>
-
         <article>
+            <div id="headerPagMusicaTocandoAgora">
+                <img src="Assets/Imgs/Icons/Close.png" id="fecharPagMusicaTocandoAgora">
+                <p id="p_info_tocando_agora">Tocando Agora</p>
+            </div>
+            
             <div id="container_primeira_part_tocando_agora_cell">
-                <div id="headerPagMusicaTocandoAgora">
-                    <img src="Assets/Imgs/Icons/Close.png" id="fecharPagMusicaTocandoAgora">
-                    <p>Tocando Agora</p>
-                </div>
     
                 <div id="mainPagMusicaTocandoAgora">
-                    <div id="containerImgMusicaTocandoAgora">
-                        <img src="Assets/Imgs/Icons/Container (1).png" id="imgMusicaTocandoAgoraPagMusicaTocandoAgora">
+                    <div id="img_musica_cell">
+                        <div id="containerImgMusicaTocandoAgora">
+                            <img src="Assets/Imgs/Icons/Container (1).png" id="imgMusicaTocandoAgoraPagMusicaTocandoAgora">
+                        </div>
                     </div>
                     
-                    <div>
-                        <h1 id="nomeMusicaTocandoAgoraPagMusicaTocandoAgora">Nome Música Tocando</h1>
+                    <div id="container_texto_info_musica_cell">
                         <p id="autorMusicaTocandoAgoraPagMusicaTocandoAgora">Nome Autor</p>
+                        <h1 id="nomeMusicaTocandoAgoraPagMusicaTocandoAgora">Nome Música Tocando</h1>
                     </div>
     
                     <img src="" id="heartMusicaTocandoAgoraPagMusicaTocandoAgora">
@@ -536,7 +537,7 @@
                         <img src="Assets/Imgs/Icons/Back.png" id="BackBtn2">
         
                         <!--? Play -->
-                        <img src="Assets/Imgs/Icons/Pause.png" id="PlayBtn2">
+                        <img src="Assets/Imgs/Icons/DarPause.png" id="PlayBtn2">
         
                         <!--? Next -->
                         <img src="Assets/Imgs/Icons/Next.png" id="NextBtn2">
@@ -544,7 +545,7 @@
                         <!--? Cicle -->
                         <img src="Assets/Imgs/Icons/Cicle.png" id="CicleBtn2">
                     </div>
-                    <input type="range" value="0" id="progressoMusicaTocandoAgora">
+                    <input type="range" min="0" max="100" value="0" id="progressoMusicaTocandoAgora">
                 </div>
             </div>
 
@@ -820,7 +821,7 @@
                 <img src="Assets/Imgs/Icons/Back.png" id="BackBtn">
 
                 <!--? Play -->
-                <img src="Assets/Imgs/Icons/Play.png" id="PlayBtn">
+                <img src="Assets/Imgs/Icons/DarPlay.png" id="PlayBtn">
 
                 <!--? Next -->
                 <img src="Assets/Imgs/Icons/Next.png" id="NextBtn">
@@ -829,7 +830,7 @@
                 <img src="Assets/Imgs/Icons/Cicle.png" id="CicleBtn">
             </div>
 
-            <input type="range" value="0" id="progressoMusicaBarraMusica">
+            <input type="range" min="0" max="100" value="0"id="progressoMusicaBarraMusica">
         </div>
 
         <!--? Configs Barra Música -->
@@ -842,7 +843,7 @@
             <div id="containerControleVolume">
                 <img src="Assets/Imgs/Icons/Volume.png" onclick="mutarMusica()">
 
-                <input type="range" value="100" id="inputVolume" oninput="volumeMusica(this.value)">
+                <input type="range" min="0" max="100" value="0" id="inputVolume">
             </div>
         </div>
 

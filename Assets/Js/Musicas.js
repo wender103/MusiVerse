@@ -35,6 +35,7 @@ function volumeMusica(volume = 0) {
 
     //? Vai salvar o volume do local Storage
     localStorage.setItem('VolumeMusiVerse', volume)
+    atualizar_cor_progresso_input(inputVolume)
 }
 
 function mutarMusica() {
@@ -1608,10 +1609,10 @@ function DarPlayMusica(Lista, num, Pausar = false) {
                 document.getElementById('BarraMusica').classList.add('BarraMusicaOpen')
                 arrumar_responsividade()
                 const PlayBtn = document.getElementById('PlayBtn')
-                PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
+                PlayBtn.src = `Assets/Imgs/Icons/DarPause.png`
         
                 const PlayBtn2 = document.getElementById('PlayBtn2')
-                PlayBtn2.src = `Assets/Imgs/Icons/Pause.png`
+                PlayBtn2.src = `Assets/Imgs/Icons/DarPause.png`
         
                 const PlayCellBarraMusica = document.getElementById('PlayCellBarraMusica')
                 PlayCellBarraMusica.src = `Assets/Imgs/Icons/Pause.png`
@@ -1727,17 +1728,24 @@ function Audio_Tocando(Lista, num, Pausar = false) {
     audioPlayer.addEventListener('timeupdate', function() {
         const percentProgress = (audioPlayer.currentTime / audioPlayer.duration) * 100
         progressoMusicaBarraMusica.value = percentProgress
+        atualizar_cor_progresso_input(progressoMusicaBarraMusica)
+
+        
         progressoMusicaTocandoAgora.value = percentProgress
+        atualizar_cor_progresso_input(progressoMusicaTocandoAgora)        
     })
 
     progressoMusicaBarraMusica.addEventListener('input', function() {
         const newTime = (progressoMusicaBarraMusica.value / 100) * audioPlayer.duration
         audioPlayer.currentTime = newTime
+        atualizar_cor_progresso_input(progressoMusicaBarraMusica)
     })
 
     progressoMusicaTocandoAgora.addEventListener('input', function() {
         const newTime = (progressoMusicaTocandoAgora.value / 100) * audioPlayer.duration
         audioPlayer.currentTime = newTime
+        atualizar_cor_progresso_input(progressoMusicaTocandoAgora)
+
     })
 }
 
@@ -1749,8 +1757,8 @@ audioPlayer.addEventListener('pause', function() {
 function Esta_Pausado() {
     const PlayBtn = document.getElementById('PlayBtn')
     const PlayBtn2 = document.getElementById('PlayBtn2')
-    PlayBtn.src = `Assets/Imgs/Icons/Play.png`
-    PlayBtn2.src = `Assets/Imgs/Icons/Play.png`
+    PlayBtn.src = `Assets/Imgs/Icons/DarPlay.png`
+    PlayBtn2.src = `Assets/Imgs/Icons/DarPlay.png`
     PlayCellBarraMusica.src = `Assets/Imgs/Icons/Play.png`
     document.title = `Musi .-. Verse`
 }
@@ -1764,8 +1772,8 @@ audioPlayer.addEventListener('play', function() {
 function Esta_Tocando(Lista) {
     const PlayBtn = document.getElementById('PlayBtn')
     const PlayBtn2 = document.getElementById('PlayBtn2')
-    PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
-    PlayBtn2.src = `Assets/Imgs/Icons/Pause.png`
+    PlayBtn.src = `Assets/Imgs/Icons/DarPause.png`
+    PlayBtn2.src = `Assets/Imgs/Icons/DarPause.png`
     PlayCellBarraMusica.src = `Assets/Imgs/Icons/Pause.png`
     document.title = `${Lista.NomeMusica}`
 }
@@ -1881,8 +1889,8 @@ PlayCellBarraMusica.addEventListener('click', function() {
 function PausaDespausarMusica() {
     if(!isPlaying) {
         isPlaying = true
-        PlayBtn.src = `Assets/Imgs/Icons/Pause.png`
-        PlayBtn2.src = `Assets/Imgs/Icons/Pause.png`
+        PlayBtn.src = `Assets/Imgs/Icons/DarPause.png`
+        PlayBtn2.src = `Assets/Imgs/Icons/DarPause.png`
         PlayCellBarraMusica.src = `Assets/Imgs/Icons/Pause.png`
         audioPlayer.play()
 
@@ -1893,8 +1901,8 @@ function PausaDespausarMusica() {
     } else {
         document.title = `Musi ._. Verse`
         isPlaying = false
-        PlayBtn.src = `Assets/Imgs/Icons/Play.png`
-        PlayBtn2.src = `Assets/Imgs/Icons/Play.png`
+        PlayBtn.src = `Assets/Imgs/Icons/DarPlay.png`
+        PlayBtn2.src = `Assets/Imgs/Icons/DarPlay.png`
         PlayCellBarraMusica.src = `Assets/Imgs/Icons/Play.png`
         audioPlayer.pause()
     }
@@ -2900,4 +2908,76 @@ function Tocar_Artista_Sem_Abrir(Artista) {
       }
       
       DarPlayMusica(arrayMusicasArtista2[0], 0)
+}
+
+//& ---------------------- Controlar inputs ----------------------
+
+var input_pc = document.getElementById("progressoMusicaBarraMusica")
+
+input_pc.onmouseenter = function() {
+    // cor_input_agora = 'rgb(0, 255, 255)'
+    atualizar_cor_progresso_input(this)
+}
+
+input_pc.oninput = function() {
+    // cor_input_agora = 'rgb(0, 255, 255)'
+    atualizar_cor_progresso_input(this)
+}
+
+// Evento quando o mouse sai do input
+input_pc.onmouseleave = function() {
+    cor_input_agora = '#fff'
+    atualizar_cor_progresso_input(this)
+}
+
+
+var input_cell = document.getElementById("progressoMusicaTocandoAgora")
+
+input_cell.onmouseenter = function() {
+    // cor_input_agora = 'rgb(0, 255, 255)'
+    atualizar_cor_progresso_input(this)
+}
+
+input_cell.oninput = function() {
+    // cor_input_agora = 'rgb(0, 255, 255)'
+    atualizar_cor_progresso_input(this)
+}
+
+// Evento quando o mouse sai do input
+input_cell.onmouseleave = function() {
+    cor_input_agora = '#fff'
+    atualizar_cor_progresso_input(this)
+}
+
+var input_volume = document.getElementById("inputVolume")
+
+input_volume.onmouseenter = function() {
+    // cor_input_agora = 'rgb(0, 255, 255)'
+    atualizar_cor_progresso_input(this)
+}
+
+input_volume.oninput = function() {
+    // cor_input_agora = 'rgb(0, 255, 255)'
+    volumeMusica(this.value)
+    atualizar_cor_progresso_input(this)
+}
+
+// Evento quando o mouse sai do input
+input_volume.onmouseleave = function() {
+    cor_input_agora = '#fff'
+    atualizar_cor_progresso_input(this)
+}
+
+
+document.onclick = function(e) {
+    let el = e.target
+    
+    try {
+        if(el.type != 'range') {
+            cor_input_agora = '#fff'
+            atualizar_cor_progresso_input(input_pc)
+            atualizar_cor_progresso_input(input_cell)
+            atualizar_cor_progresso_input(input_volume)
+        }
+    } catch{}
 }

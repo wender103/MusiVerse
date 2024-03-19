@@ -783,8 +783,8 @@ body main section#containerFavoritasDoPerfil article div.containerPlaylistFavori
      object-fit: cover;
 }
 body main section#containerFavoritasDoPerfil article div.containerPlaylistFavoritaPerfil div.iconPlayPlaylistFavoritaPerfil {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   position: absolute;
   right: 5px;
   opacity: 0;
@@ -1848,63 +1848,74 @@ body section.Paginas#PagMusicaTocandoAgora {
   bottom: -100vh;
   display: none;
   top: auto;
+  overflow-x: hidden;
 }
 body section.Paginas#PagMusicaTocandoAgora.Open {
   bottom: 0;
 }
-body section.Paginas#PagMusicaTocandoAgora div#background_PagMusicaTocandoAgora {
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 0px;
-  z-index: -1;
-  background-image: linear-gradient(#6d6d6d, rgba(26, 26, 29, 0.84), rgb(26, 26, 29));
-}
 body section.Paginas#PagMusicaTocandoAgora article {
-  width: 90%;
-  padding: 20px 0 100px;
+  width: 95%;
+  padding: 0 2.5% 100px;
+  position: relative;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#headerPagMusicaTocandoAgora {
+body section.Paginas#PagMusicaTocandoAgora article div#headerPagMusicaTocandoAgora {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  position: absolute;
+  top: 0;
+  padding: 20px 0;
+  margin-top: -60px;
+  margin-left: -2.5%;
+  background-color: #5f5f5f;
+  z-index: 3;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#headerPagMusicaTocandoAgora img {
-  left: 0px;
+body section.Paginas#PagMusicaTocandoAgora article div#headerPagMusicaTocandoAgora img {
+  left: 20px;
   position: absolute;
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora {
-  margin: 20px auto;
+  margin: 58px auto 0;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora {
-  width: 100%;
-  height: 89vw;
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#img_musica_cell {
+  height: calc(var(--vh, 1vh) * 100 - 324px);
   position: relative;
-  background-color: rgba(37, 38, 44, 0.8078431373);
+  z-index: -2;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#img_musica_cell div#containerImgMusicaTocandoAgora {
+  width: 106%;
+  height: calc(var(--vh, 1vh) * 63);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
+  margin-left: -12px;
+  -webkit-mask-image: linear-gradient(to bottom, #1a1a1d, rgba(0, 0, 0, 0));
+  mask-image: linear-gradient(to bottom, #1a1a1d, rgba(0, 0, 0, 0));
+  position: absolute;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#containerImgMusicaTocandoAgora img {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#img_musica_cell div#containerImgMusicaTocandoAgora img {
   width: 100%;
   height: 134%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div h1 {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#container_texto_info_musica_cell {
+  width: 95%;
+  overflow: hidden;
+  margin: auto;
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#container_texto_info_musica_cell h1 {
   width: 100%;
   font-size: 18px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin: 20px 0px 10px;
+  margin: 5px 0px;
 }
-body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div p {
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#mainPagMusicaTocandoAgora div#container_texto_info_musica_cell p {
   width: 100%;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.4196078431);
@@ -1914,14 +1925,17 @@ body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_t
   text-overflow: ellipsis;
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora {
-  width: 100%;
+  width: 90%;
+  overflow: hidden;
+  margin: auto;
+  /* Hides the thumb (slider handle) */
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora div#containerControles {
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px auto;
+  margin: 0 auto 20px;
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora div#containerControles img {
   width: 20px;
@@ -1934,26 +1948,38 @@ body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_t
   width: 28px;
   height: 28px;
 }
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora div#containerControles img#PlayBtn2 {
+  width: 60px;
+  height: 60px;
+}
 body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora input {
+  background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, #4d4d4d 0%, #4d4d4d 100%);
+  border: none;
+  border-radius: 8px;
+  height: 4px;
   width: 100%;
+  outline: none;
+  transition: background 450ms ease-in;
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  height: 5px;
-  background: #4C4E54;
-  border-radius: 10px;
   cursor: pointer;
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora input::-webkit-slider-thumb {
   -webkit-appearance: none;
-          appearance: none;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #00e1ff;
+  width: 10px; /* ajuste conforme necessário */
+  height: 10px; /* ajuste conforme necessário */
+  background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+  border-radius: 50%; /* para fazer uma bolinha */
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+  opacity: 0; /* inicia invisível */
+}
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora input:hover::-webkit-slider-thumb,
+body section.Paginas#PagMusicaTocandoAgora article div#container_primeira_part_tocando_agora_cell div#controlesPagMusicaTocandoAgora input:focus::-webkit-slider-thumb {
+  opacity: 1; /* torna visível ao passar o mouse ou focar */
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_letra_musica_tocando_agora_cell {
-  width: calc(100% - 20px);
+  width: calc(95% - 20px);
+  margin: auto;
   height: 280px;
   border-radius: 10px;
   margin-top: 40px;
@@ -1988,10 +2014,11 @@ body section.Paginas#PagMusicaTocandoAgora article div#container_letra_musica_to
   font-weight: 800;
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_sobre_qm_postou_cell {
+  width: 95%;
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  margin-top: 40px;
+  margin: 40px auto 0;
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_sobre_qm_postou_cell div#container_img_sobre_qm_postou_cell {
   width: 100%;
@@ -2038,10 +2065,11 @@ body section.Paginas#PagMusicaTocandoAgora article div#container_sobre_qm_postou
   line-height: 20px;
 }
 body section.Paginas#PagMusicaTocandoAgora article div#container_prox_musicas_cell {
+  width: calc(95% - 30px);
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  margin-top: 40px;
+  margin: 40px auto 0;
   padding: 15px;
   background-color: rgba(0, 0, 0, 0.3098039216);
 }
@@ -2703,7 +2731,7 @@ body article#TelaTocandoAgora div#listaMusicasTelaTocandoAgora div#containerMusi
 }
 body article#BarraMusica {
   width: calc(100% - 40px);
-  height: 41px;
+  height: 51px;
   bottom: -100vh;
   transition: 1s bottom ease-in-out;
   position: fixed;
@@ -2887,6 +2915,7 @@ body article#BarraMusica div#InfosBarraMusica img#HeartBarraMusica {
 body article#BarraMusica div#PartePlayerBarraMusica {
   width: calc(90% - 400px);
   max-width: 500px;
+  /* Hides the thumb (slider handle) */
 }
 body article#BarraMusica div#PartePlayerBarraMusica div#controlesBarraMusica {
   width: 200px;
@@ -2903,27 +2932,33 @@ body article#BarraMusica div#PartePlayerBarraMusica div#controlesBarraMusica img
   cursor: pointer;
 }
 body article#BarraMusica div#PartePlayerBarraMusica div#controlesBarraMusica img#PlayBtn {
-  width: 24px;
-  height: 24px;
+  width: 45px;
+  height: 45px;
 }
 body article#BarraMusica div#PartePlayerBarraMusica input {
+  background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, #4d4d4d 0%, #4d4d4d 100%);
+  border: none;
+  border-radius: 8px;
+  height: 4px;
   width: 100%;
-  margin: 10px;
+  outline: none;
+  transition: background 450ms ease-in;
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  height: 5px;
-  background: #4C4E54;
-  border-radius: 10px;
   cursor: pointer;
 }
 body article#BarraMusica div#PartePlayerBarraMusica input::-webkit-slider-thumb {
   -webkit-appearance: none;
-          appearance: none;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #00e1ff;
+  width: 10px; /* ajuste conforme necessário */
+  height: 10px; /* ajuste conforme necessário */
+  background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+  border-radius: 50%; /* para fazer uma bolinha */
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+  opacity: 0; /* inicia invisível */
+}
+body article#BarraMusica div#PartePlayerBarraMusica input:hover::-webkit-slider-thumb,
+body article#BarraMusica div#PartePlayerBarraMusica input:focus::-webkit-slider-thumb {
+  opacity: 1; /* torna visível ao passar o mouse ou focar */
 }
 body article#BarraMusica div#ConfigsBarraMusica {
   display: flex;
@@ -2938,26 +2973,33 @@ body article#BarraMusica div#ConfigsBarraMusica img #btnAbrirTelaTocandoAgora {
 body article#BarraMusica div#ConfigsBarraMusica div#containerControleVolume {
   display: flex;
   align-items: center;
+  /* Hides the thumb (slider handle) */
 }
 body article#BarraMusica div#ConfigsBarraMusica div#containerControleVolume input {
-  width: 100%;
-  max-width: 100px;
+  background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, #4d4d4d 0%, #4d4d4d 100%);
+  border: none;
+  border-radius: 8px;
   margin: 10px;
+  height: 4px;
+  width: 100%;
+  outline: none;
+  transition: background 450ms ease-in;
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  height: 5px;
-  background: #4C4E54;
-  border-radius: 10px;
   cursor: pointer;
 }
 body article#BarraMusica div#ConfigsBarraMusica div#containerControleVolume input::-webkit-slider-thumb {
   -webkit-appearance: none;
-          appearance: none;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #00e1ff;
+  width: 10px; /* ajuste conforme necessário */
+  height: 10px; /* ajuste conforme necessário */
+  background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+  border-radius: 50%; /* para fazer uma bolinha */
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+  opacity: 0; /* inicia invisível */
+}
+body article#BarraMusica div#ConfigsBarraMusica div#containerControleVolume input:hover::-webkit-slider-thumb,
+body article#BarraMusica div#ConfigsBarraMusica div#containerControleVolume input:focus::-webkit-slider-thumb {
+  opacity: 1; /* torna visível ao passar o mouse ou focar */
 }
 body article#BarraMusica div#InfosBarraMusica {
   padding: 5px 10px;
@@ -3081,6 +3123,7 @@ body section.containerMusica article.articleContainer article.containerMusicaCai
   opacity: 0;
   z-index: 4;
   border-radius: 50%;
+  background-size: contain;
 }
 body section.containerMusica article.articleContainer article.containerMusicaCaixa div.MusicasCaixa div.ContainerImgArtistaHistoricoTreeFy img {
   height: 100% !important;

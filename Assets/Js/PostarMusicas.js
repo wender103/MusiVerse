@@ -134,7 +134,8 @@ function FinalizarPostarMusicaYT() {
             LinkAudio: DadosNovaMusica.audioUrl,
             LinkImg: DadosNovaMusica.thumbnailUrl,
             NomeMusica: inputNomeMusicaLinkYT.value,
-            ID: DadosNovaMusica.uid
+            ID: DadosNovaMusica.uid,
+            Estado: 'Pendente'
         }
 
         //? Vai postar a música

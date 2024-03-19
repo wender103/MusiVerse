@@ -383,13 +383,14 @@ function Trocar_cor_barra_musica(urlDaImagem) {
         cor_escolhida_background = resolve[random_number]
         document.getElementById('PagVerLetraMusicaTocando').style.background = cor_escolhida_background
         cores_fonte = verificarCor(cor_escolhida_background)
-        document.getElementById('background_PagMusicaTocandoAgora').style.backgroundImage = `linear-gradient(to bottom, ${cor_escolhida_background}, #1a1a1dd6, #1a1a1d)`
+        document.getElementById('headerPagMusicaTocandoAgora').style.background = cor_escolhida_background
         document.getElementById('container_letra_musica_tocando_agora_cell').style.background = cor_escolhida_background
             
         if(document.documentElement.clientWidth < 629) {
             BarraMusica.style.background = cor_escolhida_background
             document.querySelector('#NomeMusicaBarraMusica').style.color = cores_fonte[1]
             document.querySelector('#AutorMusicaBarraMusica').style.color = cores_fonte[1]
+            document.getElementById('p_info_tocando_agora').style.color = cores_fonte[1]
 
         } else {
             BarraMusica.style.background = '#1a1a1d'

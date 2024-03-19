@@ -116,10 +116,13 @@ function verificarCor(cor) {
 
   // Verifica se a cor é muito clara ou muito escura e retorna a cor apropriada
   if (luminosidade >= limiarClaro) {
+    document.getElementById('fecharPagMusicaTocandoAgora').style.filter = 'grayscale(100%) brightness(0%) contrast(100%)'
     return ["#373737cc", "#000", "#00000059"]// Cor muito clara
   } else if (luminosidade <= limiarEscuro) {
+    document.getElementById('fecharPagMusicaTocandoAgora').style.filter = 'none'
     return ["#cfcfcfa6", "#fff", "#7f7e7e7a"] // Cor muito escura
   } else {
+    document.getElementById('fecharPagMusicaTocandoAgora').style.filter = 'grayscale(100%) brightness(0%) contrast(100%)'
     return ["#373737cc", "#000", "#00000059"]
   }
 }
@@ -203,4 +206,11 @@ function carregarImagem(src, callback) {
       callback(null)
   }
   img.src = src
+}
+
+//? Controlar inputs
+let cor_input_agora = '#fff'
+function atualizar_cor_progresso_input(inputElement) {
+    var value = (inputElement.value-inputElement.min)/(inputElement.max-inputElement.min)*100;
+    inputElement.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d ${value}%, #4d4d4d 100%)`
 }
