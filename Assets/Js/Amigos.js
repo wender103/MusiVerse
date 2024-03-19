@@ -9,6 +9,7 @@ function Fehcar_Aba_Amigos() {
 
 const container_amigos = document.querySelector('#container_amigos')
 function Carregar_Amigos(Email, UsersData) {
+    console.log(UsersData);
     // console.log('Carregar_Amigos foi chamado');
     let Amigos = currentUser.User.InfosPerfil.Amigos.Aceitos
 
@@ -39,6 +40,10 @@ function Carregar_Amigos(Email, UsersData) {
             primeira_parte_perfil_amigo.className = 'primeira_parte_perfil_amigo'
             container_img_perfil_amigo.className = 'container_img_perfil_amigo'
             container_texto_perfil_amigo.className = 'container_texto_perfil_amigo'
+
+            if(UsersData.CorBackground && UsersData.Online) {
+                container_perfil_amigo.style.backgroundImage = `linear-gradient(-45deg, ${UsersData.CorBackground}, rgba(0, 0, 0, 0))`
+            }
             
             if(UsersData.Online == false) {
                 ball_offline.className = 'ball_offline'

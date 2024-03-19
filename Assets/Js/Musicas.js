@@ -1601,8 +1601,6 @@ function DarPlayMusica(Lista, num, Pausar = false) {
             } EnviarDados()
         
             AddInfoTelaTocandoAgora(Lista)
-    
-            Atualizar_Presenca(true, currentUser.InfoEmail.email, Lista.ID);
         
             updateURLParameter('music', Lista.ID)
 

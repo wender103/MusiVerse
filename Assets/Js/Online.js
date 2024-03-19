@@ -2,7 +2,7 @@
 function gerenciarPresencaUsuario() {
     // Inicializa a atualização de presença a cada 5 minutos
     setInterval(() => {
-        Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID);
+        Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID)
     }, 2 * 60 * 1000); // 5 minutos em milissegundos
 
     // Monitora as mudanças na presença dos usuários
@@ -61,7 +61,7 @@ function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
     } catch (error) {
         // console.warn(error)
     }
-}
+} Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID)
 
 //* Atualizar no dc
 function Atualizar_Perfil_DC(Musica) {
