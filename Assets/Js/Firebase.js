@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
           obterValoresDaURL('All')
         } catch{}
       }).catch((e) => {
-        location.href = `Error.html`
+        // location.href = `Error.html`
     })
     } else {
       // Obtém a URL atual
@@ -142,17 +142,33 @@ try {
 } catch{}
 
 function Checar_Estado_Site() {
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     db.collection('Site').limit(1).get().then((snapshot) => {
-      console.log('dasfsda');
       snapshot.docs.forEach(SiteInfo => {
         let Site = SiteInfo.data()
-        if(Site.Estado == 'Suspenso') {
-          location.href = 'Error.html'
+        if (Site.Estado == 'Suspenso') {
+          location.href = 'Error.html';
+          reject("Site suspenso")
+        } else {
+          resolve()
         }
-      })
-      
-      resolve()
+      });
+    }).catch(error => {
+      reject(error)
     })
   })
 }
+
+function Checar_Infos_Site() {
+  db.collection('Site').onSnapshot((data) => {
+    data.docs.map(function(SiteInfo) {
+        let Site = SiteInfo.data()
+        if(Site.Estado != 'Suspenso' && location.href.includes('Error.html')) {
+            location.href = 'MusiVerse.html'
+        } else if(Site.Estado == 'Suspenso' && !location.href.includes('Error.html')) {
+          location.href = 'Error.html'
+        }
+    })
+  })
+
+} Checar_Infos_Site()
