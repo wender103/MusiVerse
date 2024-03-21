@@ -21,6 +21,9 @@ function FecharPaginas() {
     for(let c = 0; c < Paginas.length; c++) {
         try {
             document.getElementsByClassName('Open')[c].classList.remove('Open')
+            setTimeout(() => {
+                rolarAteOTopoDoElemento(document.getElementById('PagMusicaTocandoAgora'))
+            }, 1000)
         } catch{}
         
         document.getElementsByClassName('Paginas')[c].style.display = 'none'
@@ -308,6 +311,7 @@ BarraMusica.addEventListener('click', (e) => {
     if(window.visualViewport.width <= 628 && el.id != 'ConfigsBarraMusicaCell' && el.id != 'PlayCellBarraMusica' && el.id != 'HeartBarraMusica2' && el.id != 'AutorMusicaBarraMusica') {
         document.querySelector('body').style.overflow = 'hidden'
         document.getElementById('PagMusicaTocandoAgora').classList.add('Open')
+        // rolarAteOTopoDoElemento(document.getElementById('PagMusicaTocandoAgora'))
     }
 })
 
@@ -316,6 +320,7 @@ fecharPagMusicaTocandoAgora.addEventListener('click', () => {
     if(window.visualViewport.width <= 628) {
         document.getElementById('PagMusicaTocandoAgora').classList.remove('Open')
         document.querySelector('body').style.overflow = 'auto'
+        rolarAteOTopoDoElemento(document.getElementById('PagMusicaTocandoAgora'))
     }
 })
 

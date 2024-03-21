@@ -171,11 +171,7 @@ function gerarCorAleatoria() {
 }
 
 function rolarAteOTopoDoElemento(elemento) {
-  // Verifica se o elemento foi passado corretamente
-  if (!elemento) return
-
-  // Faz o site rolar até o topo do elemento
-  elemento.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  elemento.scrollTop = 0
 }
 
 //* View Port cell
