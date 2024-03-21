@@ -1611,7 +1611,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
         
             updateURLParameter('music', Lista.ID)
 
-            Atualizar_Perfil_DC(Lista)
+            // Atualizar_Perfil_DC(Lista)
         
             MusicaTocandoAgora = Lista
     
