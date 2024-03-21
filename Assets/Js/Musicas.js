@@ -1549,7 +1549,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
                                     const DataAtual = parseInt(`${dataHj.getDate()}${dataHj.getMonth() +1}${dataHj.getFullYear()}`)
                                     //? Caso tenha acabado a semana vai zerar as views do user
                                     try {
-                                        if(DataAtual - parseInt(infosUser.ViewsSemanais.Data) >= 7) {
+                                        if(parseInt(infosUser.ViewsSemanais.Data) - DataAtual >= 7) {
                                             infosUser.ViewsSemanais.Data = parent(DataAtual)
                                             infosUser.ViewsSemanais.Views = 1
                                         } else {

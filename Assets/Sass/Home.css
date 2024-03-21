@@ -2431,7 +2431,7 @@ body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#contain
 }
 body section.Paginas#PagPerfilOutroUser div#headerPagPerfilOutroUser div#containerHeaderPagPerfilOutroUser div#containerImgHeaderPagPerfilOutroUser img {
   width: auto; /* Largura automática */
-  height: 100%; /* Altura 100% para preencher a altura da div */
+  height: 110%; /* Altura 100% para preencher a altura da div */
   position: absolute; /* Posicionamento absoluto */
   left: 50%; /* Coloca a imagem no centro horizontalmente */
   top: 50%; /* Coloca a imagem no centro verticalmente */
