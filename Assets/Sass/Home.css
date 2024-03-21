@@ -1520,12 +1520,72 @@ body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#coainerBackgrou
   left: 20px;
   cursor: pointer;
 }
-body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop-upEditarPerfil {
-  width: 100%;
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop_up_excluir_musica {
+  width: calc(100% - 200px);
   height: 100vh;
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  right: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.76);
+  z-index: 2;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop_up_excluir_musica div#contaier_filho_excluir_musica {
+  width: calc(95% - 40px);
+  max-width: 500px;
+  height: auto;
+  border-radius: 10px;
+  padding: 20px;
+  margin: auto;
+  background-color: #1a1a1d;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop_up_excluir_musica div#contaier_filho_excluir_musica div#container_img_excluir_musica {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop_up_excluir_musica div#contaier_filho_excluir_musica div#container_img_excluir_musica img {
+  width: 133%;
+  height: 133%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  left: -25.5px;
+  top: -25.5px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop_up_excluir_musica div#contaier_filho_excluir_musica div#container_btns_excluir_musica {
+  margin-top: 20px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop_up_excluir_musica div#contaier_filho_excluir_musica div#container_btns_excluir_musica div {
+  width: 100%;
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop_up_excluir_musica div#contaier_filho_excluir_musica div#container_btns_excluir_musica div button {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #1F1F22;
+  margin-top: 50px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop_up_excluir_musica div#contaier_filho_excluir_musica div#container_btns_excluir_musica div button#btn_excluir_musica {
+  background-color: red;
+}
+body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop-upEditarPerfil {
+  width: calc(100% - 200px);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
   display: none;
   align-items: center;
   justify-content: center;
@@ -1577,11 +1637,11 @@ body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#pop-upEditarPer
   cursor: pointer;
 }
 body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#containerEditrarMusica {
-  width: 100%;
+  width: calc(100% - 200px);
   height: 100vh;
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  right: 0;
   display: none;
   align-items: center;
   justify-content: center;

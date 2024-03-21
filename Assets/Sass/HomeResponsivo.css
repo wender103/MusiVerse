@@ -105,6 +105,18 @@
   nav {
     left: -100vw !important;
   }
+  div#pop-upEditarPerfil {
+    width: 100% !important;
+  }
+  div#pop_up_excluir_musica {
+    width: 100% !important;
+  }
+  div#div#pop-upEditarPerfil {
+    width: 100% !important;
+  }
+  div#containerEditrarMusica {
+    width: 100% !important;
+  }
   div.btnVoltarPagina {
     display: none !important;
   }

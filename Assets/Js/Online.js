@@ -73,8 +73,8 @@ function Atualizar_Perfil_DC(Musica) {
     }
     
     try {
-        // fetch('http://localhost:3000/prececa/dc', {
-        fetch('https://api-presenca-dc.vercel.app/prececa/dc', {
+        fetch('http://localhost:3000/prececa/dc', {
+        // fetch('https://api-presenca-dc.vercel.app/prececa/dc', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

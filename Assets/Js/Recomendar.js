@@ -247,8 +247,8 @@ function ArtistasMaisOuvidosHistorico(Artistas) {
         divBlurTexto.className = 'divBlurTexto2'
         divBlurTexto.innerHTML = `<img src="${TodasMusicas.Musicas[b].LinkImg}">`
 
-        divTexto.appendChild(p)
         divTexto.appendChild(span)
+        divTexto.appendChild(p)
 
         const corAleatoria = `#${((1 << 24) * Math.random() | 0).toString(16).padStart(6, '0')}`
         // let corSVG = corAleatoria

@@ -214,3 +214,7 @@ function atualizar_cor_progresso_input(inputElement) {
     var value = (inputElement.value-inputElement.min)/(inputElement.max-inputElement.min)*100;
     inputElement.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d ${value}%, #4d4d4d 100%)`
 }
+
+function removerParteInicial(url, parteInicial) {
+  return url.replace(parteInicial, '');
+}

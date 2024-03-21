@@ -1656,12 +1656,81 @@ body {
                     }
                 }
 
-                div#pop-upEditarPerfil {
-                    width: 100%;
+                div#pop_up_excluir_musica {
+                    width: calc(100% - 200px);
                     height: 100vh;
                     position: fixed;
-                    top: 0px;
-                    left: 0px;
+                    top: 0;
+                    right: 0;
+                    display: none;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: rgba(0, 0, 0, 0.76);
+                    z-index: 2;
+
+                    div#contaier_filho_excluir_musica {
+                        width: calc(95% - 40px);
+                        max-width: 500px;
+                        height: auto;
+                        border-radius: 10px;
+                        padding: 20px;
+                        margin: auto;
+                        background-color: #1a1a1d;
+
+
+                        div#container_img_excluir_musica {
+                            width: 150px;
+                            height: 150px;
+                            border-radius: 10px;
+                            overflow: hidden;
+                            position: relative;
+                            margin: auto;
+
+                            img {
+                                width: 133%;
+                                height: 133%;
+                                object-fit: cover;
+                                position: absolute;
+                                left: -25.5px;
+                                top: -25.5px;
+                            }
+                        }
+
+                        div#container_btns_excluir_musica {
+                            margin-top: 20px;
+
+                            div {
+                                width: 100%;
+                                display: flex;
+                                gap: 15px;
+                                margin-top: 10px;
+
+                                button {
+                                    width: 100%;
+                                    padding: 10px 15px;
+                                    border-radius: 5px;
+                                    background-color: #1F1F22;
+                                    margin-top: 50px;
+                                    color: #fff;
+                                    border: none;
+                                    cursor: pointer;
+
+                                    &#btn_excluir_musica {
+                                        background-color: red;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                div#pop-upEditarPerfil {
+                    width: calc(100% - 200px);
+                    height: 100vh;
+                    position: fixed;
+                    top: 0;
+                    right: 0;
                     display: none;
                     align-items: center;
                     justify-content: center;
@@ -1720,11 +1789,11 @@ body {
                 }
 
                 div#containerEditrarMusica {
-                    width: 100%;
+                    width: calc(100% - 200px);
                     height: 100vh;
                     position: fixed;
-                    top: 0px;
-                    left: 0px;
+                    top: 0;
+                    right: 0;
                     display: none;
                     align-items: center;
                     justify-content: center;

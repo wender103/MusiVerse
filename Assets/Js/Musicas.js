@@ -223,8 +223,8 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
         span.title = arrayMusicasRetornadas[c].Autor
         divBlurTexto.innerHTML = `<img src="${arrayMusicasRetornadas[c].LinkImg}">`
   
-        divTexto.appendChild(p)
         divTexto.appendChild(span)
+        divTexto.appendChild(p)
         div.appendChild(darPlay)
         containerImg.appendChild(img)
         div.appendChild(containerImg)
@@ -432,8 +432,8 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
         Genero.innerText = arrayMusicasRetornadas[c].Genero
         Heart.src = './Assets/Imgs/Icons/icon _heart_ (1).png'
         
-        divTexto.appendChild(Nome)
         divTexto.appendChild(AutorDaMusica)
+        divTexto.appendChild(Nome)
         divPrimeiraParte.appendChild(contador)
         divImg.appendChild(img)
         divPrimeiraParte.appendChild(divImg)
@@ -884,8 +884,8 @@ async function RetornarMusicasFavoritas(Email, Local, MusicaFavoritaOuPostada) {
                     Genero.innerText = TodasMusicas.Musicas[contadorTodasAsMusicas].Genero
                     Heart.src = './Assets/Imgs/Icons/icon _heart_.png'
                     
-                    divTexto.appendChild(Nome)
                     divTexto.appendChild(AutorDaMusica)
+                    divTexto.appendChild(Nome)
                     divPrimeiraParte.appendChild(contador)
                     divImg.appendChild(img)
                     divPrimeiraParte.appendChild(divImg)
@@ -1079,6 +1079,7 @@ document.getElementById('imgMusicaFavoritaTocandoAgora').addEventListener('click
 let arrayMusicasPostadasPeloUser = []
 let musicaSelecionadaParaEditar
 let Musica_Editanto_Agora
+let musica_selecionada_excluir
 async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = false) {
     arrayMusicasPostadasPeloUser = []
     const article = document.createElement('article')
@@ -1138,8 +1139,8 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
             Editar.innerHTML = '<img src="./Assets/Imgs/Icons/edit.png" class="BtnsEditarMusicaLinha"/>'
             Excluir.innerHTML = '<img src="./Assets/Imgs/Icons/icon _trash_.png" class="BtnsEditarMusicaLinha"/>'
             
-            divTexto.appendChild(Nome)
             divTexto.appendChild(AutorDaMusica)
+            divTexto.appendChild(Nome)
             divPrimeiraParte.appendChild(contador)
             divImg.appendChild(img)
             divPrimeiraParte.appendChild(divImg)
@@ -1298,6 +1299,12 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
                 FavoritarDesfavoritarMusica(TodasMusicas.Musicas[c].ID, 'Editar').then((resolve) => {
                     Heart.src = resolve
                 })
+            })
+
+            //? Vai excluir a música
+            Excluir.addEventListener('click', () => {
+                musica_selecionada_excluir = TodasMusicas.Musicas[c]
+                AbrirExcluirMusica()
             })
 
             //? Ao clicar no icone de editar a música
@@ -2171,8 +2178,8 @@ async function RetornarMusicasArtista(Artista, Local, PegarLista) {
             Genero.innerText = TodasMusicas.Musicas[c].Genero
             Heart.src = './Assets/Imgs/Icons/icon _heart_ (1).png'
             
-            divTexto.appendChild(Nome)
             divTexto.appendChild(AutorDaMusica)
+            divTexto.appendChild(Nome)
             divPrimeiraParte.appendChild(contador)
             divImg.appendChild(img)
             divPrimeiraParte.appendChild(divImg)
@@ -2703,8 +2710,8 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
 
                     containerImg.appendChild(img)
                     container.appendChild(containerImg)
-                    TextoMusicaCaixa.appendChild(p)
                     TextoMusicaCaixa.appendChild(span)
+                    TextoMusicaCaixa.appendChild(p)
                     container.appendChild(TextoMusicaCaixa)
 
                     article.appendChild(container)
@@ -2795,8 +2802,8 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                         Genero.innerText = TodasMusicas.Playlists[c].Musicas[i].Genero
                         Heart.src = './Assets/Imgs/Icons/icon _heart_ (1).png'
                         
-                        divTexto.appendChild(Nome)
                         divTexto.appendChild(AutorDaMusica)
+                        divTexto.appendChild(Nome)
                         divPrimeiraParte.appendChild(contador)
                         divImg.appendChild(img)
                         divPrimeiraParte.appendChild(divImg)
