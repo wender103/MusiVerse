@@ -1550,7 +1550,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
                                     //? Caso tenha acabado a semana vai zerar as views do user
                                     try {
                                         if(DataAtual - parseInt(infosUser.ViewsSemanais.Data) >= 7) {
-                                            infosUser.ViewsSemanais.Data = DataAtual
+                                            infosUser.ViewsSemanais.Data = parent(DataAtual)
                                             infosUser.ViewsSemanais.Views = 1
                                         } else {
                                             infosUser.ViewsSemanais.Views = parseInt(infosUser.ViewsSemanais.Views) + 1

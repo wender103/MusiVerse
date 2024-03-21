@@ -82,6 +82,9 @@ function Cadastrar() {
                             let ContaUser
                             //* Vai cadastrar o user
                             auth.createUserWithEmailAndPassword(Email_User_Cadastro.value, Senha_User_Cadastro.value).then(user => {
+                                let dataHj = new Date()
+                                const DataAtual = parseInt(`${dataHj.getDate()}${dataHj.getMonth() +1}${dataHj.getFullYear()}`)
+                                
                                 ContaUser = {
                                     Email: Email_User_Cadastro.value,
                                     Nome: Nome_User_Cadastro.value,
@@ -94,7 +97,10 @@ function Cadastrar() {
                                             Pendentes: [],
                                             Bloqueados: []
                                         },
-                                        ViewsSemanais: 0,
+                                        ViewsSemanais: {
+                                            Data: parent(DataAtual),
+                                            Views: 0
+                                        },
                                     },
                                     MusicasPostadas: [],
                                     MusicasCurtidas: [],
