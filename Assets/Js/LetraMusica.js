@@ -311,31 +311,34 @@ function Destacar_linhas_Musica_Tocando_Agora(tempoAtual) {
     var preElemento = document.getElementById('letra_musica_tocando_agora')
     var linhas = preElemento.innerText.split('\n')
     
-    for (let c = 0; c < MusicaTocandoAgora.Letra.Tempo.length; c++) {
-        if (tempoAtual + 0.3 >= MusicaTocandoAgora.Letra.Tempo[c]) {
-            if (c < linhas.length) {
-                // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
-                var linhasAtualizadas = linhas.map(function(linha, index) {
-
-                    if(index < c) {
-                        // Linhas anteriores
-                        return `<span class="linha_letra_tocando_agora linha_pre_anterior" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
-
-                    } else if (index === c) {
-                        // Adiciona a classe 'linha_pre_em_destaque' apenas à linha atual
-                        return `<span class="linha_letra_tocando_agora linha_pre_em_destaque" id="linha_atual" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
-                    } else {
-                        return `<span class="linha_letra_tocando_agora" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
-                    }
-                })
-
-                // Atualiza o conteúdo do <pre> com as linhas modificadas
-                preElemento.innerHTML = linhasAtualizadas.join('\n')
-
-                // Faz o scroll para a linha atual
-                document.getElementById('linha_atual').scrollIntoView({ block: 'center' })
-            } else {
-                // Finaliza o intervalo após percorrer todas as linhas
+    if(document.getElementById('PagVerLetraMusicaTocando').style.display == 'block') {
+        
+        for (let c = 0; c < MusicaTocandoAgora.Letra.Tempo.length; c++) {
+            if (tempoAtual + 0.3 >= MusicaTocandoAgora.Letra.Tempo[c]) {
+                if (c < linhas.length) {
+                    // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+                    var linhasAtualizadas = linhas.map(function(linha, index) {
+    
+                        if(index < c) {
+                            // Linhas anteriores
+                            return `<span class="linha_letra_tocando_agora linha_pre_anterior" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
+    
+                        } else if (index === c) {
+                            // Adiciona a classe 'linha_pre_em_destaque' apenas à linha atual
+                            return `<span class="linha_letra_tocando_agora linha_pre_em_destaque" id="linha_atual" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
+                        } else {
+                            return `<span class="linha_letra_tocando_agora" onclick="voltar_musica_por_letra(${index})">${linha}</span>`
+                        }
+                    })
+    
+                    // Atualiza o conteúdo do <pre> com as linhas modificadas
+                    preElemento.innerHTML = linhasAtualizadas.join('\n')
+    
+                    // Faz o scroll para a linha atual
+                    document.getElementById('linha_atual').scrollIntoView({ block: 'center' })
+                } else {
+                    // Finaliza o intervalo após percorrer todas as linhas
+                }
             }
         }
     }
