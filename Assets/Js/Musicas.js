@@ -100,17 +100,14 @@ function carregarMusicas() {
 
     //? Vai fechar a tela de carregamento
     try {
-        document.getElementById('CarregamentoTela1').style.display = 'none'
+        Checar_Estado_Site().then(() => {
+            document.getElementById('CarregamentoTela1').style.display = 'none'
+        })
     } catch{}
 
 }).catch((e) => {
     console.warn(e)
 })
-
-//? Tirar dps
-setTimeout(() => {
-    document.getElementById('CarregamentoTela1').style.display = 'none'
-}, 5000)
 
 async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa', PesquisarEmail = false, Artista = false, ClassArticle, Comando) {
     if(maxMusicas == 'Indeterminado') {

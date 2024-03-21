@@ -140,3 +140,19 @@ try {
     AbrirPaginas('MeuPerfil')
   })
 } catch{}
+
+function Checar_Estado_Site() {
+  new Promise((resolve, reject) => {
+    db.collection('Site').limit(1).get().then((snapshot) => {
+      console.log('dasfsda');
+      snapshot.docs.forEach(SiteInfo => {
+        let Site = SiteInfo.data()
+        if(Site.Estado == 'Suspenso') {
+          location.href = 'Error.html'
+        }
+      })
+      
+      resolve()
+    })
+  })
+}
