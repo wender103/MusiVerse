@@ -218,3 +218,12 @@ function atualizar_cor_progresso_input(inputElement) {
 function removerParteInicial(url, parteInicial) {
   return url.replace(parteInicial, '');
 }
+
+//? Distância em px scroll do topo
+function distanciaRolagem(elemento) {
+  return Math.floor(elemento.scrollTop)
+}
+
+function temClasse(elemento, classe) {
+  return elemento.classList.contains(classe);
+}
