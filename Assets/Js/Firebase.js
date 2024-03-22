@@ -146,12 +146,30 @@ function Checar_Estado_Site() {
     db.collection('Site').limit(1).get().then((snapshot) => {
       snapshot.docs.forEach(SiteInfo => {
         let Site = SiteInfo.data()
-        if (Site.Estado == 'Suspenso') {
-          location.href = 'Error.html';
-          reject("Site suspenso")
-        } else {
-          resolve()
-        }
+
+        Checar_Adm().then(result => {
+          if(!result) {
+            if (Site.Estado == 'Suspenso') {
+              location.href = 'Error.html';
+              reject("Site suspenso")
+            } else {
+              resolve()
+            }
+
+          } else {
+            if(Site.Estado != 'Suspenso' && location.href.includes('Error.html')) {
+              location.href = 'MusiVerse.html'
+
+            } else if(Site.Estado == 'Suspenso') {
+              try {
+                document.getElementById('container_avisos_adm').style.display = 'flex'
+                document.getElementById('estado_do_site').src = 'Assets/Imgs/Icons/warning.png'
+              } catch {}
+            }
+
+            resolve()
+          }
+        })
       });
     }).catch(error => {
       reject(error)
@@ -163,12 +181,46 @@ function Checar_Infos_Site() {
   db.collection('Site').onSnapshot((data) => {
     data.docs.map(function(SiteInfo) {
         let Site = SiteInfo.data()
-        if(Site.Estado != 'Suspenso' && location.href.includes('Error.html')) {
-            location.href = 'MusiVerse.html'
-        } else if(Site.Estado == 'Suspenso' && !location.href.includes('Error.html')) {
-          location.href = 'Error.html'
-        }
+
+        Checar_Adm().then(resolve => {
+          if(!resolve) {
+            if(Site.Estado != 'Suspenso' && location.href.includes('Error.html')) {
+              location.href = 'MusiVerse.html'
+            } else if(Site.Estado == 'Suspenso' && !location.href.includes('Error.html')) {
+              location.href = 'Error.html'
+            }
+
+          } else {
+            if(Site.Estado != 'Suspenso' && location.href.includes('Error.html')) {
+              location.href = 'MusiVerse.html'
+
+            } else if(Site.Estado == 'Suspenso') {
+              try {
+                document.getElementById('container_avisos_adm').style.display = 'flex'
+                document.getElementById('estado_do_site').src = 'Assets/Imgs/Icons/warning.png'
+              } catch {}
+            }
+          }
+        })
     })
   })
 
 } Checar_Infos_Site()
+
+function Checar_Adm() {
+  return new Promise((resolve, reject) => {
+    db.collection('Site').limit(1).get().then((snapshot) => {
+      snapshot.docs.forEach(SiteInfos => {
+        let Site = SiteInfos.data()
+          
+        Site.Admins.forEach(Adms => {
+          if(Adms == currentUser.User.Email) {
+            resolve(true)
+          }
+        })
+
+        resolve(false)
+      })
+    })
+  })
+}

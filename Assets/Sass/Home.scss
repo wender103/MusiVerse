@@ -318,6 +318,26 @@ body {
         }
     }
 
+    div#container_avisos_adm {
+        width: 50px;
+        height: 50px;
+        position: fixed;
+        bottom: 50px;
+        right: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: red;
+        z-index: 5;
+
+        img#estado_do_site {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+    }
+
     //? Aba Amigos
     div#container_aba_amigos {
         width: 350px;
