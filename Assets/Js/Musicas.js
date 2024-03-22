@@ -1082,7 +1082,7 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
     const article = document.createElement('article')
     let contadorMusicasLinha = 0
 
-    for(let c = TodasMusicas.Musicas.length - 1; c > 0; c--) {
+    for(let c = TodasMusicas.Musicas.length - 1; c >= 0; c--) {
 
         if(EmailUser == TodasMusicas.Musicas[c].EmailUser) {
             arrayMusicasPostadasPeloUser.push(TodasMusicas.Musicas[c])
