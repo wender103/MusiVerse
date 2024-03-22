@@ -186,7 +186,7 @@ function Checar_Infos_Site() {
           if(!resolve) {
             if(Site.Estado != 'Suspenso' && location.href.includes('Error.html')) {
               location.href = 'MusiVerse.html'
-            } else if(Site.Estado == 'Suspenso' && !location.href.includes('Error.html')) {
+            } else if(Site.Estado == 'Suspenso' && !location.href.includes('Error.html') && !location.href.includes('Cadastro.html')) {
               location.href = 'Error.html'
             }
 
