@@ -199,6 +199,8 @@ function Checar_Infos_Site() {
                 document.getElementById('container_avisos_adm').style.display = 'flex'
                 document.getElementById('estado_do_site').src = 'Assets/Imgs/Icons/warning.png'
               } catch {}
+            } else if(Site.Estado != 'Suspenso') {
+              document.getElementById('container_avisos_adm').style.display = 'none'
             }
           }
         })
