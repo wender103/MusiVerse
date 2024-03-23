@@ -93,6 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
               try {
                 Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID)
               } catch{}
+
+              try {
+                Checar_Música_Pendente()
+              } catch{}
             }
 
           contador++

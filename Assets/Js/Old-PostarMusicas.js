@@ -40,15 +40,13 @@ async function prosseguirMusicaYT() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                    body: JSON.stringify({ 
-                        videoURL: videoURL,
-                        userEmail: currentUser.User.Email
+                    body: JSON.stringify({ videoURL 
                 })
             })
 
             if (response.ok) {
                 const data = await response.json()
-            
+              
                 // Vai mostrar a página de editar as informações da música
                 document.getElementById('FinalizarAddYT').style.display = 'block'
                 document.getElementById('PrimeirosPassosYT').style.display = 'none'
@@ -83,22 +81,7 @@ async function prosseguirMusicaYT() {
                 inputAutorMusicaLinkYT.value = data.channelName.replace('- Topic', '')
               
                 // Vai postar a nova música na parte "MusicasPostadas" do Firebase
-
-                const novaMusica = {
-                    Autor: data.channelName,
-                    EmailUser: currentUser.User.Email,
-                    Genero: "",
-                    Letra: [],
-                    LinkAudio: data.audioUrl,
-                    LinkImg: data.thumbnailUrl,
-                    NomeMusica: data.videoTitle,
-                    ID: data.uid,
-                    Estado: 'Pendente'
-                }
-
-                TodasMusicas.Musicas.push(novaMusica)
-                DadosNovaMusica = novaMusica
-
+                DadosNovaMusica = data;
               } else {
                 console.warn("Erro na requisição: ")
                 console.warn(response)
@@ -148,41 +131,50 @@ function FinalizarPostarMusicaYT() {
             EmailUser: currentUser.User.Email,
             Genero: inputGeneroMusicaLinkYT.value,
             Letra: [],
-            LinkAudio: DadosNovaMusica.LinkAudio,
-            LinkImg: DadosNovaMusica.LinkImg,
+            LinkAudio: DadosNovaMusica.audioUrl,
+            LinkImg: DadosNovaMusica.thumbnailUrl,
             NomeMusica: inputNomeMusicaLinkYT.value,
-            ID: DadosNovaMusica.ID,
-            Estado: 'Ativo'
+            ID: DadosNovaMusica.uid,
+            Estado: 'Pendente'
         }
 
-        //? Vai atualizar as informações da música
+        //? Vai postar a música
         db.collection('InfoMusicas').limit(1).get().then((snapshot) => {
             snapshot.docs.forEach(Musicas => {
                 if(feito == false) {
                     feito = true
 
-                    const InfoMusicasObj = Musicas.data().Musicas
+                    const InfoMusicasObj = Musicas.data()
+                    InfoMusicasObj.Musicas.push(NovaMusica)
 
-                    for (let c = 0; c < InfoMusicasObj.length; c++) {
-                        if(InfoMusicasObj[c].ID == NovaMusica.ID) {
-                            InfoMusicasObj[c] = NovaMusica
-
-                            db.collection('InfoMusicas').doc(Musicas.id).update({Musicas: InfoMusicasObj}).then(() => {
-                                //? Vai fechar a aba postar músicas
-                                document.getElementById('FinalizarAddYT').style.display = 'none'
-                                document.getElementById('PrimeirosPassosYT').style.display = 'block'
-                                document.getElementById('ImgMusicaLinkYT').src = 'Assets/Imgs/Banners/c36fff19b54c90efecc303b86bb9f71a.jpg'
-                                FecharPaginas()
-                                limparInputAddMusics()
-    
-                                //? Vai adicionar a música postada no array todas as músicas
-                                TodasMusicas.Musicas = InfoMusicasObj
-    
-                                alert('Música postada com sucesso!')
+                    db.collection('InfoMusicas').doc(Musicas.id).update({Musicas: InfoMusicasObj.Musicas}).then(() => {
+            
+                        //? Vai atualizar o perfil do user
+                        db.collection('Users').onSnapshot(snapshot => {
+                            snapshot.docChanges().forEach(User => {
+                                if(User.doc.data().Email == currentUser.User.Email && musicaPostadaComSucesso == false) {
+                                    musicaPostadaComSucesso = true
+                                    let NovaMusicaPostada = User.doc.data().MusicasPostadas
+                                    NovaMusicaPostada.push(DadosNovaMusica.uid)
+                                    db.collection('Users').doc(User.doc.id).update({MusicasPostadas: NovaMusicaPostada}).then(() => {
+            
+                                        //? Vai fechar a aba postar músicas
+                                        document.getElementById('FinalizarAddYT').style.display = 'none'
+                                        document.getElementById('PrimeirosPassosYT').style.display = 'block'
+                                        document.getElementById('ImgMusicaLinkYT').src = 'Assets/Imgs/Banners/c36fff19b54c90efecc303b86bb9f71a.jpg'
+                                        FecharPaginas()
+                                        limparInputAddMusics()
+            
+                                        //? Vai adicionar a música postada no array todas as músicas
+                                        NovaMusica.Id = DadosNovaMusica.uid
+                                        TodasMusicas.Musicas.push(NovaMusica)
+            
+                                        alert('Música postada com sucesso!')
+                                    })
+                                }
                             })
-                        }
-                    }
-
+                        })
+                    })
                 }
             })
         })
@@ -195,30 +187,5 @@ function limparInputAddMusics() {
 
     for(let i = 0; i < inputAddMusic.length; i++) {
         inputAddMusic[i].value = ''
-    }
-}
-
-//* Vai checar se o user tem alguma música pendente
-function Checar_Música_Pendente() {
-    for (let c = 0; c < TodasMusicas.Musicas.length; c++) {
-        if(TodasMusicas.Musicas[c].EmailUser == currentUser.User.Email && TodasMusicas.Musicas[c].Estado == 'Pendente' && TodasMusicas.Musicas[c].Genero == '') {
-            AbrirPaginas('AdicionarMusica')
-            // Vai mostrar a página de editar as informações da música
-            document.getElementById('FinalizarAddYT').style.display = 'block'
-            document.getElementById('PrimeirosPassosYT').style.display = 'none'
-            carregando.style.display = 'none'
-            
-            // Vai pegar os inputs e a img para colocar as infos da música para o usuário poder editá-las
-            const ImgMusicaLinkYT = document.getElementById('ImgMusicaLinkYT')
-            const inputNomeMusicaLinkYT = document.getElementById('inputNomeMusicaLinkYT')
-            const inputAutorMusicaLinkYT = document.getElementById('inputAutorMusicaLinkYT')
-            const inputGeneroMusicaLinkYT = document.getElementById('inputGeneroMusicaLinkYT')
-            
-            ImgMusicaLinkYT.src = TodasMusicas.Musicas[c].LinkImg
-            inputNomeMusicaLinkYT.value = TodasMusicas.Musicas[c].NomeMusica
-            inputAutorMusicaLinkYT.value = TodasMusicas.Musicas[c].Autor.replace('- Topic', '')
-
-            DadosNovaMusica = TodasMusicas.Musicas[c]
-        }
     }
 }

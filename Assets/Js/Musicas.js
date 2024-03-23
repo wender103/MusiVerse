@@ -162,7 +162,7 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
             musicaPassou = true
         }
     
-        if (musicaPassou && contadorMusicasPorSection < maxMusicas) {
+        if (musicaPassou && contadorMusicasPorSection < maxMusicas && TodasMusicas.Musicas[c].Estado == 'Ativo') {
             if(Pesquisa == 'Aleatórias') {
                 arrayMusicasRetornadas = arraymusicasAleatorias.slice(0, maxMusicas)
             } else {
@@ -842,7 +842,7 @@ async function RetornarMusicasFavoritas(Email, Local, MusicaFavoritaOuPostada) {
 
             for(let contadorTodasAsMusicas = 0; contadorTodasAsMusicas < TodasMusicas.Musicas.length; contadorTodasAsMusicas++) {
 
-                if(TodasMusicas.Musicas[contadorTodasAsMusicas].ID == currentUser.User.MusicasCurtidas[contadorMusicasCurtidas]) {
+                if(TodasMusicas.Musicas[contadorTodasAsMusicas].ID == currentUser.User.MusicasCurtidas[contadorMusicasCurtidas] && TodasMusicas.Musicas[contadorTodasAsMusicas].Estado == 'Ativo') {
                     musicasFavoritasUser.push(TodasMusicas.Musicas[contadorTodasAsMusicas])
                     contadorMusicasLinha++
                     article.className = 'containerMusicaLinha'
@@ -1084,10 +1084,10 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
 
     for(let c = TodasMusicas.Musicas.length - 1; c >= 0; c--) {
 
-        if(EmailUser == TodasMusicas.Musicas[c].EmailUser) {
+        if(EmailUser == TodasMusicas.Musicas[c].EmailUser && TodasMusicas.Musicas[c].Estado == 'Ativo') {
             arrayMusicasPostadasPeloUser.push(TodasMusicas.Musicas[c])
             contadorMusicasLinha++
-            article.className = 'containerMusicaLinha'
+            article.className = 'containerMusicaLinha' 
 
             const div = document.createElement('div')
             const divPrimeiraParte = document.createElement('div')
@@ -2134,7 +2134,7 @@ async function RetornarMusicasArtista(Artista, Local, PegarLista) {
     for(let c = TodasMusicas.Musicas.length -1; c >= 0; c--) {
         let AutorFormadato  =  formatarTexto(TodasMusicas.Musicas[c].Autor)
 
-        if(ArtistaFormadado.includes(AutorFormadato) || AutorFormadato.includes(ArtistaFormadado)) {
+        if(ArtistaFormadado.includes(AutorFormadato) && TodasMusicas.Musicas[c].Estado == 'Ativo' || AutorFormadato.includes(ArtistaFormadado) && TodasMusicas.Musicas[c].Estado == 'Ativo') {
 
             if(!musica_encontrada_artista) {
                 musica_encontrada_artista = true

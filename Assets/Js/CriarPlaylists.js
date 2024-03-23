@@ -22,7 +22,7 @@ function PesquisarMusicaCriarPlaylist() {
             const Autor = formatarTexto(TodasMusicas.Musicas[c].Autor)
             const Genero = formatarTexto(TodasMusicas.Musicas[c].Genero)
     
-            if(contadorMusicas < 12) {
+            if(contadorMusicas < 12 && TodasMusicas.Musicas[c].Estado == 'Ativo') {
                 if (PesquisaFormatada.includes(NomeMusica) || PesquisaFormatada.includes(Autor) || PesquisaFormatada.includes(Genero) || NomeMusica.includes(PesquisaFormatada) || Autor.includes(PesquisaFormatada) || Genero.includes(PesquisaFormatada)
                 ) {
                     contadorMusicas++
