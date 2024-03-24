@@ -2,8 +2,8 @@
 function gerenciarPresencaUsuario() {
     // Inicializa a atualização de presença a cada 5 minutos
     setInterval(() => {
-        Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID)
-    }, 2 * 60 * 1000); // 5 minutos em milissegundos
+        Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID, cor_escolhida_background)
+    }, 1.5 * 60 * 1000) // 1.5 minutos em milissegundos
 
     // Monitora as mudanças na presença dos usuários
     db.collection('Presence').onSnapshot(function(snapshot) {
@@ -20,7 +20,7 @@ function gerenciarPresencaUsuario() {
                             Carregar_Amigos(userID, userData)
                         }
                     })
-                    break; // Sai do loop assim que encontrar um amigo
+                    break // Sai do loop assim que encontrar um amigo
                 }
             }
         })
@@ -34,6 +34,10 @@ window.addEventListener("beforeunload", function() {
 
 // Função para enviar informações de presença para a API
 function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
+    if(!cor_escolhida_background) {
+        cor_escolhida_background = null
+    }
+
     try {
         // fetch('http://localhost:3000/api/updatePresence', {
         fetch('https://apipresenca.onrender.com/api/updatePresence', {
