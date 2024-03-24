@@ -39,7 +39,7 @@ function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
     }
 
     try {
-        // fetch('http://localhost:3000/api/updatePresence', {
+        // fetch('http://localhost:4000/api/updatePresence', {
         fetch('https://apipresenca.onrender.com/api/updatePresence', {
             method: 'POST',
             headers: {
