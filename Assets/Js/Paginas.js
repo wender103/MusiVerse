@@ -208,9 +208,19 @@ function AbrirPaginas(Name, ID, Salavar = true, Open_all = false, info_extra = '
             }
         })
     } else if(Name == 'playlist') {
+        let array_musicas_playlist = []
         TodasMusicas.Playlists.forEach(playlists => {
             if(playlists.ID == ID) {
-                AbrirPlaylist(playlists)
+                for (let e = 0; e < playlists.Musicas.length; e++) {
+                    for (let c = 0; c < TodasMusicas.Musicas.length; c++) {
+                        if(TodasMusicas.Musicas[c].ID == playlists.Musicas[e]) {
+                            array_musicas_playlist.push(TodasMusicas.Musicas[c])
+                        }
+                    }
+                }
+
+                AbrirPlaylist(playlists, array_musicas_playlist)
+                arrayMusicasPlaylist = array_musicas_playlist
             }
         })
 
@@ -358,7 +368,7 @@ function fechar_popUp_contato() {
     btn_entrar_contato.classList.add('sairAnimacao')
 }
 
-function RetornarUltimasPesquisas(Local) {
+function RetornarUltimasPesquisas(Local, Comando) {
 
     const ultimasPesquisas = currentUser.User.GostoMusical.Historico.UltimasPesquisas
     const section = document.createElement('section')
@@ -615,79 +625,107 @@ function RetornarUltimasPesquisas(Local) {
             }
 
         } else if(ultimasPesquisas[a].TipoPesquisa == 'playlist') {
-            for(let c = 0; c < TodasMusicas.Playlists.length; c++) {
-                if(TodasMusicas.Playlists[c].ID == ultimasPesquisas[a].ID) {
-                    const container = document.createElement('div')
-                    const containerImg = document.createElement('div')
-                    const img = document.createElement('img')
-                    const TextoMusicaCaixa = document.createElement('div')
-                    const p = document.createElement('p')
-                    const span = document.createElement('span')
+            
+            let array_musicas_playlist_buscas_recentes = []
+            let playlist_atual = {}
 
-                    container.className = 'containerPlaylists'
-                    containerImg.className = 'containerImgPlaylist'
-                    TextoMusicaCaixa.className = 'TextoMusicaCaixa'
+            for(let d = 0; d < TodasMusicas.Playlists.length; d++) {
+                if(TodasMusicas.Playlists[d].ID == ultimasPesquisas[a].ID) {
+                    playlist_atual = TodasMusicas.Playlists[d]
 
-                    img.src = TodasMusicas.Playlists[c].Musicas[0].LinkImg
-                    p.innerText = TodasMusicas.Playlists[c].Nome
-
-                    let userDonoDaPlaylist
-                    for(let i = 0; i < TodosOsUsers.length; i++) {
-                        if(TodosOsUsers[i].User.Email == TodasMusicas.Playlists[c].EmailUser) {
-                            span.innerText = `De ${TodosOsUsers[i].User.Nome}`
-                            userDonoDaPlaylist = TodosOsUsers[i]
-                        }
-                    }
-
-                    containerImg.appendChild(img)
-                    container.appendChild(containerImg)
-                    TextoMusicaCaixa.appendChild(p)
-                    TextoMusicaCaixa.appendChild(span)
-                    container.appendChild(TextoMusicaCaixa)
-
-                    article.appendChild(container)
-
-                    //? Ao clicar no nome do user
-                    span.addEventListener('click', () => {
-                        AbrirPerfilOutroUser(userDonoDaPlaylist.User)
-
-                        if(Comando == 'Salvar pesquisa') {
-                            //? Vai salvar a pesquisa
-                            const pesquisa = {TipoPesquisa: 'profile', ID: userDonoDaPlaylist.User.Id}
-                            SalvarUltimasPesquisas(pesquisa)
-                        }
-                    })
-
-                    //? Vai abrir a playlist
-                    container.addEventListener('click', (e) => {
-                        let el = e.target
-
-                        if(el != span) {
-                            AbrirPlaylist(TodasMusicas.Playlists[c])
-
-                            if(Comando == 'Salvar pesquisa') {
-                                //? Vai salvar a pesquisa
-                                const pesquisa = {TipoPesquisa: 'playlist', ID: TodasMusicas.Playlists[c].ID}
-                                SalvarUltimasPesquisas(pesquisa)
+                    for(let e = 0; e < TodasMusicas.Playlists[d].Musicas.length; e++) {
+                        for(let f = 0; f < TodasMusicas.Musicas.length; f++) {
+                            if(TodasMusicas.Playlists[d].Musicas[e] == TodasMusicas.Musicas[f].ID) {
+                                array_musicas_playlist_buscas_recentes.push(TodasMusicas.Musicas[f])
                             }
                         }
-
-                    })
-
-                    container.addEventListener('contextmenu', function (e) {
-                        e.preventDefault()
-
-                        playlistSelecionadaBtnDireito = TodasMusicas.Playlists[c]
-                        const containerOptionsClickPlaylist = document.getElementById('containerOptionsClickPlaylist')
-
-                        hideMenu()
-                        // Position the custom menu at the mouse coordinates
-                        containerOptionsClickPlaylist.style.left = e.clientX+ 'px'
-                        containerOptionsClickPlaylist.style.top = e.clientY + 'px'
-                        containerOptionsClickPlaylist.style.display = 'block'
-                    })
+                    }
                 }
             }
+
+
+            const container = document.createElement('div')
+            const containerImg = document.createElement('div')
+            const img = document.createElement('img')
+            const TextoMusicaCaixa = document.createElement('div')
+            const p = document.createElement('p')
+            const span = document.createElement('span')
+
+            container.className = 'containerPlaylists'
+            containerImg.className = 'containerImgPlaylist'
+            TextoMusicaCaixa.className = 'TextoMusicaCaixa'
+
+            carregarImagem(playlist_atual.Thumb, function(imgPerfil) {
+                if (imgPerfil) {
+                    img.classList.add('Playlist_Com_Thumb')
+                    img.src = playlist_atual.Thumb
+                } else {
+    
+                    if(TodasMusicas.Musicas[0].LinkImg.includes('treefy')) {
+                        img.classList.remove('Thumb_Playlist_TreeFy')
+                    }
+    
+                    img.src = TodasMusicas.Musicas[0].LinkImg
+                }
+            })
+            p.innerText = playlist_atual.Nome
+
+            let userDonoDaPlaylist
+            for(let i = 0; i < TodosOsUsers.length; i++) {
+                if(TodosOsUsers[i].User.Email == playlist_atual.EmailUser) {
+                    span.innerText = `De ${TodosOsUsers[i].User.Nome}`
+                    userDonoDaPlaylist = TodosOsUsers[i]
+                }
+            }
+
+            containerImg.appendChild(img)
+            container.appendChild(containerImg)
+            TextoMusicaCaixa.appendChild(p)
+            TextoMusicaCaixa.appendChild(span)
+            container.appendChild(TextoMusicaCaixa)
+
+            article.appendChild(container)
+
+            //? Ao clicar no nome do user
+            span.addEventListener('click', () => {
+                AbrirPerfilOutroUser(userDonoDaPlaylist.User)
+
+                if(Comando == 'Salvar pesquisa') {
+                    //? Vai salvar a pesquisa
+                    const pesquisa = {TipoPesquisa: 'profile', ID: userDonoDaPlaylist.User.Id}
+                    SalvarUltimasPesquisas(pesquisa)
+                }
+            })
+
+            //? Vai abrir a playlist
+            container.addEventListener('click', (e) => {
+                let el = e.target
+
+                if(el != span) {
+                    AbrirPlaylist(playlist_atual, array_musicas_playlist_buscas_recentes)
+                    arrayMusicasPlaylist = array_musicas_playlist_buscas_recentes
+
+                    if(Comando == 'Salvar pesquisa') {
+                        //? Vai salvar a pesquisa
+                        const pesquisa = {TipoPesquisa: 'playlist', ID: playlist_atual.ID}
+                        SalvarUltimasPesquisas(pesquisa)
+                    }
+                }
+
+            })
+
+            container.addEventListener('contextmenu', function (e) {
+                e.preventDefault()
+
+                playlistSelecionadaBtnDireito = playlist_atual
+                const containerOptionsClickPlaylist = document.getElementById('containerOptionsClickPlaylist')
+
+                hideMenu()
+                // Position the custom menu at the mouse coordinates
+                containerOptionsClickPlaylist.style.left = e.clientX+ 'px'
+                containerOptionsClickPlaylist.style.top = e.clientY + 'px'
+                containerOptionsClickPlaylist.style.display = 'block'
+            })
 
         } else if(ultimasPesquisas[a].TipoPesquisa == 'profile') {
 

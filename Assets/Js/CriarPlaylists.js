@@ -1,6 +1,104 @@
-const containerMusicasAddCriarPlaylist = document.getElementById('containerMusicasAddCriarPlaylist').querySelector('section').querySelector('article')
-const articleContainerMusicasAdded = document.getElementById('articleContainerMusicasAdded')
-//? Adicionar músicas a playlist
+const container_escolher_img_playlist = document.getElementById('container_escolher_img_playlist')
+const containerImgPlaylist = document.getElementById('containerImgPlaylist')
+
+//* Inputs
+const input_link_thumb = document.getElementById('input_link_thumb')
+const nomePlaylistCriarPlaylist = document.getElementById('nomePlaylistCriarPlaylist')
+const descPlaylistCriarPlaylist = document.getElementById('descPlaylistCriarPlaylist')
+
+container_escolher_img_playlist.addEventListener('click', (e) => {
+    Abrir_Escolher_Thumb_Playlist(e.target)
+})
+
+let Abrir_Add_thumb = false
+let usando_thumb_personalizada = false
+function Abrir_Escolher_Thumb_Playlist(e) {
+    if(!Abrir_Add_thumb) {
+        Abrir_Add_thumb = true
+
+        setTimeout(() => {
+            Abrir_Add_thumb = false
+        }, 100)
+
+        try {
+            if(e.id == 'container_escolher_img_playlist' || e.id == 'containerImgPlaylist' || e.id == 'btn_cancel_add_thumb' || e.id == 'btn_adicionar_thumb') {
+    
+                if(container_escolher_img_playlist.style.display == 'flex') {
+                    if(e.id == 'btn_cancel_add_thumb') {
+                        input_link_thumb.value = ''
+                        Adicionar_Thumb_Playlist()
+                    }
+                    
+                    container_escolher_img_playlist.style.display = 'none'
+                    Adicionar_Thumb_Playlist()
+            
+                } else {
+                    container_escolher_img_playlist.style.display = 'flex'
+                }
+            }
+        } catch{}
+    }
+}
+
+let aviso_thumb = false
+function Adicionar_Thumb_Playlist() {
+    if(input_link_thumb.value.trim() != '') {
+        const imgCriarPlaylist = document.getElementById('imgCriarPlaylist')
+        
+        carregarImagem(input_link_thumb.value, function(imgPerfil) {
+            if (imgPerfil) {
+                imgCriarPlaylist.classList.remove('Thumb_Playlist_MusiVerse')
+                imgCriarPlaylist.classList.remove('Thumb_Playlist_TreeFy')
+                imgCriarPlaylist.classList.add('PlaylistTemImg')
+                imgCriarPlaylist.src = input_link_thumb.value
+                usando_thumb_personalizada = true
+            } else {
+                imgCriarPlaylist.classList.remove('Thumb_Playlist_MusiVerse')
+                imgCriarPlaylist.classList.remove('Thumb_Playlist_TreeFy')
+                imgCriarPlaylist.classList.remove('PlaylistTemImg')
+                imgCriarPlaylist.src = 'Assets/Imgs/Icons/Faixas200.png'
+                usando_thumb_personalizada = false
+                input_link_thumb.value = ''
+                Adicionar_Thumb_Playlist()
+                
+                if(!aviso_thumb) {
+                    aviso_thumb = true
+                    setTimeout(() => {
+                        aviso_thumb = false
+                    }, 100)
+                    
+                    alert('Não conseguimos acessar a thumb da playlist')
+                }
+            }
+        })
+
+        
+    } else {
+        if(arrayMusicasNovaPlaylist.length > 0 && !usando_thumb_personalizada) {
+            for(let b = 0; b < TodasMusicas.Musicas.length; b++) {
+                if(arrayMusicasNovaPlaylist[0] == TodasMusicas.Musicas[b].ID) {
+                    if(TodasMusicas.Musicas[b].LinkImg.includes('musiverse')) {
+                        imgCriarPlaylist.classList.add('Thumb_Playlist_MusiVerse')
+
+                    } else if(TodasMusicas.Musicas[b].LinkImg.includes('treefy')) {
+                        imgCriarPlaylist.classList.add('Thumb_Playlist_TreeFy')
+                    }
+
+                    imgCriarPlaylist.src = TodasMusicas.Musicas[b].LinkImg
+                }
+            }
+
+        } else {
+            imgCriarPlaylist.classList.remove('Thumb_Playlist_MusiVerse')
+            imgCriarPlaylist.classList.remove('Thumb_Playlist_TreeFy')
+            imgCriarPlaylist.classList.remove('PlaylistTemImg')
+            imgCriarPlaylist.src = 'Assets/Imgs/Icons/Faixas200.png'
+            usando_thumb_personalizada = false
+        }
+
+    }
+}
+
 let arrayMusicasNovaPlaylist = []
 function PesquisarMusicaCriarPlaylist() {
     const pesquisarMuiscaCriarPlaylist = document.getElementById('pesquisarMuiscaCriarPlaylist')
@@ -10,7 +108,8 @@ function PesquisarMusicaCriarPlaylist() {
     const article = document.createElement('article')
     article.className = 'containerMusicasOverflow'
     let contadorMusicas = 0
-    
+    let musica_encontrada = false
+
     if(pesquisarMuiscaCriarPlaylist.value.trim() != '') {
         Local.style.display = 'block'
         document.getElementById('btnPesquisaMusicaPlaylist').src = 'Assets/Imgs/Icons/x.png'
@@ -25,6 +124,7 @@ function PesquisarMusicaCriarPlaylist() {
             if(contadorMusicas < 12 && TodasMusicas.Musicas[c].Estado == 'Ativo') {
                 if (PesquisaFormatada.includes(NomeMusica) || PesquisaFormatada.includes(Autor) || PesquisaFormatada.includes(Genero) || NomeMusica.includes(PesquisaFormatada) || Autor.includes(PesquisaFormatada) || Genero.includes(PesquisaFormatada)
                 ) {
+                    musica_encontrada = true
                     contadorMusicas++
                     article.className = 'containerMusicaLinha'
         
@@ -78,14 +178,14 @@ function PesquisarMusicaCriarPlaylist() {
                         const imgCriarPlaylist = document.getElementById('imgCriarPlaylist')
     
                         if(clicouAdd == false) {
-                            arrayMusicasNovaPlaylist.push(TodasMusicas.Musicas[c])
+                            arrayMusicasNovaPlaylist.push(TodasMusicas.Musicas[c].ID)
                             // Local.style.display = 'none'
                             clicouAdd = true
                             articleContainerMusicasAdded.appendChild(div)
                             btnAdicionar.innerText = 'Remover'
                         } else {
                             for(let b = 0; b < arrayMusicasNovaPlaylist.length; b++) {
-                                if(arrayMusicasNovaPlaylist[b].ID == TodasMusicas.Musicas[c].ID) {
+                                if(arrayMusicasNovaPlaylist[b] == TodasMusicas.Musicas[c].ID) {
                                     arrayMusicasNovaPlaylist.splice(b, 1)
                                 }
                             }
@@ -95,12 +195,24 @@ function PesquisarMusicaCriarPlaylist() {
                         }
     
                         //? Vai mudar a foto da playlist
-                        if(arrayMusicasNovaPlaylist.length > 0) {
-                            imgCriarPlaylist.classList.add('PlaylistTemImg')
-                            imgCriarPlaylist.src = arrayMusicasNovaPlaylist[0].LinkImg
-                            btnPostarPlaylist.style.display = 'flex'
+                        if(arrayMusicasNovaPlaylist.length > 0 && !usando_thumb_personalizada) {
+                            for(let b = 0; b < TodasMusicas.Musicas.length; b++) {
+                                if(arrayMusicasNovaPlaylist[0] == TodasMusicas.Musicas[b].ID) {
+                                    if(TodasMusicas.Musicas[b].LinkImg.includes('musiverse')) {
+                                        imgCriarPlaylist.classList.add('Thumb_Playlist_MusiVerse')
+                
+                                    } else if(TodasMusicas.Musicas[b].LinkImg.includes('treefy')) {
+                                        imgCriarPlaylist.classList.add('Thumb_Playlist_TreeFy')
+                                    }
+
+                                    imgCriarPlaylist.src = TodasMusicas.Musicas[b].LinkImg
+                                    btnPostarPlaylist.style.display = 'flex'
+                                }
+                            }
     
-                        } else {
+                        } else if(!usando_thumb_personalizada) {
+                            imgCriarPlaylist.classList.remove('Thumb_Playlist_MusiVerse')
+                            imgCriarPlaylist.classList.remove('Thumb_Playlist_TreeFy')
                             imgCriarPlaylist.classList.remove('PlaylistTemImg')
                             imgCriarPlaylist.src = 'Assets/Imgs/Icons/Faixas200.png'
                             btnPostarPlaylist.style.display = 'none'
@@ -108,6 +220,15 @@ function PesquisarMusicaCriarPlaylist() {
                     })
                 }
             }
+        }
+
+        if(!musica_encontrada) {
+            Local.innerHTML = `
+            <div id="container_n_encontrado">
+                <h1 id="h1_nehum_resultado_encontrado">Nehum resultado encontrado para: "${pesquisarMuiscaCriarPlaylist.value}"</h1>
+                <span id="span_infos_n_encontrado">Tente escrevendo o termo da busca de outra forma ou usando outra palavra-chave</span>
+            </div>
+            `
         }
     
         const section = document.createElement('section')
@@ -134,63 +255,55 @@ function PesquisarMusicaCriarPlaylist() {
     })
 }
 
-//? Cancelar Postar
-const popUpAdicionarPlaylist = document.getElementById('popUpAdicionarPlaylist')
-const inputNomeNovaPlaylist = document.getElementById('inputNomeNovaPlaylist')
-const textareaDescricaoNovaPlaylist = document.getElementById('textareaDescricaoNovaPlaylist')
-function CancelarPostarNovaPlaylist() {
-    inputNomeNovaPlaylist.value = ''
-    textareaDescricaoNovaPlaylist.value = ''
-    popUpAdicionarPlaylist.style.display = 'none'
-}
-
-//? Vai abrir popup
-function PopUpPostaNovaPlaylist() {
-    popUpAdicionarPlaylist.style.display = 'flex'
-}
-
-//? Postar nova playlist
-function PostarNovaPlaylist(btn) {
+//* Postar Playlist
+function Postar_Playlist() {
     let feito = false
-    if(inputNomeNovaPlaylist.value.trim() != '') {
-        document.getElementById('postarNovaPlaylist').style.background = 'rgb(0, 255, 255)'
+    let nome_playlist = nomePlaylistCriarPlaylist.value
+    let desc_playlist = descPlaylistCriarPlaylist.value
 
-        if(btn) {
-            const uniqueId = db.collection('IdsUnicos').doc().id;
-
-            let novaPlaylist = {
-                Estado: 'Pública',
-                ID: uniqueId,
-                EmailUser: currentUser.User.Email,
-                Musicas: arrayMusicasNovaPlaylist,
-                Nome: inputNomeNovaPlaylist.value,
-                Descricao: textareaDescricaoNovaPlaylist.value,
-                Colaboradores: [],
-            }
-
-            db.collection('InfoMusicas').limit(1).get().then((snapshot) => {
-                snapshot.docs.forEach(TodasAsMusicas => {
-                    if(feito == false) {
-                        feito = true
-    
-                        const InfoMusicasObj = TodasAsMusicas.data()
-                        InfoMusicasObj.Playlists.push(novaPlaylist)
-    
-                        db.collection('InfoMusicas').doc(TodasAsMusicas.id).update({Playlists: InfoMusicasObj.Playlists}).then(() => {
-                            CancelarPostarNovaPlaylist()
-                            alert('Playlist postada com sucesso!')
-                            FecharPaginas()
-                            document.getElementById('containerMusicasPesquisadasCriarPlaylist').innerHTML = ''
-                            document.getElementById('containerMusicasAddCriarPlaylist').querySelector('section').querySelector('article').querySelector('article').innerHTML = ''
-                            document.getElementById('pesquisarMuiscaCriarPlaylist').innerHTML = ''
-                            document.getElementById('imgCriarPlaylist').src = 'Assets/Imgs/Icons/Faixas200.png'
-                        })
-                    }
-                })
-            })
-        }
-    } else {
-        document.getElementById('postarNovaPlaylist').style.background = '#1F1F22'
+    if(desc_playlist.trim() == '') {
+        desc_playlist.value = null
     }
 
+    if(arrayMusicasNovaPlaylist.length > 0 && nome_playlist.trim() != '') {
+        const new_playlist = {
+            Estado: 'Pública',
+            ID: IDsUncios(),
+            Thumb: document.getElementById('imgCriarPlaylist').src,
+            EmailUser: currentUser.User.Email,
+            Musicas: arrayMusicasNovaPlaylist,
+            Nome: nome_playlist,
+            Descricao: desc_playlist,
+            Colaboradores: [],
+        }
+
+        db.collection('InfoMusicas').limit(1).get().then((snapshot) => {
+            snapshot.docs.forEach(TodasAsMusicas => {
+                if(feito == false) {
+                    feito = true
+
+                    const InfoPlaylystsObj = TodasAsMusicas.data()
+                    InfoPlaylystsObj.Playlists.push(new_playlist)
+
+                    db.collection('InfoMusicas').doc(TodasAsMusicas.id).update({Playlists: InfoPlaylystsObj.Playlists}).then(() => {
+                        arrayMusicasNovaPlaylist = []
+                        alert('Playlist postada com sucesso!')
+                        nomePlaylistCriarPlaylist.value = ''
+                        descPlaylistCriarPlaylist.value = ''
+                        document.getElementById('containerMusicasPesquisadasCriarPlaylist').innerHTML = ''
+                        document.getElementById('containerMusicasAddCriarPlaylist').querySelector('section').querySelector('article').querySelector('article').innerHTML = ''
+                        document.getElementById('pesquisarMuiscaCriarPlaylist').innerHTML = ''
+                        const imgCriarPlaylist = document.getElementById('imgCriarPlaylist')
+                        imgCriarPlaylist.classList.remove('Thumb_Playlist_MusiVerse')
+                        imgCriarPlaylist.classList.remove('Thumb_Playlist_TreeFy')
+                        imgCriarPlaylist.classList.remove('PlaylistTemImg')
+                        imgCriarPlaylist.src = 'Assets/Imgs/Icons/Faixas200.png'
+                    })
+                }
+            })
+        })
+
+    } else {
+        alert('Termine de configurar a playlist antes de tentar postar.')
+    }
 }

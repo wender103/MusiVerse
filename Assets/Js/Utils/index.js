@@ -223,3 +223,8 @@ function distanciaRolagem(elemento) {
 function temClasse(elemento, classe) {
   return elemento.classList.contains(classe);
 }
+
+//? Vai retornar um id uncico do firebase firestore
+function IDsUncios() {
+  return db.collection('IdsUnicos').doc().id
+}

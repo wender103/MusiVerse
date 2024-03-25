@@ -185,7 +185,7 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
         if(!musica_encontrada) {
             musica_encontrada = true
             if(document.getElementById('container_n_encontrado')) {
-                document.getElementById('containerResultadoPesquisa').innerHTML = ''
+                document.getElementById('container_n_encontrado').remove()
             }
         }
 
@@ -579,7 +579,7 @@ async function RetornarPerfil(Pesquisa, Local, PerfilDe = 'User', Comando) {
                     perfil_encontrado = true
 
                     if(document.getElementById('container_n_encontrado')) {
-                        document.getElementById('containerResultadoPesquisa').innerHTML = ''
+                        document.getElementById('container_n_encontrado').remove()
                     }
                 }
 
@@ -900,8 +900,6 @@ async function RetornarMusicasFavoritas(Email, Local, MusicaFavoritaOuPostada) {
                                 Musicas: musicasFavoritasUser,
                                 Numero: numMusicasFavoritas,
                             }
-
-                            console.log(ListaProxMusica)
                             
                             DarPlayMusica(musicasFavoritasUser[numMusicasFavoritas], numMusicasFavoritas)
                             AbrirTelaTocandoAgora(musicasFavoritasUser[numMusicasFavoritas])
@@ -1538,7 +1536,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
                             userEncontrado = true
             
                             db.collection('Users').doc(TodosOsUsers[c].User.Id).get().then((Users) => {
-                                    const Usuarios = Users.data()
+                                const Usuarios = Users.data()
                                 if(Usuarios.Email == Lista.EmailUser) {
                                     let infosUser = Usuarios.InfosPerfil
                 
@@ -2018,12 +2016,10 @@ function NextSong() {
             try {
                 if(ListaProxMusica.Numero + 1 < ListaProxMusica.Musicas.length) {
                     ListaProxMusica.Numero =  ListaProxMusica.Numero + 1
-                } else {
-                    ListaProxMusica.Numero = 0
                 }
             } catch (error) {
                 console.warn(error)
-                ListaProxMusica.Numero = 0
+                // ListaProxMusica.Numero = 0
             }
         
             DarPlayMusica(ListaProxMusica.Musicas[ListaProxMusica.Numero], ListaProxMusica.Numero)
@@ -2333,15 +2329,17 @@ async function RetornarMusicasArtista(Artista, Local, PegarLista) {
         }
     }
 
-    const section = document.createElement('section')
-    section.className = 'containerMusica'
-    const articleContainer = document.createElement('article')
-    articleContainer.className = 'articleContainer'
-    articleContainer.style.width = '100%'
-    articleContainer.style.padding = '0'
-    articleContainer.appendChild(article)
-    section.appendChild(articleContainer)
-    Local.appendChild(section)
+    if(article.innerHTML != '') {
+        const section = document.createElement('section')
+        section.className = 'containerMusica'
+        const articleContainer = document.createElement('article')
+        articleContainer.className = 'articleContainer'
+        articleContainer.style.width = '100%'
+        articleContainer.style.padding = '0'
+        articleContainer.appendChild(article)
+        section.appendChild(articleContainer)
+        Local.appendChild(section)
+    }
 
 }
 
@@ -2378,9 +2376,9 @@ function AddInfoTelaTocandoAgora(Musica) {
 
     if(imgMusicaTelaTocandoAgora.src.includes('treefy')) {
         imgMusicaTelaTocandoAgora.classList.add('imgMusicaTelaTocandoAgoraTreeFy')
-      } else {
+    } else {
         imgMusicaTelaTocandoAgora.classList.remove('imgMusicaTelaTocandoAgoraTreeFy')
-      }
+    }
     NomeMusicaTelaTocandoAgora.innerText = Musica.NomeMusica
     AutorMusicaTelaTocandoAgora.innerText = Musica.Autor
 
@@ -2657,6 +2655,9 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
     
     let playlist_encontrada = false
 
+    let playlist_atual = {}
+    let array_musicas_playlist = []
+    
     for(let c = 0; c < TodasMusicas.Playlists.length; c++) {
         let NomePlaylist = formatarTexto(TodasMusicas.Playlists[c].Nome)
         let PesquisaPassou = false //? Caso a playlist cumpra os requisitos da pesquisa
@@ -2671,17 +2672,22 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
             }
         }
 
+        
         if(PesquisaPassou) {
+            if(document.getElementById('container_n_encontrado')) {
+                document.getElementById('container_n_encontrado').remove()
+            }
+
             if(TodasMusicas.Playlists[c].Estado == 'Pública') {
-
-                if(!playlist_encontrada) {
-                    playlist_encontrada = true
-
-                    if(document.getElementById('container_n_encontrado')) {
-                        document.getElementById('containerResultadoPesquisa').innerHTML = ''
+                for(let b = 0; b < TodasMusicas.Playlists[c].Musicas.length; b++) {
+                    for(let a = 0; a < TodasMusicas.Musicas.length; a++) {
+                        if(TodasMusicas.Playlists[c].Musicas[b] == TodasMusicas.Musicas[a].ID) {
+                            array_musicas_playlist.push(TodasMusicas.Musicas[a])
+                        }
                     }
                 }
 
+                playlist_atual = TodasMusicas.Playlists[c]
                 if(Formato == 'Caixa') {
                     const container = document.createElement('div')
                     const containerImg = document.createElement('div')
@@ -2689,75 +2695,87 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                     const TextoMusicaCaixa = document.createElement('div')
                     const p = document.createElement('p')
                     const span = document.createElement('span')
-
+            
                     container.className = 'containerPlaylists'
                     containerImg.className = 'containerImgPlaylist'
                     TextoMusicaCaixa.className = 'TextoMusicaCaixa'
-
-                    img.src = TodasMusicas.Playlists[c].Musicas[0].LinkImg
-                    p.innerText = TodasMusicas.Playlists[c].Nome
-
+            
+                    carregarImagem(playlist_atual.Thumb, function(imgPerfil) {
+                        if (imgPerfil) {
+                            img.classList.add('Playlist_Com_Thumb')
+                            img.src = playlist_atual.Thumb
+                        } else {
+            
+                            if(array_musicas_playlist[0].LinkImg.includes('treefy')) {
+                                img.classList.remove('Thumb_Playlist_TreeFy')
+                            }
+            
+                            img.src = array_musicas_playlist[0].LinkImg
+                        }
+                    })
+            
+                    p.innerText = playlist_atual.Nome
+            
                     let userDonoDaPlaylist
                     for(let i = 0; i < TodosOsUsers.length; i++) {
-                        if(TodosOsUsers[i].User.Email == TodasMusicas.Playlists[c].EmailUser) {
+                        if(TodosOsUsers[i].User.Email == playlist_atual.EmailUser) {
                             span.innerText = `De ${TodosOsUsers[i].User.Nome}`
                             userDonoDaPlaylist = TodosOsUsers[i]
                         }
                     }
-
+            
                     containerImg.appendChild(img)
                     container.appendChild(containerImg)
                     TextoMusicaCaixa.appendChild(span)
                     TextoMusicaCaixa.appendChild(p)
                     container.appendChild(TextoMusicaCaixa)
-
+            
                     article.appendChild(container)
-
+            
                     //? Ao clicar no nome do user
                     span.addEventListener('click', () => {
                         AbrirPerfilOutroUser(userDonoDaPlaylist.User)
-
+            
                         if(Comando == 'Salvar pesquisa') {
                             //? Vai salvar a pesquisa
                             const pesquisa = {TipoPesquisa: 'profile', ID: userDonoDaPlaylist.User.Id}
                             SalvarUltimasPesquisas(pesquisa)
                         }
                     })
-
+            
                     //? Vai abrir a playlist
                     container.addEventListener('click', (e) => {
                         let el = e.target
-
+            
                         if(el != span) {
-                            AbrirPlaylist(TodasMusicas.Playlists[c])
-
+                            AbrirPlaylist(playlist_atual, array_musicas_playlist)
+                            arrayMusicasPlaylist = array_musicas_playlist
+            
                             if(Comando == 'Salvar pesquisa') {
                                 //? Vai salvar a pesquisa
-                                const pesquisa = {TipoPesquisa: 'playlist', ID: TodasMusicas.Playlists[c].ID}
+                                const pesquisa = {TipoPesquisa: 'playlist', ID: playlist_atual.ID}
                                 SalvarUltimasPesquisas(pesquisa)
                             }
                         }
-
+            
                     })
-
+            
                     container.addEventListener('contextmenu', function (e) {
                         e.preventDefault()
-
-                        playlistSelecionadaBtnDireito = TodasMusicas.Playlists[c]
+            
+                        playlistSelecionadaBtnDireito = playlist_atual
                         const containerOptionsClickPlaylist = document.getElementById('containerOptionsClickPlaylist')
-
+            
                         hideMenu()
                         // Position the custom menu at the mouse coordinates
                         containerOptionsClickPlaylist.style.left = e.clientX+ 'px'
                         containerOptionsClickPlaylist.style.top = e.clientY + 'px'
                         containerOptionsClickPlaylist.style.display = 'block'
                     })
-
+            
                 } else if(Formato == 'Linha') {
-                    arrayMusicasPlaylist = []
-
-                    for(let i = TodasMusicas.Playlists[c].Musicas.length -1; i >= 0; i--) {
-                        arrayMusicasPlaylist.push(TodasMusicas.Playlists[c].Musicas[i])
+            
+                    for(let i = array_musicas_playlist.length -1; i >= 0; i--) {
                         contadorMusicasLinha++
                         article.className = 'containerMusicaLinha'
                 
@@ -2781,22 +2799,22 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                 
                         if(contadorMusicasLinha < 10) {
                             contador.innerText = `0${contadorMusicasLinha}`
-
+            
                         } else {
                             contador.innerText = contadorMusicasLinha
                         }
-                        img.src = TodasMusicas.Playlists[c].Musicas[i].LinkImg
+                        img.src = array_musicas_playlist[i].LinkImg
                         if(img.src.includes('treefy')) {
                             divImg.classList.add('DivImgMusicaMeuPerfil', 'DivImgMusicaMeuPerfilTreeFy')
                         } else {
                             divImg.classList.add('DivImgMusicaMeuPerfil')
                         }
                 
-                        Nome.innerText = TodasMusicas.Playlists[c].Musicas[i].NomeMusica
-                        Nome.title = TodasMusicas.Playlists[c].Musicas[i].NomeMusica
-                        AutorDaMusica.innerText = TodasMusicas.Playlists[c].Musicas[i].Autor
-                        AutorDaMusica.title = TodasMusicas.Playlists[c].Musicas[i].Autor
-                        Genero.innerText = TodasMusicas.Playlists[c].Musicas[i].Genero
+                        Nome.innerText = array_musicas_playlist[i].NomeMusica
+                        Nome.title = array_musicas_playlist[i].NomeMusica
+                        AutorDaMusica.innerText = array_musicas_playlist[i].Autor
+                        AutorDaMusica.title = array_musicas_playlist[i].Autor
+                        Genero.innerText = array_musicas_playlist[i].Genero
                         Heart.src = './Assets/Imgs/Icons/icon _heart_ (1).png'
                         
                         divTexto.appendChild(AutorDaMusica)
@@ -2813,61 +2831,83 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                         div.addEventListener('click', (event) => {
                             
                             if (event.target != AutorDaMusica && event.target != Heart) {
-                                AbrirTelaTocandoAgora(Pesquisa)
-
-                                ListaProxMusica = {
-                                    Musicas: arrayMusicasPlaylist,
-                                    Numero: i,
+                                let arrayInvertido = array_musicas_playlist.slice().reverse()
+            
+                                let newnum
+                                for (let j = 0; j < arrayInvertido.length; j++) {
+                                    if(arrayInvertido[j].ID == array_musicas_playlist[i].ID) {
+                                        newnum = j
+                                    }
                                 }
-                                DarPlayMusica(TodasMusicas.Playlists[c].Musicas[i], i)
+            
+                                AbrirTelaTocandoAgora(Pesquisa)
+            
+                                ListaProxMusica = {
+                                    Musicas: arrayInvertido,
+                                    Numero: newnum,
+                                }
+                                DarPlayMusica(arrayInvertido[newnum], newnum)
                             }
                         })
                 
-                        FavoritarDesfavoritarMusica(TodasMusicas.Playlists[c].Musicas[i].ID, 'Checar').then((resolve) => {
+                        FavoritarDesfavoritarMusica(array_musicas_playlist[i].ID, 'Checar').then((resolve) => {
                             Heart.src = resolve
                         })
                 
                         Heart.addEventListener('click', () => {
-                            FavoritarDesfavoritarMusica(TodasMusicas.Playlists[c].Musicas[i].ID, 'Editar').then((resolve) => {
+                            FavoritarDesfavoritarMusica(array_musicas_playlist[i].ID, 'Editar').then((resolve) => {
                                 Heart.src = resolve
                             })
                         })
                 
                         AutorDaMusica.addEventListener('click', () => {
-                            AbrirPaginas('artist', TodasMusicas.Playlists[c].Musicas[i].ID)
+                            AbrirPaginas('artist', array_musicas_playlist[i].ID)
                         })
                     }
                 }
+        
+                if(article.innerHTML != '') {
+                    if(Formato == 'Caixa') {
+                        section.appendChild(TituloPlaylist)
+                    } else {
+                        section.className = 'containerMusica'
+                    }
+                    articleContainer.appendChild(article)
+                    section.appendChild(articleContainer)
+                    Local.appendChild(section)
+                }
             }
+
         }
     }
-
-    if(article.innerHTML != '') {
-        if(Formato == 'Caixa') {
-            section.appendChild(TituloPlaylist)
-        } else {
-            section.className = 'containerMusica'
-        }
-        articleContainer.appendChild(article)
-        section.appendChild(articleContainer)
-        Local.appendChild(section)
-    }
-
 }
 
 //? Vai abrir a playlist selecionada
-function AbrirPlaylist(Playlist) {
+function AbrirPlaylist(Playlist, Musicas) {
     updateURLParameter('playlist', Playlist.ID)
 
     FecharPaginas()
     const imgPerfilPagPlaylist = document.getElementById('imgPerfilPagPlaylist')
-    if(Playlist.Musicas[0].LinkImg.includes ('treefy')) {
+    if(Musicas[0].LinkImg.includes ('treefy')) {
         imgPerfilPagPlaylist.classList.add('imgPerfilPagPlaylistTreeFy')
     } else {
         imgPerfilPagPlaylist.classList.remove('imgPerfilPagPlaylistTreeFy')
     }
 
-    imgPerfilPagPlaylist.src = Playlist.Musicas[0].LinkImg
+    carregarImagem(Playlist.Thumb, function(imgPerfil) {
+        if (imgPerfil) {
+            imgPerfilPagPlaylist.classList.add('Playlist_Com_Thumb')
+            imgPerfilPagPlaylist.src = Playlist.Thumb
+        } else {
+
+            if(Musicas[0].LinkImg.includes('treefy')) {
+                imgPerfilPagPlaylist.classList.remove('Thumb_Playlist_TreeFy')
+            }
+
+            imgPerfilPagPlaylist.src = Musicas[0].LinkImg
+        }
+    })
+
     document.getElementById('NomePagPlaylist').innerText = Playlist.Nome
     
     if(Playlist.Descricao.trim() != '') {
@@ -2891,14 +2931,16 @@ function AbrirPlaylist(Playlist) {
 
 //? Vai dar play na playlist ao clicar no btn start
 document.getElementById('btnPlayHeaderPagPlaylist').addEventListener('click', () => {
-    AbrirTelaTocandoAgora(arrayMusicasPlaylist[0])
+    let arrayInvertido = arrayMusicasPlaylist.slice().reverse()
+
+    AbrirTelaTocandoAgora(arrayInvertido[0])
 
     ListaProxMusica = {
-        Musicas: arrayMusicasPlaylist,
+        Musicas: arrayInvertido,
         Numero: 0,
     }
     
-    DarPlayMusica(arrayMusicasPlaylist[0], 0)
+    DarPlayMusica(arrayInvertido[0], 0)
 })
 
 //? Vai Adicionar a música a fila ao clicar em adiconar a fila

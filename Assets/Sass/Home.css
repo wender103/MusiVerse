@@ -1036,7 +1036,7 @@ body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.con
 }
 body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 24px;
   height: auto;
   width: 100%;
@@ -1046,8 +1046,8 @@ body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.con
   height: 151px;
 }
 body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists {
-  min-width: 205px;
-  height: 244px;
+  max-width: 210px;
+  height: 279px;
   display: flex;
   flex-direction: column;
   background-position: center;
@@ -1064,6 +1064,9 @@ body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.con
   margin: auto;
   overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.containerImgPlaylist img {
   width: 100%;
@@ -1071,8 +1074,10 @@ body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.con
   display: block;
   -o-object-fit: cover;
      object-fit: cover;
-  position: absolute;
-  top: -43px;
+}
+body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.containerImgPlaylist img.Playlist_Com_Thumb {
+  width: 100%;
+  height: 100%;
 }
 body section.Paginas#PagPesquisar article#containerResultadoPesquisa section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa {
   width: 85%;
@@ -1896,7 +1901,7 @@ body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgro
   width: 100%;
   height: 80%;
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: start;
   gap: 20px;
 }
@@ -1920,16 +1925,18 @@ body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgro
   -o-object-fit: cover;
      object-fit: cover;
 }
-body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist div#containerImgPerfilPagPlaylist img#imgPerfilPagPlaylist.imgPerfilPagPlaylistTreeFy {
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist div#containerImgPerfilPagPlaylist img#imgPerfilPagPlaylist.Playlist_Com_Thumb {
+  width: 100%;
+  height: 100%;
+}
+body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist div#containerImgPerfilPagPlaylist img#imgPerfilPagPlaylist.Thumb_Playlist_TreeFy {
   height: 100%;
 }
 body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist h1#NomePagPlaylist {
   font-size: 5em;
 }
 body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist div#inforPagPlaylist span {
-  color: rgba(255, 255, 255, 0.4117647059);
-  font-weight: 500;
-  line-height: 20px;
+  font-size: 0.9em;
 }
 body section.Paginas#PagPlaylist article#containerPagPlaylist div#coainerBackgroundPagPlaylist div#coteudoHeaderPagPlaylist button#btnPlayHeaderPagPlaylist {
   width: 100px;
@@ -2220,7 +2227,8 @@ body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist {
   gap: 40px;
 }
 body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#containerImgPlaylist {
-  width: 250px;
+  min-width: 250px;
+  max-width: 250px;
   height: 250px;
   background-color: #1a1a1d;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
@@ -2233,7 +2241,10 @@ body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist d
   width: 50%;
 }
 body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#containerImgPlaylist img#imgCriarPlaylist.PlaylistTemImg {
-  width: 177%;
+  width: 100%;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#containerImgPlaylist img#imgCriarPlaylist.Thumb_Playlist_MusiVerse {
+  width: 178%;
 }
 body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#textoHeaderCriarPlaylist {
   height: 250px;
@@ -2243,8 +2254,83 @@ body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist d
   justify-content: center;
   gap: 10px;
 }
-body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#textoHeaderCriarPlaylist h1 {
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#textoHeaderCriarPlaylist input#nomePlaylistCriarPlaylist {
+  width: calc(100% + 20px);
+  background-color: transparent;
+  color: #fff;
+  border: none;
   font-size: 5em;
+  font-weight: bold;
+  outline: none;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#textoHeaderCriarPlaylist input#nomePlaylistCriarPlaylist::-moz-placeholder {
+  color: #fff;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#textoHeaderCriarPlaylist input#nomePlaylistCriarPlaylist::placeholder {
+  color: #fff;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#textoHeaderCriarPlaylist input#descPlaylistCriarPlaylist {
+  width: calc(100% + 20px);
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  font-size: 0.9em;
+  outline: none;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#textoHeaderCriarPlaylist input#descPlaylistCriarPlaylist::-moz-placeholder {
+  color: #fff;
+}
+body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#textoHeaderCriarPlaylist input#descPlaylistCriarPlaylist::placeholder {
+  color: #fff;
+}
+body section.Paginas#PagCriarPlaylist article div#container_escolher_img_playlist {
+  width: calc(100% - 200px);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.76);
+  z-index: 3;
+}
+body section.Paginas#PagCriarPlaylist article div#container_escolher_img_playlist div {
+  width: calc(95% - 40px);
+  max-width: 500px;
+  height: auto;
+  border-radius: 10px;
+  padding: 20px;
+  margin: auto;
+  background-color: #1a1a1d;
+}
+body section.Paginas#PagCriarPlaylist article div#container_escolher_img_playlist div input {
+  width: calc(100% - 15px);
+  height: 40px;
+  background-color: rgba(102, 102, 102, 0.13);
+  border: none;
+  padding-left: 15px;
+  color: rgb(255, 255, 255);
+  outline: none;
+  border-radius: 10px;
+}
+body section.Paginas#PagCriarPlaylist article div#container_escolher_img_playlist div div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0;
+}
+body section.Paginas#PagCriarPlaylist article div#container_escolher_img_playlist div div button {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #1F1F22;
+  margin-top: 30px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }
 body section.Paginas#PagCriarPlaylist article article#containerMainCriarPlaylist {
   width: 95%;
@@ -2256,7 +2342,12 @@ body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist h1
   margin: 30px 0px 20px;
   font-size: 1.5em;
 }
-body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div {
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div {
   width: 95%;
   max-width: 300px;
   position: relative;
@@ -2267,22 +2358,30 @@ body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist di
   justify-content: center;
   padding-right: 10px;
 }
-body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div input {
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div input {
   width: 100%;
   padding: 10px 15px;
   border: none;
   background: none;
   color: #fff;
 }
-body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div input:focus {
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div input:focus {
   outline: none;
 }
-body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div img {
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div img {
   width: 20px;
   height: 20px;
   cursor: pointer;
   -o-object-fit: cover;
      object-fit: cover;
+}
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist button#btn_postar_playlist {
+  padding: 10px 15px;
+  border: none;
+  color: #fff;
+  background-color: #232327;
+  border-radius: 5px;
+  cursor: pointer;
 }
 body section.Paginas#PagCriarPlaylist article div#containerMusicasPesquisadasCriarPlaylist {
   width: 100%;
@@ -2297,37 +2396,33 @@ body section.Paginas#PagCriarPlaylist article div#containerMusicasPesquisadasCri
 body section.Paginas#PagCriarPlaylist article div#containerMusicasPesquisadasCriarPlaylist section {
   max-width: none;
 }
+body section.Paginas#PagCriarPlaylist article div#containerMusicasPesquisadasCriarPlaylist div#container_n_encontrado {
+  width: 70%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+body section.Paginas#PagCriarPlaylist article div#containerMusicasPesquisadasCriarPlaylist div#container_n_encontrado h1#h1_nehum_resultado_encontrado {
+  font-size: 1.5em;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}
+body section.Paginas#PagCriarPlaylist article div#containerMusicasPesquisadasCriarPlaylist div#container_n_encontrado span#span_infos_n_encontrado {
+  font-size: 0.9em;
+  color: #6d6d6d;
+}
 body section.Paginas#PagCriarPlaylist article div#containerMusicasAddCriarPlaylist {
   margin-top: 50px;
   padding-bottom: 100px;
 }
 body section.Paginas#PagCriarPlaylist article div#containerMusicasAddCriarPlaylist section {
   max-width: none;
-}
-body section.Paginas#PagCriarPlaylist button#btnPostarPlaylist {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  position: fixed;
-  bottom: 130px;
-  right: 30px;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(0, 255, 255);
-  cursor: pointer;
-  z-index: 2;
-  border: none;
-}
-body section.Paginas#PagCriarPlaylist button#btnPostarPlaylist:hover {
-  transition: 100ms scale ease-in-out;
-  scale: 1.1;
-}
-body section.Paginas#PagCriarPlaylist button#btnPostarPlaylist img {
-  width: 70%;
-  height: 70%;
-  -o-object-fit: contain;
-     object-fit: contain;
 }
 body section.Paginas#PagCriarPlaylist div#popUpAdicionarPlaylist {
   width: 100%;

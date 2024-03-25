@@ -38,9 +38,11 @@ function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
         cor_escolhida_background = null
     }
 
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    const apiUrl = isLocalhost ? 'http://localhost:4000/api/updatePresence' : 'https://apipresenca.onrender.com/api/updatePresence'
+
     try {
-        // fetch('http://localhost:4000/api/updatePresence', {
-        fetch('https://apipresenca.onrender.com/api/updatePresence', {
+        fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

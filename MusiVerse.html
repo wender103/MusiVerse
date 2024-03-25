@@ -624,22 +624,39 @@
 
         <article>
             <div id="containerHeaderCriarPlaylist">
-                <div id="containerImgPlaylist">
+                <div id="containerImgPlaylist" onclick="Abrir_Escolher_Thumb_Playlist(this)">
                     <img src="Assets/Imgs/Icons/Faixas200.png" id="imgCriarPlaylist">
                 </div>
 
                 <div id="textoHeaderCriarPlaylist">
                     <p id="estadoPlaylistCriarPlaylist">Playlist pública</p>
-                    <h1 id="nomePlaylistCriarPlaylist">Minha Playlist</h1>
+                    <input type="text" id="nomePlaylistCriarPlaylist" placeholder="Minha Playlist" maxlength="21" autocomplete="off">
+                    <input type="text" id="descPlaylistCriarPlaylist" placeholder="Descrição da playlist 🎶🎵" maxlength="100" autocomplete="off">
+                </div>
+            </div>
+
+            <!--* Escolher img playlist -->
+            <div id="container_escolher_img_playlist">
+                <div>
+                    <input type="text" placeholder="Link da img" id="input_link_thumb">
+
+                    <div id="btns_escolher_img_playlist">
+                        <button id="btn_cancel_add_thumb" onclick="Abrir_Escolher_Thumb_Playlist(this)">Cancelar</button>
+                        <button id="btn_adicionar_thumb" onclick="Adicionar_Thumb_Playlist(this)">Adicionar</button>
+                    </div>
                 </div>
             </div>
 
            <article id="containerMainCriarPlaylist">
                 <div id="inputAddMusicaCriarPlaylist">
                     <h1>Adicione uma música</h1>
-                    <div>
-                        <input type="text" id="pesquisarMuiscaCriarPlaylist" oninput="PesquisarMusicaCriarPlaylist()">
-                        <img src="Assets/Imgs/Icons/search.png" id="btnPesquisaMusicaPlaylist">
+                    <div id="container_buscar_musicas_add_playlist">
+                        <div>
+                            <input type="text" id="pesquisarMuiscaCriarPlaylist" oninput="PesquisarMusicaCriarPlaylist()">
+                            <img src="Assets/Imgs/Icons/search.png" id="btnPesquisaMusicaPlaylist">
+                        </div>
+    
+                        <button id="btn_postar_playlist" onclick="Postar_Playlist()">Postar</button>
                     </div>
                 </div>
 
@@ -657,24 +674,6 @@
                 </div>
            </article>
         </article>
-
-        <button id="btnPostarPlaylist" onclick="PopUpPostaNovaPlaylist()">
-            <img src="Assets/Imgs/Icons/back50.png">
-        </button>
-
-        <div id="popUpAdicionarPlaylist">
-            <div>
-                <p>Nome da playlist</p>
-                <input type="text" id="inputNomeNovaPlaylist" placeholder="Nome playlist" oninput="PostarNovaPlaylist()">
-                <p>Descrição da playlist opcional</p>
-                <textarea id="textareaDescricaoNovaPlaylist" cols="30" rows="10" placeholder="Descrição"></textarea>
-
-                <div>
-                    <button onclick="CancelarPostarNovaPlaylist()">Cancelar</button>
-                    <button id="postarNovaPlaylist" onclick="PostarNovaPlaylist(true)">Postar</button>
-                </div>
-            </div>
-        </div>
     </section>
 
     <section class="Paginas" id="PagAdicionarLetra">
