@@ -224,6 +224,11 @@ function AbrirPaginas(Name, ID, Salavar = true, Open_all = false, info_extra = '
             }
         })
 
+    } else if(Name == 'Playlists') {
+        document.getElementById('container_playlists_edtitar').innerHTML = ''
+        RetornarPlayList(currentUser.User.Email, document.getElementById('container_playlists_edtitar'))
+        document.querySelector(`#Pag${Name}`).style.display = 'block'
+
     } else if(Name == 'profile') {
         if(info_extra == 'Seguir user') {
             for(let c = 0; c < TodosOsUsers.length; c++) {

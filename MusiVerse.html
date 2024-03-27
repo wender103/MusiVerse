@@ -423,7 +423,23 @@
         </article>
     </section>
 
-    <section class="Paginas" id="PagPlaylists"></section>
+    <section class="Paginas" id="PagPlaylists">
+        <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">
+            <img src="Assets/Imgs/Icons/back50.png" alt="icon back">
+        </button>
+
+         <!--? Voltar no pc -->
+         <div class="btnVoltarPagina">
+            <button class="btnBackPag btnBloqueado" onclick="VolatarPaginaAnterior('Btn_Click')">
+                <img src="Assets/Imgs/Icons/BackPag.png">
+            </button>
+            <button class="btnNextPag btnBloqueado" onclick="ProxmaPagina('Btn_Click')">
+                <img src="Assets/Imgs/Icons/NextPag.png">
+            </button>
+        </div>
+
+        <article id="container_playlists_edtitar"></article>
+    </section>
 
     <section class="Paginas" id="PagFavoritas">
         <button class="btn_back_cell" onclick="VolatarPaginaAnterior('Btn_Click')">

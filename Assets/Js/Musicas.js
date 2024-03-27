@@ -1606,7 +1606,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
         
             updateURLParameter('music', Lista.ID)
 
-            // Atualizar_Perfil_DC(Lista)
+            Atualizar_Perfil_DC(Lista)
         
             MusicaTocandoAgora = Lista
     
@@ -2016,6 +2016,9 @@ function NextSong() {
             try {
                 if(ListaProxMusica.Numero + 1 < ListaProxMusica.Musicas.length) {
                     ListaProxMusica.Numero =  ListaProxMusica.Numero + 1
+
+                } else {
+                    ListaProxMusica.Numero =  0
                 }
             } catch (error) {
                 console.warn(error)
@@ -2042,7 +2045,7 @@ function BackSong() {
     if(ListaProxMusica.Numero > 0) {
         ListaProxMusica.Numero =  ListaProxMusica.Numero - 1
     } else {
-        ListaProxMusica.Numero =  ListaProxMusica.Musicas.length
+        ListaProxMusica.Numero =  ListaProxMusica.Musicas.length - 1
     }
 
     DarPlayMusica(ListaProxMusica.Musicas[ListaProxMusica.Numero], ListaProxMusica.Numero)
@@ -2642,13 +2645,20 @@ function FecharTelaTocandoAgora() {
 //? Vai retornar as playlists
 let arrayMusicasPlaylist = []
 function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando) {
-    let PesquisaFormatada = formatarTexto(Pesquisa)
+    let isEmail = false
+    for (let c = 0; c < TodosOsUsers.length; c++) {
+        if(TodosOsUsers[c].User.Email == Pesquisa) {
+            isEmail = true
+        }
+    }
+
+    let PesquisaFormatada = isEmail ? Pesquisa : formatarTexto(Pesquisa)
     let contadorMusicasLinha = 0
     
     const section = document.createElement('section')
     section.className = 'containerPlaylistsCaixa'
     const TituloPlaylist = document.createElement('h1')
-    TituloPlaylist.innerText = 'PlayLists'
+    TituloPlaylist.innerText = isEmail ? 'Suas playlists' : 'PlayLists'
     const articleContainer = document.createElement('article')
     articleContainer.className = 'articleContainer'
     const article = document.createElement('article')
@@ -2662,13 +2672,20 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
         let NomePlaylist = formatarTexto(TodasMusicas.Playlists[c].Nome)
         let PesquisaPassou = false //? Caso a playlist cumpra os requisitos da pesquisa
 
-        if(ID == null) {
-            if(PesquisaFormatada.includes(NomePlaylist) || NomePlaylist.includes(PesquisaFormatada)) {
+        if(isEmail) {
+            if(TodasMusicas.Playlists[c].EmailUser == Pesquisa) {
                 PesquisaPassou = true
             }
+
         } else {
-            if(TodasMusicas.Playlists[c].ID == ID && !PesquisaPassou) {
-                PesquisaPassou = true
+            if(ID == null) {
+                if(PesquisaFormatada.includes(NomePlaylist) || NomePlaylist.includes(PesquisaFormatada)) {
+                    PesquisaPassou = true
+                }
+            } else {
+                if(TodasMusicas.Playlists[c].ID == ID && !PesquisaPassou) {
+                    PesquisaPassou = true
+                }
             }
         }
 

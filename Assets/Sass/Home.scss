@@ -1884,6 +1884,96 @@ body {
             }
         }
 
+        &#PagPlaylists {
+            padding-top: 40px;
+
+            article {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 24px;
+                height: auto;
+                width: 100%;
+                padding: 0px 0px 30px !important;
+                width: 95%;
+                // height: 100vh;
+                margin: auto;
+
+                h1 {
+                    width: 100%;
+                    max-width: 1400px;
+                    font-size: 1.5em;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 24px;
+                    margin: 70px auto 14px;
+                    display: block;
+                }
+
+                //? Playlist -------------------
+                div.containerPlaylists {
+                    min-width: 205px;
+                    height: 244px;
+                    display: flex;
+                    flex-direction: column;
+                    background-position: center;
+                    position: relative;
+                    border-radius: 0px;
+                    overflow: hidden;
+                    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+                    background-color: #1e1e20;
+                    //padding: 10px;
+                    cursor: pointer;
+
+                    div.containerImgPlaylist {
+                        width: 100%;
+                        height: 100%;
+                        margin: auto;
+                        overflow: hidden;
+                        position: relative;
+                        //border-radius: 10px;
+                        //box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+
+                        img {
+                            width: 100%;
+                            height: 159%;
+                            display: block;
+                            object-fit: cover;
+                            position: absolute;
+                            top: -43px;
+                        }
+                    }
+
+                    div.TextoMusicaCaixa {
+                        width: 85%;
+                        margin: 20px auto 10px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+
+                        p {
+                            width: 90%;
+                            color: #fff;
+                            font-size: 17px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 24px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        span {
+                            color: rgba(255, 255, 255, 0.4117647059);
+                            font-size: 13px;
+                            font-weight: 500;
+                            line-height: 20px;
+                        }
+                    }
+
+                }
+            }
+        }
+
         &#PagFavoritas {
             #containerMusicasFavoritas {
                 width: 100%;
