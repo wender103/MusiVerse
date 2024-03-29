@@ -48,7 +48,7 @@ function obterValoresDaURL(Comando = 'Tocar Música') {
         AbrirPaginas(InfosUrl.Page)
     } else {
         tocarMusicaDaUrl(InfosUrl.Music, InfosUrl.Page)
-        if(InfosUrl.Name != '' && InfosUrl.Page.ID != '') {
+        if(InfosUrl.Name != '' && InfosUrl.Page.ID != '' && InfosUrl.Page.Name != 'artist') {
             AbrirPaginas(InfosUrl.Page.Name, InfosUrl.Page.ID, true, true)
         }
     }
@@ -72,28 +72,30 @@ function tocarMusicaDaUrl(ID, Page) {
 
                 if(Page.Name == 'artist' && !passou) {
                     passou = true
-                    try {
-                        AbrirPerfilArtista(MusicaDaUrl)
-                    } catch{}
+                    for (let e = 0; e < TodasMusicas.Musicas.length; e++) {
+                        if(TodasMusicas.Musicas[e].ID == Page.ID) {
+                            try {
+                                AbrirPerfilArtista(TodasMusicas.Musicas[e])
+                            } catch{}
 
-                    for(let b = 0; b < arrayMusicasArtista.length; b++) {
+                            Pegar_Lista_Prox_Memoria(MusicaDaUrl).then((resolve) => {
+                                DarPlayMusica(resolve.Musicas[resolve.Numero], resolve.Numero, true)
+                                AbrirTelaTocandoAgora('OpenViaBtn')
+                            })
 
-                        if(arrayMusicasArtista[b].ID == ID) {
-                            ListaProxMusica = {
-                                Musicas: arrayMusicasArtista,
-                                Numero: b,
-                            }
-                            DarPlayMusica(arrayMusicasArtista[b], b, true)
-                            AbrirTelaTocandoAgora('OpenViaBtn')
                         }
                     }
+
                 } else {
-                    ListaProxMusica = {
-                        Musicas: TodasMusicas.Musicas[c],
-                        Numero: c,
-                    }
-                    DarPlayMusica(TodasMusicas.Musicas[c], c, true)
-                    AbrirTelaTocandoAgora('OpenViaBtn')
+                    Pegar_Lista_Prox_Memoria(MusicaDaUrl).then((resolve) => {
+                        DarPlayMusica(resolve.Musicas[resolve.Numero], resolve.Numero, true)
+                        AbrirTelaTocandoAgora('OpenViaBtn')
+
+                    }).catch(() => {
+                        Retornar_Semelhantes('Genero', MusicaDaUrl.Genero, MusicaDaUrl, 'Salvar').then(() => {
+                        })
+                    })
+
                 }
             }
         }
@@ -119,22 +121,6 @@ function tocarMusicaDaUrl(ID, Page) {
         try {
             for(let c = 0; c < TodasMusicas.Playlists.length; c++) {
                 if(TodasMusicas.Playlists[c].ID == Page.ID) {
-                    const arrayMusicasPlaylist = []
-                    let numMusicaPlaylist = 0
-
-                    for(let i = TodasMusicas.Playlists[c].Musicas.length - 1; i >= 0; i--) {
-                        arrayMusicasPlaylist.push(TodasMusicas.Playlists[c].Musicas[i])
-
-                        if(TodasMusicas.Playlists[c].Musicas[i].ID == ID) {
-                            numMusicaPlaylist = i
-                        }
-                    }
-
-                    ListaProxMusica = {
-                        Musicas: arrayMusicasPlaylist,
-                        Numero: numMusicaPlaylist,
-                    }
-
                     AbrirPlaylist(TodasMusicas.Playlists[c])
                 }
             }
@@ -205,5 +191,29 @@ function salvarNaAreaDeTransferencia(Tipo, Link) {
         Notificar('Link copiado para a área de transferência!', 'Link Copiado')
     }, function(err) {
         Notificar('Erro ao copiar o link: ')
+    })
+}
+
+function Pegar_Lista_Prox_Memoria(MusicaAtual) {
+    let encontrado = false
+    return new Promise((resolve, reject) => {
+        const memoria = JSON.parse(localStorage.getItem('Lista_Prox_Musicas'))
+        if(memoria) {
+            for (let c = 0; c < memoria.Musicas.length; c++) {
+                if(memoria.Musicas[c].ID == MusicaTocandoAgora.ID || memoria.Musicas[c].ID == MusicaAtual.ID) {
+                    encontrado = true
+                    ListaProxMusica = memoria
+                    resolve(memoria)
+                }
+            }
+            
+            if(!encontrado) {
+                site_iniciado = true
+                reject()
+            }
+        } else {
+            site_iniciado = true
+            reject()
+        }
     })
 }

@@ -70,25 +70,25 @@ function Atualizar_Presenca(IsOnline = false, Email, MusicaID) {
 }
 
 //* Atualizar no dc
-function Atualizar_Perfil_DC(Musica) {
-    const requestData = {
-        state: `De: ${Musica.Autor}`,
-        details: `Ouvindo: ${Musica.NomeMusica}`,
-        largeImageKey: Musica.LinkImg,
-        largeImageText: Musica.NomeMusica,
-    }
+// function Atualizar_Perfil_DC(Musica) {
+//     const requestData = {
+//         state: `De: ${Musica.Autor}`,
+//         details: `Ouvindo: ${Musica.NomeMusica}`,
+//         largeImageKey: Musica.LinkImg,
+//         largeImageText: Musica.NomeMusica,
+//     }
     
-    try {
-        fetch('http://localhost:3000/prececa/dc', {
-        // fetch('https://api-presenca-dc.vercel.app/prececa/dc', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestData)
-        })
-        .catch(error)
-    } catch (error) {
-        // console.warn(error)
-    }
-}
+//     try {
+//         fetch('http://localhost:3000/prececa/dc', {
+//         // fetch('https://api-presenca-dc.vercel.app/prececa/dc', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify(requestData)
+//         })
+//         .catch(error)
+//     } catch (error) {
+//         // console.warn(error)
+//     }
+// }

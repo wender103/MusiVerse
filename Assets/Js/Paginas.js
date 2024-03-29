@@ -299,7 +299,7 @@ function RecarregarHome() {
 
         const containerMain = document.getElementById('containerMain')
         containerMain.innerHTML = ''
-        RetornarMusicas('Aleatórias', containerMain)
+        RetornarMusica('Aleatórias', containerMain)
         carregarHistorico()
     }
 }
@@ -431,12 +431,7 @@ function RetornarUltimasPesquisas(Local, Comando) {
                         if (event.target != span && event.target.className != 'BtnsEditarMusicaLinha') {
                             AbrirTelaTocandoAgora('Pesquisar')
 
-                            ListaProxMusica = {
-                                Musicas: TodasMusicas.Musicas,
-                                Numero: c,
-                            }
-
-                            DarPlayMusica(TodasMusicas.Musicas[c], c)
+                            Retornar_Semelhantes('Genero', TodasMusicas.Musicas[c].Genero, TodasMusicas.Musicas[c], 'Salvar')
                         }
                     })
 

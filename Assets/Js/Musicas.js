@@ -1,6 +1,10 @@
 //? Vai formatar os textos
 function formatarTexto(texto) {
-    return texto.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s/g, '').replace(/[^a-zA-Z0-9]/g, '') //? Vai remover os acentos e espaços
+    let new_texto
+    try {
+        new_texto = texto.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s/g, '').replace(/[^a-zA-Z0-9]/g, '') //? Vai remover os acentos e espaços
+    } catch {}
+    return new_texto
 }
 
 const audioPlayer = document.querySelector('#audioPlayer')
@@ -442,13 +446,21 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
   
         div.addEventListener('click', (event) => {
             AbrirTelaTocandoAgora(Pesquisa)
-
           if (event.target != AutorDaMusica && event.target != Heart) {
-            ListaProxMusica = {
-              Musicas: arrayMusicasRetornadas,
-              Numero: c,
-            }
-            DarPlayMusica(arrayMusicasRetornadas[c], c)
+
+            Reverter_Array(arrayMusicasRetornadas, arrayMusicasRetornadas[c]).then((resolve) => {
+                let arrayInvertido = resolve.Array
+                let newnum = resolve.Numero
+
+                AbrirTelaTocandoAgora(Pesquisa)
+
+                ListaProxMusica = {
+                    Musicas: arrayInvertido,
+                    Numero: newnum,
+                }
+
+                DarPlayMusica(arrayInvertido[newnum], newnum)
+            })
           }
         })
   
@@ -1157,12 +1169,17 @@ async function RetornarMusicasPostadasPeloUser(EmailUser, Local, ProprioUser = f
 
             div.addEventListener('click', (event) => {
                 if (event.target != AutorDaMusica && event.target != Heart && event.target.className != 'BtnsEditarMusicaLinha') {
-                    ListaProxMusica = {
-                        Musicas: TodasMusicas.Musicas,
-                        Numero: c,
-                    }
-                    DarPlayMusica(TodasMusicas.Musicas[c], c)
-                    AbrirTelaTocandoAgora(TodasMusicas.Musicas[c])
+                    Reverter_Array(arrayMusicasPostadasPeloUser, TodasMusicas.Musicas[c], 'No Revert').then((resolve) => {
+                        let arrayInvertido = resolve.Array
+                        let newnum = resolve.Numero
+    
+                        ListaProxMusica = {
+                            Musicas: arrayInvertido,
+                            Numero: newnum,
+                        }
+                        DarPlayMusica(arrayInvertido[newnum], newnum)
+                    })
+                    
                 }
             })
 
@@ -1501,6 +1518,8 @@ let salvarHistorico = false
 let ListaDarPlay = {}
 let RepetirMusica = false
 
+let site_iniciado = false
+
 //? Vai dar play naas músicas
 function DarPlayMusica(Lista, num, Pausar = false) {
     isPlaying = true
@@ -1606,7 +1625,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
         
             updateURLParameter('music', Lista.ID)
 
-            Atualizar_Perfil_DC(Lista)
+            // Atualizar_Perfil_DC(Lista)
         
             MusicaTocandoAgora = Lista
     
@@ -1678,6 +1697,22 @@ function DarPlayMusica(Lista, num, Pausar = false) {
                 //* audioPlayer.addEventListener('ended', function() {
                 
                 resolve('Música iniciada')
+            }
+
+            if(ListaProxMusica == {} || ListaProxMusica.Musicas == undefined || ListaProxMusica.Numero > ListaProxMusica.Musicas.length) {
+
+                if(!site_iniciado) {
+                    site_iniciado = true
+
+                    Pegar_Lista_Prox_Memoria().then(() => {}).catch(() => {
+                        Retornar_Semelhantes('Genero', Lista.Genero, Lista, 'Salvar').then(() => {
+                        })
+                    })
+                }
+            } else {
+                if(ListaProxMusica.Musicas) {
+                    localStorage.setItem('Lista_Prox_Musicas', JSON.stringify(ListaProxMusica))
+                }
             }
         })
     }
@@ -1771,6 +1806,44 @@ function Audio_Tocando(Lista, num, Pausar = false) {
         audioPlayer.currentTime = newTime
         atualizar_cor_progresso_input(progressoMusicaTocandoAgora)
 
+    })
+}
+
+function Retornar_Semelhantes(Metodo, Pesquisa, MusicaAtual, Comando) {
+    let array_semelhantes = []
+    let num
+    let Musicas = TodasMusicas.Musicas
+    return new Promise((resolve, reject) => {
+        if(Metodo == 'Genero') {
+            for (let c = 0; c < Musicas.length; c++) {
+                if(Musicas[c].Genero.includes(Pesquisa) || Pesquisa.includes(Musicas[c].Genero)) {
+                    array_semelhantes.push(Musicas[c])
+                }
+            }
+
+            for (let c = 0; c < array_semelhantes.length; c++) {
+                if(array_semelhantes[c].ID == MusicaAtual.ID) {
+                    num = c
+                }
+                
+            }
+
+            let obj = {
+                Musicas: array_semelhantes,
+                Numero: num,
+            }
+
+            if(Comando == 'Salvar') {
+                ListaProxMusica = {
+                    Musicas: array_semelhantes.Musicas,
+                    Numero: array_semelhantes.Numero,
+                }
+                DarPlayMusica(array_semelhantes.Musicas[array_semelhantes.Numero], array_semelhantes.Numero, true)
+                AbrirTelaTocandoAgora('OpenViaBtn')
+            }
+
+            resolve(obj)
+        }
     })
 }
 
@@ -1929,13 +2002,22 @@ PlayCellBarraMusica.addEventListener('click', function() {
     PausaDespausarMusica()
 })
 
-function PausaDespausarMusica() {
-    if(!isPlaying) {
+function PausaDespausarMusica(Comando) {
+    if(!isPlaying || Comando == "Play0") {
         isPlaying = true
         PlayBtn.src = `Assets/Imgs/Icons/DarPause.png`
         PlayBtn2.src = `Assets/Imgs/Icons/DarPause.png`
         PlayCellBarraMusica.src = `Assets/Imgs/Icons/Pause.png`
-        audioPlayer.play()
+
+        if(Comando == 'Play0') {
+            progressoMusicaBarraMusica.value = 0
+
+            setTimeout(() => {
+                audioPlayer.play()
+            }, 500)
+        } else {
+            audioPlayer.play()
+        }
 
         try {
             document.title = `${ListaProxMusica.Musicas[ListaProxMusica.Numero].NomeMusica}`
@@ -1995,19 +2077,26 @@ CicleBtn2.addEventListener('click', () => {
 function NextSong() {
     if(RepetirMusica) {
        if(!Array.isArray(ListaProxMusica.Musicas)) {
-            DarPlayMusica(ListaProxMusica.Musicas, 0)
+            DarPlayMusica(ListaProxMusica.Musicas, 0).then(() => {
+                PausaDespausarMusica('Play0')
+            })
 
        } else {
-            DarPlayMusica(ListaProxMusica.Musicas[ListaProxMusica.Numero], ListaProxMusica.Numero)
+            DarPlayMusica(ListaProxMusica.Musicas[ListaProxMusica.Numero], ListaProxMusica.Numero).then(() => {
+                PausaDespausarMusica('Play0')
+            })
        }
 
     } else {
+
         if(!Array.isArray(ListaProxMusica.Musicas)) {
             ListaProxMusica.Musicas = TodasMusicas.Musicas
         }
 
         if(ListaProxMusica.FilaMusicas != undefined && ListaProxMusica.FilaMusicas.Musicas.length > 0) {
-            DarPlayMusica(ListaProxMusica.FilaMusicas.Musicas[0], 0)
+            DarPlayMusica(ListaProxMusica.FilaMusicas.Musicas[0], 0).then(() => {
+                PausaDespausarMusica('Play0')
+            })
     
             ListaProxMusica.FilaMusicas.Musicas.splice(0, 1)
             RetornarMusicasASeguir()
@@ -2025,7 +2114,9 @@ function NextSong() {
                 // ListaProxMusica.Numero = 0
             }
         
-            DarPlayMusica(ListaProxMusica.Musicas[ListaProxMusica.Numero], ListaProxMusica.Numero)
+            DarPlayMusica(ListaProxMusica.Musicas[ListaProxMusica.Numero], ListaProxMusica.Numero).then(() => {
+                PausaDespausarMusica('Play0')
+            })
         }
     }
 }
@@ -2042,13 +2133,31 @@ BackBtn2.addEventListener("click", () => {
 })
 
 function BackSong() {
-    if(ListaProxMusica.Numero > 0) {
-        ListaProxMusica.Numero =  ListaProxMusica.Numero - 1
-    } else {
-        ListaProxMusica.Numero =  ListaProxMusica.Musicas.length - 1
-    }
+    //? Caso a música esteja a mais de 5 seg ela vai começar novamente
+    var segundoAtual = Math.floor(audioPlayer.currentTime)
+    if(segundoAtual > 5) {
+        TocarDeNovo().then(() => {
+            setTimeout(() => {
+                PausaDespausarMusica("Play")
+            }, 400)
+        })
 
-    DarPlayMusica(ListaProxMusica.Musicas[ListaProxMusica.Numero], ListaProxMusica.Numero)
+    } else {
+        if(ListaProxMusica.Numero > 0) {
+            ListaProxMusica.Numero =  ListaProxMusica.Numero - 1
+        } else {
+            ListaProxMusica.Numero =  ListaProxMusica.Musicas.length - 1
+        }
+    
+        DarPlayMusica(ListaProxMusica.Musicas[ListaProxMusica.Numero], ListaProxMusica.Numero)
+    }
+}
+
+function TocarDeNovo() {
+    return new Promise((resolve, reject) => {
+        audioPlayer.currentTime = 0
+        resolve()
+    })
 }
 
 //? Vai curtir ou descurtir a música
@@ -2126,7 +2235,7 @@ async function RetornarMusicasArtista(Artista, Local, PegarLista) {
     let ArtistaFormadado = formatarTexto(Artista)
     let contadorMusicasLinhaArtista = -1
     arrayMusicasArtista = [] //? Vai salvar as músicas do artista pesquisado para poder colocar como lista de prox músicas
-    ListaProxMusica = {}
+    // ListaProxMusica = {}
 
     let musica_encontrada_artista = false
 
@@ -2848,22 +2957,19 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                         div.addEventListener('click', (event) => {
                             
                             if (event.target != AutorDaMusica && event.target != Heart) {
-                                let arrayInvertido = array_musicas_playlist.slice().reverse()
-            
-                                let newnum
-                                for (let j = 0; j < arrayInvertido.length; j++) {
-                                    if(arrayInvertido[j].ID == array_musicas_playlist[i].ID) {
-                                        newnum = j
+                                Reverter_Array(array_musicas_playlist, array_musicas_playlist[i]).then((resolve) => {
+                                    let arrayInvertido = resolve.Array
+                                    let newnum = resolve.Numero
+
+                                    AbrirTelaTocandoAgora(Pesquisa)
+                
+                                    ListaProxMusica = {
+                                        Musicas: arrayInvertido,
+                                        Numero: newnum,
                                     }
-                                }
+                                    DarPlayMusica(arrayInvertido[newnum], newnum)
+                                })
             
-                                AbrirTelaTocandoAgora(Pesquisa)
-            
-                                ListaProxMusica = {
-                                    Musicas: arrayInvertido,
-                                    Numero: newnum,
-                                }
-                                DarPlayMusica(arrayInvertido[newnum], newnum)
                             }
                         })
                 
@@ -2948,16 +3054,19 @@ function AbrirPlaylist(Playlist, Musicas) {
 
 //? Vai dar play na playlist ao clicar no btn start
 document.getElementById('btnPlayHeaderPagPlaylist').addEventListener('click', () => {
-    let arrayInvertido = arrayMusicasPlaylist.slice().reverse()
+    Reverter_Array(arrayMusicasPlaylist, arrayMusicasPlaylist[0]).then((resolve) => {
+        let arrayInvertido = resolve.Array
 
-    AbrirTelaTocandoAgora(arrayInvertido[0])
-
-    ListaProxMusica = {
-        Musicas: arrayInvertido,
-        Numero: 0,
-    }
+        AbrirTelaTocandoAgora(arrayInvertido[0])
     
-    DarPlayMusica(arrayInvertido[0], 0)
+        ListaProxMusica = {
+            Musicas: arrayInvertido,
+            Numero: 0,
+        }
+        
+        DarPlayMusica(arrayInvertido[0], 0)
+    })
+
 })
 
 //? Vai Adicionar a música a fila ao clicar em adiconar a fila

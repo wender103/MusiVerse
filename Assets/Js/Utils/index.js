@@ -228,3 +228,28 @@ function temClasse(elemento, classe) {
 function IDsUncios() {
   return db.collection('IdsUnicos').doc().id
 }
+
+function Reverter_Array(array, musica_atual, Comando) {
+  return new Promise((resolve, reject) => {
+    let new_array = array
+
+    if(!Comando == 'No Revert') {
+      new_array = array.slice().reverse()
+    }
+
+    let num = 0
+
+    for (let j = 0; j < new_array.length; j++) {
+        if(new_array[j].ID == musica_atual.ID) {
+          num = j
+        }
+    }
+
+    let obj = {
+      Array: new_array,
+      Numero: num
+    }
+    resolve(obj)
+  })
+  
+}
