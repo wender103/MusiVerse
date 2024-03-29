@@ -1887,89 +1887,123 @@ body {
         &#PagPlaylists {
             padding-top: 40px;
 
-            article {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 24px;
-                height: auto;
-                width: 100%;
-                padding: 0px 0px 30px !important; 
-                width: 95%;
-                // height: 100vh; 
-                margin: auto;
+            article#container_playlists_edtitar {
+                padding: 0;
 
-                h1 {
-                    width: 100%;
-                    max-width: 1400px;
-                    font-size: 1.5em;
-                    font-style: normal;
-                    font-weight: 600;
-                    line-height: 24px;
-                    margin: 70px auto 14px;
-                    display: block;
-                }
-
-                //? Playlist -------------------
-                div.containerPlaylists {
-                    min-width: 205px;
-                    height: 244px;
-                    display: flex;
-                    flex-direction: column;
-                    background-position: center;
-                    position: relative;
-                    border-radius: 0px;
-                    overflow: hidden;
-                    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
-                    background-color: #1e1e20;
-                    //padding: 10px;
-                    cursor: pointer;
-
-                    div.containerImgPlaylist {
+                section.containerPlaylistsCaixa {
+                    h1 {
                         width: 100%;
-                        height: 100%;
-                        margin: auto;
-                        overflow: hidden;
-                        position: relative;
-                        //border-radius: 10px;
-                        //box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+                        max-width: 1400px;
+                        font-size: 1.5em;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 24px;
+                        margin: 70px auto 14px;
+                        display: block;
+                    }
 
-                        img {
+                    article.articleContainer {
+                        width: 100%;
+                        padding: 0;
+                        
+                        article {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                            gap: 24px;
+                            height: auto;
                             width: 100%;
-                            height: 159%;
-                            display: block;
-                            object-fit: cover;
-                            position: absolute;
-                            top: -43px;
+                            padding: 0px 0px 30px !important; 
+                            width: 100%;
+                            // height: 100vh; 
+                            margin: auto;
+
+                            //? Playlist -------------------
+                            div.containerPlaylists {
+                                min-width: 205px;
+                                height: 244px;
+                                display: flex;
+                                flex-direction: column;
+                                background-position: center;
+                                position: relative;
+                                border-radius: 0px;
+                                overflow: hidden;
+                                box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+                                background-color: #1e1e20;
+                                //padding: 10px;
+                                cursor: pointer;
+            
+                                div.containerImgPlaylist {
+                                    width: 100%;
+                                    height: 100%;
+                                    margin: auto;
+                                    overflow: hidden;
+                                    position: relative;
+                                    //border-radius: 10px;
+                                    //box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+            
+                                    img {
+                                        width: 100%;
+                                        height: 159%;
+                                        display: block;
+                                        object-fit: cover;
+                                        position: absolute;
+                                        top: -43px;
+                                    }
+                                }
+            
+                                div.TextoMusicaCaixa {
+                                    width: 85%;
+                                    margin: 20px auto 10px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+            
+                                    p {
+                                        width: 90%;
+                                        color: #fff;
+                                        font-size: 17px;
+                                        font-style: normal;
+                                        font-weight: 500;
+                                        line-height: 24px;
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+            
+                                    span {
+                                        color: rgba(255, 255, 255, 0.4117647059);
+                                        font-size: 13px;
+                                        font-weight: 500;
+                                        line-height: 20px;
+                                    }
+                                }
+            
+                                button.btn_editar_playlist {
+                                    width: 40px;
+                                    height: 40px;
+                                    background-color: #212124;
+                                    border: none;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    cursor: pointer;
+                                    padding: 10px;
+                                    box-shadow: 1px 1px 2px black;
+                                    position: absolute;
+                                    right: 5px;
+                                    top: 5px;
+            
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                        -o-object-fit: contain;
+                                        object-fit: contain;
+                                    }
+                                }
+                            }
                         }
                     }
-
-                    div.TextoMusicaCaixa {
-                        width: 85%;
-                        margin: 20px auto 10px;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-
-                        p {
-                            width: 90%;
-                            color: #fff;
-                            font-size: 17px;
-                            font-style: normal;
-                            font-weight: 500;
-                            line-height: 24px;
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                        }
-
-                        span {
-                            color: rgba(255, 255, 255, 0.4117647059);
-                            font-size: 13px;
-                            font-weight: 500;
-                            line-height: 20px;
-                        }
-                    }
-
                 }
             }
         }
@@ -2657,9 +2691,11 @@ body {
                         
                         img#imgCriarPlaylist {
                             width: 50%;
-
+                            
                             &.PlaylistTemImg {
                                 width: 100%;
+                                height: 100%;
+                                object-fit: cover;
                             }
 
                             &.Thumb_Playlist_TreeFy {
@@ -2783,7 +2819,7 @@ body {
                         align-items: center;
                         gap: 20px;
 
-                        div {
+                        div#input_new_playlist {
                             width: 95%;
                             max-width: 300px;
                             position: relative;
@@ -2814,13 +2850,18 @@ body {
                             }
                         }
 
-                        button#btn_postar_playlist {
-                            padding: 10px 15px;
-                            border: none;
-                            color: #fff;
-                            background-color: #232327;
-                            border-radius: 5px;
-                            cursor: pointer;
+                        div {
+                            display: flex;
+                            gap: 10px;
+
+                            button {
+                                padding: 10px 15px;
+                                border: none;
+                                color: #fff;
+                                background-color: #232327;
+                                border-radius: 5px;
+                                cursor: pointer;
+                            }
                         }
                     }
 

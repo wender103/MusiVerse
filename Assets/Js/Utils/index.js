@@ -229,11 +229,11 @@ function IDsUncios() {
   return db.collection('IdsUnicos').doc().id
 }
 
-function Reverter_Array(array, musica_atual, Comando) {
+function Reverter_Array(array, musica_atual, Comando = null) {
   return new Promise((resolve, reject) => {
     let new_array = array
 
-    if(!Comando == 'No Revert') {
+    if(Comando != 'No Revert') {
       new_array = array.slice().reverse()
     }
 

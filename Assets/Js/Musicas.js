@@ -2753,6 +2753,7 @@ function FecharTelaTocandoAgora() {
 
 //? Vai retornar as playlists
 let arrayMusicasPlaylist = []
+let Editando_Playlist = false //? Vai marcar com otrue assim que estiver editando a playlist
 function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando) {
     let isEmail = false
     for (let c = 0; c < TodosOsUsers.length; c++) {
@@ -2771,8 +2772,6 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
     const articleContainer = document.createElement('article')
     articleContainer.className = 'articleContainer'
     const article = document.createElement('article')
-    
-    let playlist_encontrada = false
 
     let playlist_atual = {}
     let array_musicas_playlist = []
@@ -2800,6 +2799,9 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
 
         
         if(PesquisaPassou) {
+            playlist_atual = {}
+            array_musicas_playlist = []
+
             if(document.getElementById('container_n_encontrado')) {
                 document.getElementById('container_n_encontrado').remove()
             }
@@ -2812,39 +2814,46 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                         }
                     }
                 }
-
                 playlist_atual = TodasMusicas.Playlists[c]
+                
                 if(Formato == 'Caixa') {
+                    let array_essa_playlist = array_musicas_playlist
+                    let essa_playlist = playlist_atual
                     const container = document.createElement('div')
                     const containerImg = document.createElement('div')
                     const img = document.createElement('img')
                     const TextoMusicaCaixa = document.createElement('div')
                     const p = document.createElement('p')
                     const span = document.createElement('span')
+                    const btn_editar = document.createElement('button')
+                    const img_btn_editar = document.createElement('img')
             
                     container.className = 'containerPlaylists'
                     containerImg.className = 'containerImgPlaylist'
                     TextoMusicaCaixa.className = 'TextoMusicaCaixa'
-            
-                    carregarImagem(playlist_atual.Thumb, function(imgPerfil) {
+                    btn_editar.className = 'btn_editar_playlist'
+                    img_btn_editar.className = 'img_btn_editar'
+
+                    carregarImagem(essa_playlist.Thumb, function(imgPerfil) {
                         if (imgPerfil) {
                             img.classList.add('Playlist_Com_Thumb')
-                            img.src = playlist_atual.Thumb
+                            img.src = essa_playlist.Thumb
                         } else {
             
-                            if(array_musicas_playlist[0].LinkImg.includes('treefy')) {
+                            if(array_essa_playlist[0].LinkImg.includes('treefy')) {
                                 img.classList.remove('Thumb_Playlist_TreeFy')
                             }
             
-                            img.src = array_musicas_playlist[0].LinkImg
+                            img.src = array_essa_playlist[0].LinkImg
                         }
                     })
             
-                    p.innerText = playlist_atual.Nome
+                    p.innerText = essa_playlist.Nome
+                    img_btn_editar.src = './Assets/Imgs/Icons/edit.png'
             
                     let userDonoDaPlaylist
                     for(let i = 0; i < TodosOsUsers.length; i++) {
-                        if(TodosOsUsers[i].User.Email == playlist_atual.EmailUser) {
+                        if(TodosOsUsers[i].User.Email == essa_playlist.EmailUser) {
                             span.innerText = `De ${TodosOsUsers[i].User.Nome}`
                             userDonoDaPlaylist = TodosOsUsers[i]
                         }
@@ -2855,6 +2864,11 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                     TextoMusicaCaixa.appendChild(span)
                     TextoMusicaCaixa.appendChild(p)
                     container.appendChild(TextoMusicaCaixa)
+                    
+                    if(isEmail) {
+                        btn_editar.appendChild(img_btn_editar)
+                        container.appendChild(btn_editar)
+                    }
             
                     article.appendChild(container)
             
@@ -2873,23 +2887,22 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                     container.addEventListener('click', (e) => {
                         let el = e.target
             
-                        if(el != span) {
-                            AbrirPlaylist(playlist_atual, array_musicas_playlist)
-                            arrayMusicasPlaylist = array_musicas_playlist
+                        if(el != span && el.className != 'btn_editar_playlist' && el.className != 'img_btn_editar') {
+                            AbrirPlaylist(essa_playlist, array_essa_playlist)
+                            arrayMusicasPlaylist = array_essa_playlist
             
                             if(Comando == 'Salvar pesquisa') {
                                 //? Vai salvar a pesquisa
-                                const pesquisa = {TipoPesquisa: 'playlist', ID: playlist_atual.ID}
+                                const pesquisa = {TipoPesquisa: 'playlist', ID: essa_playlist.ID}
                                 SalvarUltimasPesquisas(pesquisa)
                             }
                         }
-            
                     })
             
                     container.addEventListener('contextmenu', function (e) {
                         e.preventDefault()
             
-                        playlistSelecionadaBtnDireito = playlist_atual
+                        playlistSelecionadaBtnDireito = essa_playlist
                         const containerOptionsClickPlaylist = document.getElementById('containerOptionsClickPlaylist')
             
                         hideMenu()
@@ -2899,6 +2912,12 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                         containerOptionsClickPlaylist.style.display = 'block'
                     })
             
+                    //? Vai editar a playlist
+                    btn_editar.addEventListener('click', () => {
+                        Editando_Playlist = true
+                        EditarPlaylist(essa_playlist, array_essa_playlist)
+                    })
+
                 } else if(Formato == 'Linha') {
             
                     for(let i = array_musicas_playlist.length -1; i >= 0; i--) {
@@ -3054,19 +3073,18 @@ function AbrirPlaylist(Playlist, Musicas) {
 
 //? Vai dar play na playlist ao clicar no btn start
 document.getElementById('btnPlayHeaderPagPlaylist').addEventListener('click', () => {
-    Reverter_Array(arrayMusicasPlaylist, arrayMusicasPlaylist[0]).then((resolve) => {
+    Reverter_Array(arrayMusicasPlaylist, arrayMusicasPlaylist[arrayMusicasPlaylist.length - 1]).then((resolve) => {
         let arrayInvertido = resolve.Array
-
-        AbrirTelaTocandoAgora(arrayInvertido[0])
+        
+        AbrirTelaTocandoAgora(arrayInvertido[resolve.Numero])
     
         ListaProxMusica = {
             Musicas: arrayInvertido,
-            Numero: 0,
+            Numero: resolve.Numero,
         }
         
-        DarPlayMusica(arrayInvertido[0], 0)
+        DarPlayMusica(arrayInvertido[resolve.Numero], resolve.Numero)
     })
-
 })
 
 //? Vai Adicionar a música a fila ao clicar em adiconar a fila

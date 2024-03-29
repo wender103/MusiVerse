@@ -256,6 +256,7 @@ function PesquisarMusicaCriarPlaylist() {
 }
 
 //* Postar Playlist
+let playlist_editando = {}
 function Postar_Playlist() {
     let feito = false
     let nome_playlist = nomePlaylistCriarPlaylist.value
@@ -266,15 +267,30 @@ function Postar_Playlist() {
     }
 
     if(arrayMusicasNovaPlaylist.length > 0 && nome_playlist.trim() != '') {
-        const new_playlist = {
-            Estado: 'Pública',
-            ID: IDsUncios(),
-            Thumb: document.getElementById('imgCriarPlaylist').src,
-            EmailUser: currentUser.User.Email,
-            Musicas: arrayMusicasNovaPlaylist,
-            Nome: nome_playlist,
-            Descricao: desc_playlist,
-            Colaboradores: [],
+        let new_playlist = {}
+
+        if(!Editando_Playlist) {
+            new_playlist = {
+                Estado: 'Pública',
+                ID: IDsUncios(),
+                Thumb: document.getElementById('imgCriarPlaylist').src,
+                EmailUser: currentUser.User.Email,
+                Musicas: arrayMusicasNovaPlaylist,
+                Nome: nome_playlist,
+                Descricao: desc_playlist,
+                Colaboradores: [],
+            }
+        } else {
+            new_playlist = {
+                Estado: playlist_editando.Estado,
+                ID: playlist_editando.ID,
+                Thumb: document.getElementById('imgCriarPlaylist').src,
+                EmailUser: playlist_editando.EmailUser,
+                Musicas: arrayMusicasNovaPlaylist,
+                Nome: nome_playlist,
+                Descricao: desc_playlist,
+                Colaboradores: playlist_editando.Colaboradores,
+            }
         }
 
         db.collection('InfoMusicas').limit(1).get().then((snapshot) => {
@@ -283,21 +299,22 @@ function Postar_Playlist() {
                     feito = true
 
                     const InfoPlaylystsObj = TodasAsMusicas.data()
-                    InfoPlaylystsObj.Playlists.push(new_playlist)
+                    let msg = Editando_Playlist ? 'Playlist atualizada com sucesso!' : 'Playlist postada com sucesso!'
+                    if(Editando_Playlist) {
+                        for (let c = 0; c <  InfoPlaylystsObj.Playlists.length; c++) {
+                            if(InfoPlaylystsObj.Playlists[c].ID == new_playlist.ID) {
+                                InfoPlaylystsObj.Playlists[c] = new_playlist                     
+                            }
+                        }
+
+                    } else {
+                        InfoPlaylystsObj.Playlists.push(new_playlist)
+                    }
 
                     db.collection('InfoMusicas').doc(TodasAsMusicas.id).update({Playlists: InfoPlaylystsObj.Playlists}).then(() => {
-                        arrayMusicasNovaPlaylist = []
-                        alert('Playlist postada com sucesso!')
-                        nomePlaylistCriarPlaylist.value = ''
-                        descPlaylistCriarPlaylist.value = ''
-                        document.getElementById('containerMusicasPesquisadasCriarPlaylist').innerHTML = ''
-                        document.getElementById('containerMusicasAddCriarPlaylist').querySelector('section').querySelector('article').querySelector('article').innerHTML = ''
-                        document.getElementById('pesquisarMuiscaCriarPlaylist').innerHTML = ''
-                        const imgCriarPlaylist = document.getElementById('imgCriarPlaylist')
-                        imgCriarPlaylist.classList.remove('Thumb_Playlist_MusiVerse')
-                        imgCriarPlaylist.classList.remove('Thumb_Playlist_TreeFy')
-                        imgCriarPlaylist.classList.remove('PlaylistTemImg')
-                        imgCriarPlaylist.src = 'Assets/Imgs/Icons/Faixas200.png'
+                        alert(msg)
+                        TodasMusicas.Playlists = InfoPlaylystsObj.Playlists
+                        Cancelar_Playlist()
                     })
                 }
             })
@@ -306,4 +323,138 @@ function Postar_Playlist() {
     } else {
         alert('Termine de configurar a playlist antes de tentar postar.')
     }
+}
+
+//? Vai preparar para editar a playlist
+function EditarPlaylist(Playlist, MusicasPlaylist) {
+    arrayMusicasNovaPlaylist = []
+    if(Playlist.Thumb) {
+        input_link_thumb.value = Playlist.Thumb
+        Adicionar_Thumb_Playlist()
+    }
+
+    nomePlaylistCriarPlaylist.value = Playlist.Nome
+    descPlaylistCriarPlaylist.value = Playlist.Descricao
+
+    for (let c = 0; c < MusicasPlaylist.length; c++) {
+        arrayMusicasNovaPlaylist.push(MusicasPlaylist[c].ID)
+    }
+
+    playlist_editando = Playlist
+    Criar_Musicas_Editar(MusicasPlaylist)
+
+    AbrirPaginas('CriarPlaylist')
+}
+
+function Criar_Musicas_Editar(Musicas) {
+    const Local = document.getElementById('articleContainerMusicasAdded')
+    Local.innerHTML = ''
+    const article = document.createElement('article')
+    article.className = 'containerMusicasOverflow'
+    let contadorMusicas = 0
+    let musica_encontrada = false
+    Local.style.display = 'block'
+    document.getElementById('btnPesquisaMusicaPlaylist').src = 'Assets/Imgs/Icons/search.png'
+    document.getElementById('btnPesquisaMusicaPlaylist').style.width = '20px'
+    document.getElementById('btnPesquisaMusicaPlaylist').style.height = '20px'
+
+    for(let c =  0; c < Musicas.length; c++) {
+        musica_encontrada = true
+        contadorMusicas++
+        article.className = 'containerMusicaLinha'
+
+        const div = document.createElement('div')
+        const divPrimeiraParte = document.createElement('div')
+        const divImg = document.createElement('div')
+        const img = document.createElement('img')
+        const divTexto = document.createElement('div')
+        const Nome = document.createElement('p')
+        const AutorDaMusica = document.createElement('span')
+        const Genero = document.createElement('p')
+        const btnRemover = document.createElement('button')
+
+        div.className = 'MusicasLinha'
+        divTexto.className = 'TextoMusicaCaixa'
+        btnRemover.className = 'btnAdicionar'
+        divImg.className = 'DivImgMusicaMeuPerfil'
+        img.className = 'ImgMusicaMeuPerfil'
+        Genero.className = 'GeneroMeuPerfil'
+        img.src = Musicas[c].LinkImg
+        Nome.innerText = Musicas[c].NomeMusica
+        AutorDaMusica.innerText = Musicas[c].Autor
+        Genero.innerText = Musicas[c].Genero
+        btnRemover.innerText = 'Remover'
+        
+        divTexto.appendChild(Nome)
+        divTexto.appendChild(AutorDaMusica)
+        divImg.appendChild(img)
+        divPrimeiraParte.appendChild(divImg)
+        divPrimeiraParte.appendChild(divTexto)
+        div.appendChild(divPrimeiraParte)
+        div.appendChild(Genero)
+        div.appendChild(btnRemover)
+        article.appendChild(div)
+
+        div.addEventListener('click', (event) => {
+            if (event.target != AutorDaMusica && event.target != btnRemover) {
+                ListaProxMusica = {
+                    Musicas: Musicas[c],
+                    Numero: c,
+                }
+
+                DarPlayMusica(Musicas[c], c)
+            }
+        })
+
+        //? Vai adicionar a música na playlist
+        const btnPostarPlaylist = document.getElementById('btnPostarPlaylist')
+        btnRemover.addEventListener('click', () => {
+            for(let a = 0; a < arrayMusicasNovaPlaylist.length; a++) {
+                if(arrayMusicasNovaPlaylist[a] == Musicas[c].ID) {
+                    arrayMusicasNovaPlaylist.splice(a, 1)
+                    article.removeChild(div)
+                }
+            }
+        })
+    }
+
+    if(!musica_encontrada) {
+        Local.innerHTML = `
+        <div id="container_n_encontrado">
+            <h1 id="h1_nehum_resultado_encontrado">Nehum resultado encontrado para: "${pesquisarMuiscaCriarPlaylist.value}"</h1>
+            <span id="span_infos_n_encontrado">Tente escrevendo o termo da busca de outra forma ou usando outra palavra-chave</span>
+        </div>
+        `
+    }
+
+    const section = document.createElement('section')
+    const articleContainer = document.createElement('article')
+    articleContainer.className = 'articleContainer'
+
+    //? Vai adicionar o article no html apenas se houver algunma música
+    if(article.innerHTML != '') {
+        section.className = 'containerMusica'
+        section.appendChild(articleContainer)
+        articleContainer.appendChild(article)
+        Local.appendChild(section)
+    }
+}
+
+function Cancelar_Playlist() {
+    arrayMusicasNovaPlaylist = []
+    nomePlaylistCriarPlaylist.value = ''
+    descPlaylistCriarPlaylist.value = ''
+    document.getElementById('containerMusicasPesquisadasCriarPlaylist').innerHTML = ''
+    document.getElementById('containerMusicasAddCriarPlaylist').querySelector('section').querySelector('article').querySelector('article').innerHTML = ''
+    document.getElementById('pesquisarMuiscaCriarPlaylist').value = ''
+    const imgCriarPlaylist = document.getElementById('imgCriarPlaylist')
+    imgCriarPlaylist.classList.remove('Thumb_Playlist_MusiVerse')
+    imgCriarPlaylist.classList.remove('Thumb_Playlist_TreeFy')
+    imgCriarPlaylist.classList.remove('PlaylistTemImg')
+    imgCriarPlaylist.src = 'Assets/Imgs/Icons/Faixas200.png'
+    document.getElementById('containerMusicasPesquisadasCriarPlaylist').style.display = 'none'
+    document.getElementById('btnPesquisaMusicaPlaylist').src = 'Assets/Imgs/Icons/search.png'
+    document.getElementById('btnPesquisaMusicaPlaylist').style.width = '20px'
+    document.getElementById('btnPesquisaMusicaPlaylist').style.height = '20px'
+    Editando_Playlist = false
 }

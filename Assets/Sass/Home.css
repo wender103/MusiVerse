@@ -1719,17 +1719,10 @@ body section.Paginas#PagMeuPerfil article#containerMeuPerfil div#containerMusica
 body section.Paginas#PagPlaylists {
   padding-top: 40px;
 }
-body section.Paginas#PagPlaylists article {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 24px;
-  height: auto;
-  width: 100%;
-  padding: 0px 0px 30px !important;
-  width: 95%;
-  margin: auto;
+body section.Paginas#PagPlaylists article#container_playlists_edtitar {
+  padding: 0;
 }
-body section.Paginas#PagPlaylists article h1 {
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa h1 {
   width: 100%;
   max-width: 1400px;
   font-size: 1.5em;
@@ -1739,7 +1732,21 @@ body section.Paginas#PagPlaylists article h1 {
   margin: 70px auto 14px;
   display: block;
 }
-body section.Paginas#PagPlaylists article div.containerPlaylists {
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa article.articleContainer {
+  width: 100%;
+  padding: 0;
+}
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa article.articleContainer article {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+  height: auto;
+  width: 100%;
+  padding: 0px 0px 30px !important;
+  width: 100%;
+  margin: auto;
+}
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists {
   min-width: 205px;
   height: 244px;
   display: flex;
@@ -1752,14 +1759,14 @@ body section.Paginas#PagPlaylists article div.containerPlaylists {
   background-color: #1e1e20;
   cursor: pointer;
 }
-body section.Paginas#PagPlaylists article div.containerPlaylists div.containerImgPlaylist {
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.containerImgPlaylist {
   width: 100%;
   height: 100%;
   margin: auto;
   overflow: hidden;
   position: relative;
 }
-body section.Paginas#PagPlaylists article div.containerPlaylists div.containerImgPlaylist img {
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.containerImgPlaylist img {
   width: 100%;
   height: 159%;
   display: block;
@@ -1768,14 +1775,14 @@ body section.Paginas#PagPlaylists article div.containerPlaylists div.containerIm
   position: absolute;
   top: -43px;
 }
-body section.Paginas#PagPlaylists article div.containerPlaylists div.TextoMusicaCaixa {
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa {
   width: 85%;
   margin: 20px auto 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-body section.Paginas#PagPlaylists article div.containerPlaylists div.TextoMusicaCaixa p {
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa p {
   width: 90%;
   color: #fff;
   font-size: 17px;
@@ -1786,11 +1793,33 @@ body section.Paginas#PagPlaylists article div.containerPlaylists div.TextoMusica
   overflow: hidden;
   text-overflow: ellipsis;
 }
-body section.Paginas#PagPlaylists article div.containerPlaylists div.TextoMusicaCaixa span {
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists div.TextoMusicaCaixa span {
   color: rgba(255, 255, 255, 0.4117647059);
   font-size: 13px;
   font-weight: 500;
   line-height: 20px;
+}
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists button.btn_editar_playlist {
+  width: 40px;
+  height: 40px;
+  background-color: #212124;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px;
+  box-shadow: 1px 1px 2px black;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+body section.Paginas#PagPlaylists article#container_playlists_edtitar section.containerPlaylistsCaixa article.articleContainer article div.containerPlaylists button.btn_editar_playlist img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+  object-fit: contain;
 }
 body section.Paginas#PagFavoritas #containerMusicasFavoritas {
   width: 100%;
@@ -2318,6 +2347,9 @@ body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist d
 }
 body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#containerImgPlaylist img#imgCriarPlaylist.PlaylistTemImg {
   width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 body section.Paginas#PagCriarPlaylist article div#containerHeaderCriarPlaylist div#containerImgPlaylist img#imgCriarPlaylist.Thumb_Playlist_MusiVerse {
   width: 178%;
@@ -2423,7 +2455,7 @@ body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist di
   align-items: center;
   gap: 20px;
 }
-body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div {
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div#input_new_playlist {
   width: 95%;
   max-width: 300px;
   position: relative;
@@ -2434,24 +2466,28 @@ body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist di
   justify-content: center;
   padding-right: 10px;
 }
-body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div input {
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div#input_new_playlist input {
   width: 100%;
   padding: 10px 15px;
   border: none;
   background: none;
   color: #fff;
 }
-body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div input:focus {
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div#input_new_playlist input:focus {
   outline: none;
 }
-body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div img {
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div#input_new_playlist img {
   width: 20px;
   height: 20px;
   cursor: pointer;
   -o-object-fit: cover;
      object-fit: cover;
 }
-body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist button#btn_postar_playlist {
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div {
+  display: flex;
+  gap: 10px;
+}
+body section.Paginas#PagCriarPlaylist article div#inputAddMusicaCriarPlaylist div#container_buscar_musicas_add_playlist div button {
   padding: 10px 15px;
   border: none;
   color: #fff;

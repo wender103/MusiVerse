@@ -667,12 +667,15 @@
                 <div id="inputAddMusicaCriarPlaylist">
                     <h1>Adicione uma música</h1>
                     <div id="container_buscar_musicas_add_playlist">
-                        <div>
+                        <div id="input_new_playlist">
                             <input type="text" id="pesquisarMuiscaCriarPlaylist" oninput="PesquisarMusicaCriarPlaylist()">
                             <img src="Assets/Imgs/Icons/search.png" id="btnPesquisaMusicaPlaylist">
                         </div>
     
-                        <button id="btn_postar_playlist" onclick="Postar_Playlist()">Postar</button>
+                        <div id="container_btns_postar_playlist">
+                            <button id="btn_postar_playlist" onclick="Postar_Playlist()">Postar</button>
+                            <button id="btn_cancelar_playlist" onclick="Cancelar_Playlist()">Cancelar</button>
+                        </div>
                     </div>
                 </div>
 
