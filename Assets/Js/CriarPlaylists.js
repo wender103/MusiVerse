@@ -49,8 +49,18 @@ function Adicionar_Thumb_Playlist() {
             if (imgPerfil) {
                 imgCriarPlaylist.classList.remove('Thumb_Playlist_MusiVerse')
                 imgCriarPlaylist.classList.remove('Thumb_Playlist_TreeFy')
-                imgCriarPlaylist.classList.add('PlaylistTemImg')
-                imgCriarPlaylist.src = input_link_thumb.value
+                imgCriarPlaylist.classList.remove('PlaylistTemImg')
+
+                if(imgPerfil.src.includes('musiverse')) {
+                    imgCriarPlaylist.classList.add('Thumb_Playlist_MusiVerse')
+
+                } else if(imgPerfil.src.includes('treefy')) {
+                    imgCriarPlaylist.classList.add('Thumb_Playlist_TreeFy')
+                } else {
+                    imgCriarPlaylist.classList.add('PlaylistTemImg')
+                }
+                
+                imgCriarPlaylist.src = imgPerfil.src
                 usando_thumb_personalizada = true
             } else {
                 imgCriarPlaylist.classList.remove('Thumb_Playlist_MusiVerse')

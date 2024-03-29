@@ -2836,12 +2836,23 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
 
                     carregarImagem(essa_playlist.Thumb, function(imgPerfil) {
                         if (imgPerfil) {
-                            img.classList.add('Playlist_Com_Thumb')
+                            if(imgPerfil.src.includes('musiverse')) {
+                                img.classList.add('Thumb_Playlist_MusiVerse')
+
+                            } else if(imgPerfil.src.includes('treefy')) {
+                                img.classList.add('Thumb_Playlist_TreeFy')
+                            } else {
+                                img.classList.add('PlaylistTemImg')
+                            }
                             img.src = essa_playlist.Thumb
                         } else {
-            
-                            if(array_essa_playlist[0].LinkImg.includes('treefy')) {
-                                img.classList.remove('Thumb_Playlist_TreeFy')
+                            if(array_essa_playlist[0].includes('musiverse')) {
+                                img.classList.add('Thumb_Playlist_MusiVerse')
+
+                            } else if(array_essa_playlist[0].includes('treefy')) {
+                                img.classList.add('Thumb_Playlist_TreeFy')
+                            } else {
+                                img.classList.add('PlaylistTemImg')
                             }
             
                             img.src = array_essa_playlist[0].LinkImg
@@ -3029,25 +3040,19 @@ function AbrirPlaylist(Playlist, Musicas) {
     updateURLParameter('playlist', Playlist.ID)
 
     FecharPaginas()
-    const imgPerfilPagPlaylist = document.getElementById('imgPerfilPagPlaylist')
-    if(Musicas[0].LinkImg.includes ('treefy')) {
-        imgPerfilPagPlaylist.classList.add('imgPerfilPagPlaylistTreeFy')
-    } else {
-        imgPerfilPagPlaylist.classList.remove('imgPerfilPagPlaylistTreeFy')
-    }
+    const imgPerfilPagPlaylist = document.getElementById('imgPerfilPagPlaylist')    
 
     carregarImagem(Playlist.Thumb, function(imgPerfil) {
-        if (imgPerfil) {
-            imgPerfilPagPlaylist.classList.add('Playlist_Com_Thumb')
-            imgPerfilPagPlaylist.src = Playlist.Thumb
+        if(imgPerfil.src.includes('musiverse')) {
+            imgPerfilPagPlaylist.classList.add('Thumb_Playlist_MusiVerse')
+    
+        } else if(imgPerfil.src.includes('treefy')) {
+            imgPerfilPagPlaylist.classList.add('Thumb_Playlist_TreeFy')
         } else {
-
-            if(Musicas[0].LinkImg.includes('treefy')) {
-                imgPerfilPagPlaylist.classList.remove('Thumb_Playlist_TreeFy')
-            }
-
-            imgPerfilPagPlaylist.src = Musicas[0].LinkImg
+            imgPerfilPagPlaylist.classList.add('PlaylistTemImg')
         }
+
+        imgPerfilPagPlaylist.src = imgPerfil.src
     })
 
     document.getElementById('NomePagPlaylist').innerText = Playlist.Nome
