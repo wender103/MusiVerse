@@ -180,7 +180,7 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
           const j = Math.floor(Math.random() * (i + 1));
           [array[i], array[j]] = [array[j], array[i]];
         }
-      }
+    }
     
     shuffleArray(arrayMusicasRetornadas)
   
@@ -357,7 +357,7 @@ async function RetornarMusicas(Pesquisa, Local, maxMusicas = 10, Estilo = 'Caixa
                         }
 
                         NomeUserCreditos.addEventListener('click', () => {
-                            AbrirPaginas('artist', TodosOsUsers[con].User)
+                            AbrirPaginas('profile', TodosOsUsers[con].User.Id)
                             closeMenuCreditos()
 
                             if(Comando == 'Salvar pesquisa') {
@@ -3015,6 +3015,119 @@ function RetornarPlayList(Pesquisa, Local, Formato = 'Caixa', ID = null, Comando
                 
                         AutorDaMusica.addEventListener('click', () => {
                             AbrirPaginas('artist', array_musicas_playlist[i].ID)
+                        })
+
+                        div.addEventListener('contextmenu', function (e) {
+                            e.preventDefault()
+
+                            musicaSelecionadaBtnDireito = array_musicas_playlist[i]
+                            const containerOptionsClickMusic = document.getElementById('containerOptionsClickMusic')
+                            const containerOptionsClickArtista = document.getElementById('containerOptionsClickArtista')
+                            autorSelecionadoBtnDireito = array_musicas_playlist[i]
+
+                            if(e.target.innerText == array_musicas_playlist[i].Autor) {
+                                hideMenu()
+                                // Position the custom menu at the mouse coordinates
+                                containerOptionsClickArtista.style.left = e.clientX+ 'px'
+                                containerOptionsClickArtista.style.top = e.clientY + 'px'
+                                containerOptionsClickArtista.style.display = 'block'
+
+                            } else {
+                                hideMenu()
+                                // Position the custom menu at the mouse coordinates
+                                containerOptionsClickMusic.style.left = e.clientX+ 'px'
+                                containerOptionsClickMusic.style.top = e.clientY + 'px'
+                                containerOptionsClickMusic.style.display = 'block'
+                            }
+
+                            // Close the menu when clicking outside of it
+                            document.addEventListener('click', hideMenu)
+                            document.addEventListener('scroll', hideMenu)
+
+                            //? Vai curtir, descurtir usando a função btn direito
+                            FavoritarDesfavoritarMusica(array_musicas_playlist[i].ID, 'Checar').then((resolve) => {
+                                const spanLi = document.createElement('span')
+
+                                if(resolve == './Assets/Imgs/Icons/icon _heart_.png') {
+                                    spanLi.innerText = 'Remover dos Favotitos'
+                                } else {
+                                    spanLi.innerText = 'Adicionar aos Favotitos'
+                                }
+
+                                //? Btn Add | Remover dos favoritos btn direito
+                                spanLi.addEventListener('click', () => {
+                                    FavoritarDesfavoritarMusica(musicaSelecionadaBtnDireito.ID).then((resolveSrc) => {
+                                        Heart.src = resolveSrc
+                                    })
+                                })
+                                liAddRemoveFavoritosClickMusic.innerHTML = ''
+                                liAddRemoveFavoritosClickMusic.appendChild(spanLi)
+                            })
+
+                            const irParaArtista = document.createElement('span')
+                            irParaArtista.innerText = 'Ir para o artista'
+
+                            irParaArtista.addEventListener('click', () => {
+                                AbrirPaginas('artist', array_musicas_playlist[i].ID)
+                            })
+
+                            liIrParaArtistaClickMusic.innerHTML = ''
+                            liIrParaArtistaClickMusic.appendChild(irParaArtista)
+
+                            //? Vai mostrar os créditos da música
+                            const spanCreditos = document.createElement('span')
+                            spanCreditos.innerText = 'Mostrar créditos'
+                            spanCreditos.addEventListener('click', () => {
+                                const nomeMusicaMostrarCreditos = document.createElement('span')
+                                nomeMusicaMostrarCreditos.innerText = array_musicas_playlist[i].NomeMusica
+                                document.querySelector('#menuCreditosNomeMusica').innerHTML = ''
+                                document.querySelector('#menuCreditosNomeMusica').appendChild(nomeMusicaMostrarCreditos)
+
+                                const autorCreditos = document.createElement('span')
+                                autorCreditos.innerText = array_musicas_playlist[i].Autor
+                                document.querySelector('#menuCreditosAutor').innerHTML = ''
+                                document.querySelector('#menuCreditosAutor').appendChild(autorCreditos)
+
+                                autorCreditos.addEventListener('click', () => {
+                                    document.querySelector('#containerMenuCreditos').style.display = 'none'         
+                                    AbrirPaginas('artist', array_musicas_playlist[i].ID)
+                                })
+
+                                const NomeUserCreditos = document.createElement('span')
+
+                                for(let con = 0; con < TodosOsUsers.length; con++) {
+                                    if(TodosOsUsers[con].User.Email == array_musicas_playlist[i].EmailUser) {
+                                        if(TodosOsUsers[con].User.Nome != '' && TodosOsUsers[con].User.Nome != undefined) {
+                                            NomeUserCreditos.innerText = TodosOsUsers[con].User.Nome
+                                            document.querySelector('#menuCreditosNoneQuemPostou').style.textDecoration = 'underline'
+                                            document.querySelector('#menuCreditosNoneQuemPostou').style.cursor = 'pointer'
+                                        } else {
+                                            document.querySelector('#menuCreditosNoneQuemPostou').style.textDecoration = 'none'
+                                            NomeUserCreditos.innerText = array_musicas_playlist[i].EmailUser //? Caso o user não tiver uma conta nesse site ele vai informar o email do user que postou ao invés de mostrar "Desconhecido"
+                                        }
+
+                                        NomeUserCreditos.addEventListener('click', () => {
+                                            AbrirPaginas('profile', TodosOsUsers[con].User.Id)
+                                            closeMenuCreditos()
+                                        })
+                                    }
+                                }
+
+                                if(NomeUserCreditos.innerText == '') {
+                                    document.querySelector('#menuCreditosNoneQuemPostou').style.textDecoration = 'none'
+                                    document.querySelector('#menuCreditosNoneQuemPostou').style.cursor = 'default'
+                                    NomeUserCreditos.innerText = array_musicas_playlist[i].EmailUser //? Caso o user não tiver uma conta nesse site ele vai informar o email do user que postou ao invés de mostrar "Desconhecido"
+                                }
+
+                                document.querySelector('#menuCreditosNoneQuemPostou').innerHTML = ''
+                                document.querySelector('#menuCreditosNoneQuemPostou').appendChild(NomeUserCreditos)
+
+
+                                openMenuCreditos()
+                            })
+
+                            liMostrarCretidos.innerHTML = ''
+                            liMostrarCretidos.appendChild(spanCreditos)
                         })
                     }
                 }
