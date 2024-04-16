@@ -277,8 +277,11 @@
                 </div>
 
                 <div>
+                    <div id="container_btn_salvar_video">
+                        <input type="checkbox" name="" id="input_salvar_clip">
+                        <p>Salvar clip do vídeo</p>
+                    </div>
                     <button onclick="abrirAviso('Abrir')">Prosseguir</button>
-                    <button>Outra Forma</button>
                 </div>
             </div>
             <div id="FinalizarAddYT">
@@ -783,6 +786,30 @@
                 <button onclick="Zerar_marcacoes()">Zerar</button>
             </div>
         </article>
+
+        <!--? ------------------ Avisos ------------->
+        <article id="aviso_letra_contaier">
+            <div id="aviso_letra">
+                <div id="texto_aviso_letra">
+                    <h1>Aviso:</h1>
+                    <p>Errou o time da letra? Não tem problema! Agora você pode clicar na linha anterior ao erro e a música vai continuar de lá.</p>
+                </div>
+
+                <div id="salvar_escolha_aviso_letra">
+                    <input type="checkbox" name="" id="checkbox_salvar_aviso_letra" oninput="Trocar_Valor_Salvar_Escolha_Aviso()">
+                    <p>Salvar minha escolha</p>
+                </div>
+
+                <div id="btns_aviso_letra">
+                    <button onclick="Fechar_Aviso_Letra()">Quero Tentar</button>
+                    <button onclick="Zerar_Mesmo_Assim()">Zerar mesmo assim</button>
+                </div>
+            </div>
+        </article>
+
+        <article id="timer_aviso_cmc_letra">
+            <h1 id="h1_timer_aviso_cmc_letra">5</h1>
+        </article>
     </section>
 
     <!--? ------------------ Tela Tocando Agora ------------->
@@ -827,6 +854,12 @@
 
             <div id="containerMusicaslistaTelaTocandoAgora"></div>
         </div>
+    </article>
+
+    <!--? ------------------ Tela FullScreen ------------->
+    <article id="tela_fullscreen">
+        <video id="video_tela_fullscreen" muted autoplay loop>
+        <div id="container_barra_btns_música"></div>
     </article>
 
     <!--?  ----------------- Barra da Música ---------------->
@@ -892,6 +925,9 @@
 
                 <input type="range" min="0" max="100" value="0" id="inputVolume">
             </div>
+
+            <!--? Full Screen -->
+            <img src="Assets/Imgs/Icons/fullScreen.png" alt="Icone full screen" id="btn_full_screen">
         </div>
 
         <!--? Div Cell -->
@@ -1010,6 +1046,7 @@
     <script src="Assets/Js/Amigos.js"></script>
     <script src="Assets/Js/Online.js"></script>
     <script src="Assets/Js/ExcluirMusica.js"></script>
+    <script src="Assets/Js/Fullscreen.js"></script>
     
     <!-- <script src="CodigosAParte/MarcarMusicaAtiva.js"></script> -->
     <!-- <script src="CodigosAParte/RecuperarMusicas.js"></script> -->

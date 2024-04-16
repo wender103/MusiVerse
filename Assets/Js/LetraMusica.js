@@ -56,7 +56,7 @@ function Marcar_letra() {
 
     } else if(comecar_sincronizar && marcar == true) {
         Destacar_linhas()
-        //? Vai pegar o sedundo atual do audio
+        //? Vai pegar o segundo atual do audio
         var audioPlayer = document.getElementById('audioPlayer')
         var tempoAtual = audioPlayer.currentTime
         marcacoes.push(tempoAtual)
@@ -117,7 +117,22 @@ function Limpar_letra() {
     
 }
 
-function Zerar_marcacoes() {
+let aviso_letra = JSON.parse(localStorage.getItem('Aviso_Letra'))
+
+const aviso_letra_contaier = document.getElementById('aviso_letra_contaier')
+function Abrir_Aviso_Letra() {
+    aviso_letra_contaier.style.display = 'flex'
+}
+
+function Fechar_Aviso_Letra() {
+    Salvar_Escolha_Aviso_Letra()
+    aviso_letra_contaier.style.display = 'none'
+    Timer_Comecar_Letra()
+}
+
+function Zerar_Mesmo_Assim() {
+    Fechar_Aviso_Letra()
+    
     PausaDespausarMusica()
     marcacoes = []
     btn_marcar_letra.innerHTML = 'Começar'
@@ -126,18 +141,97 @@ function Zerar_marcacoes() {
     linha_atual = 0
 }
 
+let escolha_aviso_letra = false
+function Trocar_Valor_Salvar_Escolha_Aviso() {
+    if(escolha_aviso_letra) {
+        escolha_aviso_letra = false
+
+    } else {
+        escolha_aviso_letra = true
+    }
+}
+
+function Salvar_Escolha_Aviso_Letra() {
+    if(!aviso_letra && escolha_aviso_letra) {
+        localStorage.setItem('Aviso_Letra', JSON.stringify('Visto'))
+    }
+}
+
+function Zerar_marcacoes() {
+    if(!aviso_letra) {
+        Abrir_Aviso_Letra()
+        setTimeout(() => {
+            PausaDespausarMusica()
+        }, 100)
+
+    } else {
+        PausaDespausarMusica()
+        marcacoes = []
+        btn_marcar_letra.innerHTML = 'Começar'
+        comecar_sincronizar = false
+        document.querySelector('#local_letra_musica_sincronizar').innerHTML = letra_da_musica
+        linha_atual = 0
+    }
+}
+
 var linha_atual = 0
+function Voltar_Sincronizar_Musica(index) {
+    linha_atual = index
+    Destacar_linhas()
+    marcacoes.splice(index + 1)
+    audioPlayer.currentTime = marcacoes[index]
+    
+    //? Vai controlar as cores da pag add letra
+    document.querySelector('#contaienr_sincronizar_musica').style.color = cores_fonte_add_letra[2]
+    var linhasAnteriores = document.querySelectorAll('.linha_pre_anterior_add_letra')
+    linhasAnteriores.forEach(function(elemento) {
+        try {
+            elemento.style.color = cores_fonte_add_letra[0]
+        } catch{}
+    })
+
+    try {
+        document.querySelector('#linha_atual_editar_letra').style.color = cores_fonte_add_letra[1]
+    } catch{}
+
+    setTimeout(() => {
+        PausaDespausarMusica()
+        Timer_Comecar_Letra()
+    }, 100)
+}
+
+const timer_aviso_cmc_letra = document.getElementById('timer_aviso_cmc_letra')
+const h1_timer_aviso_cmc_letra = document.getElementById('h1_timer_aviso_cmc_letra')
+let contador_timer_aviso_cmc_letra = 3
+function Timer_Comecar_Letra() {
+    timer_aviso_cmc_letra.style.display = 'flex'
+    h1_timer_aviso_cmc_letra.innerText = contador_timer_aviso_cmc_letra
+
+    if(contador_timer_aviso_cmc_letra > 0) {
+        setTimeout(() => {
+            contador_timer_aviso_cmc_letra--
+            Timer_Comecar_Letra()
+        }, 1000)
+
+    } else {
+        setTimeout(() => {
+            contador_timer_aviso_cmc_letra = 3
+            timer_aviso_cmc_letra.style.display = 'none'
+            PausaDespausarMusica()
+        }, 100)
+    }
+}
+
 function Destacar_linhas() {
     var preElemento = document.getElementById('local_letra_musica_sincronizar')
     var linhas = preElemento.innerText.split('\n')
-    console.log(linhas.length);
     
     if (linha_atual < linhas.length) {
         // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
         var linhasAtualizadas = linhas.map(function(linha, index) {
 
         if(index < linha_atual) {
-            return '<span class="linha_pre_anterior_add_letra">' + linha + '</span>'
+            return `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Sincronizar_Musica(${index})">` + linha + '</span>'
         } else if (index === linha_atual) {
                 return '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_editar_letra">' + linha + '</span>'
             } else {
@@ -262,7 +356,7 @@ audioPlayer.addEventListener('timeupdate', function() {
         Trocar_cores_letra()
 
 
-    } else {
+    } else if(letra_musica_tocando_agora.innerHTML != 'Ainda não aprendemos essa :(') {
         try {
             letra_musica_tocando_agora.style.color = cores_fonte[1]
             letra_musica_tocando_agora.innerHTML = 'Ainda não aprendemos essa :('
