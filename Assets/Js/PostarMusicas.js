@@ -1,4 +1,16 @@
 const inputLinkYT = document.getElementById('inputLinkYT')
+const input_salvar_clip = document.getElementById('input_salvar_clip')
+let salvar_clip_video = false
+
+//* Vai mudar o estado do btn salvar clip da música
+input_salvar_clip.addEventListener('click', () => {
+    if (salvar_clip_video) {
+        salvar_clip_video = false
+
+    } else {
+        salvar_clip_video = true
+    }
+})
 
 function abrirAviso(OqFazer) {
     if(OqFazer == 'Abrir') {
@@ -18,6 +30,7 @@ async function prosseguirMusicaYT() {
     const inputLinkYT = document.getElementById('inputLinkYT')
     const containerInputLinkMusicaYT = document.getElementById('containerInputLinkMusicaYT')
     const carregando = document.getElementById('carregando')
+    const input_salvar_clip = document.getElementById('input_salvar_clip')
     carregando.style.display = 'flex'
 
     if (!inputLinkYT.value) {
@@ -34,15 +47,16 @@ async function prosseguirMusicaYT() {
 
         try {
             const videoURL = inputLinkYT.value // URL do vídeo
-            // const response = await fetch('http://localhost:3000', {
-            const response = await fetch('https://apibaixarmusicayt.onrender.com', {
+            // const response = await fetch('https://apibaixarmusicayt.onrender.com', {
+            const response = await fetch('http://localhost:3000', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                     body: JSON.stringify({ 
                         videoURL: videoURL,
-                        userEmail: currentUser.User.Email
+                        userEmail: currentUser.User.Email,
+                        baixarVideo: salvar_clip_video,
                 })
             })
 
@@ -92,6 +106,8 @@ async function prosseguirMusicaYT() {
                     LinkAudio: data.audioUrl,
                     LinkImg: data.thumbnailUrl,
                     NomeMusica: data.videoTitle,
+                    Clip: data.clip,
+                    VideoURL: data.videoURL,
                     ID: data.uid,
                     Estado: 'Pendente'
                 }
@@ -151,6 +167,8 @@ function FinalizarPostarMusicaYT() {
             LinkAudio: DadosNovaMusica.LinkAudio,
             LinkImg: DadosNovaMusica.LinkImg,
             NomeMusica: inputNomeMusicaLinkYT.value,
+            VideoURL: DadosNovaMusica.VideoURL,
+            Clip: DadosNovaMusica.Clip,
             ID: DadosNovaMusica.ID,
             Estado: 'Ativo'
         }

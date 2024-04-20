@@ -199,11 +199,29 @@ function Pegar_Lista_Prox_Memoria(MusicaAtual) {
     return new Promise((resolve, reject) => {
         const memoria = JSON.parse(localStorage.getItem('Lista_Prox_Musicas'))
         if(memoria) {
+            let lista_memoria = []
+            let contador = memoria.Musicas.length - 1
             for (let c = 0; c < memoria.Musicas.length; c++) {
-                if(memoria.Musicas[c].ID == MusicaTocandoAgora.ID || memoria.Musicas[c].ID == MusicaAtual.ID) {
+                for (let b = 0; b < TodasMusicas.Musicas.length; b++) {
+                    if(TodasMusicas.Musicas[b].ID == memoria.Musicas[contador]) {
+                        lista_memoria.push(TodasMusicas.Musicas[b])
+                        contador--
+                    }
+                }
+            }
+
+            let new_lista = []
+            for (let c = lista_memoria.length -1; c >= 0; c--) {
+                new_lista.push(lista_memoria[c])
+            }
+
+            for (let c = 0; c < memoria.Musicas.length; c++) {
+                if(memoria.Musicas[c] == MusicaTocandoAgora.ID || memoria.Musicas[c] == MusicaAtual.ID) {
                     encontrado = true
+                    
+                    memoria.Musicas = new_lista
                     ListaProxMusica = memoria
-                    resolve(memoria)
+                    resolve(ListaProxMusica)
                 }
             }
             

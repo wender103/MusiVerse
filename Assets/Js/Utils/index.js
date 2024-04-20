@@ -32,6 +32,7 @@ function obterCoresDaImagem(urlDaImagem) {
       .then(data => {
         // Manipule os dados recebidos
         // console.log('Cores principais da imagem:', data)
+        Salvar_Cores_Musica(urlDaImagem, data)
         resolve(data)
         //? Faça o que precisar com as cores, como atualizar a interface do seu site
       })
@@ -40,6 +41,38 @@ function obterCoresDaImagem(urlDaImagem) {
         reject(error)
       })
   })
+}
+
+function Salvar_Cores_Musica(img, cores) {
+  let feito = false
+  let musica_tem_cores = false
+  for (let e = 0; e < TodasMusicas.Musicas.length; e++) {
+    if(TodasMusicas.Musicas[e].LinkImg == img && musica_tem_cores == false && TodasMusicas.Musicas[e].Cores == undefined) {
+      musica_tem_cores = true
+
+      db.collection('InfoMusicas').limit(1).get().then((snapshot) => {
+        snapshot.docs.forEach(Musicas => {
+          if(feito == false) {
+            feito = true
+    
+            const InfoMusicasObj = Musicas.data().Musicas
+    
+            for (let c = 0; c < InfoMusicasObj.length; c++) {
+              if(InfoMusicasObj[c].LinkImg == img && InfoMusicasObj[c].Cores == undefined) {
+                let Musica_Com_Cores = InfoMusicasObj[c]
+          
+                Musica_Com_Cores.Cores = cores
+                InfoMusicasObj[c] = Musica_Com_Cores
+                TodasMusicas.Musicas = InfoMusicasObj
+    
+                db.collection('InfoMusicas').doc(Musicas.id).update({Musicas: InfoMusicasObj})
+              }
+            } 
+          }
+        })
+      })
+    }
+  }
 }
 
 //? Vai pegar a alteração do tamanho da tela
@@ -77,7 +110,6 @@ function obterTamanhoDaTela() {
       if(ultima_img_analizada != MusicaTocandoAgora.LinkImg) {
         ultima_img_analizada = MusicaTocandoAgora.LinkImg
         Trocar_cor_barra_musica(urlDaImagem)
-        console.log('Analizando a img')
       } else {
         document.querySelector('#BarraMusica').style.background = cor_escolhida_background
       }

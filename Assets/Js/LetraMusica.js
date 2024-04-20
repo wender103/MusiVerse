@@ -2,11 +2,11 @@ const PagEditarLetraMusica = document.querySelector('#PagEditarLetraMusica')
 let cores_fonte_add_letra
 function Abrir_add_music() {
     PagEditarLetraMusica.style.display = 'block'
-    obterCoresDaImagem(Musica_Editanto_Agora.LinkImg).then((resolve) => {
-        const random_number = Math.floor(Math.random() * resolve.length -1)
-        PagEditarLetraMusica.style.background = resolve[random_number]
+    if(Musica_Editanto_Agora.Cores != undefined) {
 
-        cores_fonte_add_letra = verificarCor(resolve[random_number])
+        PagEditarLetraMusica.style.background = Musica_Editanto_Agora.Cores[2]
+    
+        cores_fonte_add_letra = verificarCor(Musica_Editanto_Agora.Cores[2])
         document.getElementById('textarea_add_letra').style.color = cores_fonte_add_letra[1]
         if(cores_fonte_add_letra[1] == '#fff') {
             textarea_add_letra.classList.add('Placeholder_claro')
@@ -15,7 +15,23 @@ function Abrir_add_music() {
         }
         document.getElementById('contaienr_sincronizar_musica').style.color = cores_fonte_add_letra[2]
         document.querySelector('#BarraMusica').classList.remove('BarraMusicaOpen')
-    })
+
+    } else {
+
+        obterCoresDaImagem(Musica_Editanto_Agora.LinkImg).then((resolve) => {
+            PagEditarLetraMusica.style.background = resolve[2]
+    
+            cores_fonte_add_letra = verificarCor(resolve[2])
+            document.getElementById('textarea_add_letra').style.color = cores_fonte_add_letra[1]
+            if(cores_fonte_add_letra[1] == '#fff') {
+                textarea_add_letra.classList.add('Placeholder_claro')
+            } else {
+                textarea_add_letra.classList.remove('Placeholder_claro')
+            }
+            document.getElementById('contaienr_sincronizar_musica').style.color = cores_fonte_add_letra[2]
+            document.querySelector('#BarraMusica').classList.remove('BarraMusicaOpen')
+        })
+    }
 }
 
 let letra_da_musica
@@ -481,12 +497,12 @@ function Destacar_linhas_Musica_Tocando_Agora_cell(tempoAtual) {
 
 let cores_fonte
 let cor_escolhida_background
-function Trocar_cor_barra_musica(urlDaImagem) {
-    obterCoresDaImagem(urlDaImagem).then((resolve) => {
-        ultima_img_analizada = urlDaImagem
-        cores_da_img_musica_tocando_agora = resolve
+function Trocar_cor_barra_musica(musica) {
+    if(musica.Cores != undefined) {
+        ultima_img_analizada = musica.LinkImg
+        cores_da_img_musica_tocando_agora = musica.Cores
         const BarraMusica = document.getElementById('BarraMusica')
-        cor_escolhida_background = resolve[2]
+        cor_escolhida_background = musica.Cores[2]
         document.getElementById('PagVerLetraMusicaTocando').style.background = cor_escolhida_background
         cores_fonte = verificarCor(cor_escolhida_background)
         document.getElementById('headerPagMusicaTocandoAgora').style.background = cor_escolhida_background
@@ -506,14 +522,42 @@ function Trocar_cor_barra_musica(urlDaImagem) {
 
         Trocar_cores_letra()
         Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID)
-        
-    //? Mostra as cores da img na tela
-    //   const container_cores = document.querySelector('#container_cores')
-    //   container_cores.innerHTML = ''
-    //   for (let c = 0; c < resolve.length; c++) {
-    //     const div = document.createElement('div')
-    //     div.style.background = resolve[c]
-    //     container_cores.appendChild(div)
-    //  }
-    })
+
+    } else {
+        obterCoresDaImagem(musica.LinkImg).then((resolve) => {
+            ultima_img_analizada = musica.LinkImg
+            cores_da_img_musica_tocando_agora = resolve
+            const BarraMusica = document.getElementById('BarraMusica')
+            cor_escolhida_background = resolve[2]
+            document.getElementById('PagVerLetraMusicaTocando').style.background = cor_escolhida_background
+            cores_fonte = verificarCor(cor_escolhida_background)
+            document.getElementById('headerPagMusicaTocandoAgora').style.background = cor_escolhida_background
+            document.getElementById('container_letra_musica_tocando_agora_cell').style.background = cor_escolhida_background
+                
+            if(document.documentElement.clientWidth < 629) {
+                BarraMusica.style.background = cor_escolhida_background
+                document.querySelector('#NomeMusicaBarraMusica').style.color = cores_fonte[1]
+                document.querySelector('#AutorMusicaBarraMusica').style.color = cores_fonte[1]
+                document.getElementById('p_info_tocando_agora').style.color = cores_fonte[1]
+    
+            } else {
+                BarraMusica.style.background = '#1a1a1d'
+                document.querySelector('#NomeMusicaBarraMusica').style.color = '#fff'
+                document.querySelector('#AutorMusicaBarraMusica').style.color = 'rgba(255, 255, 255, 0.4196078431)'
+            }
+    
+            Trocar_cores_letra()
+            Atualizar_Presenca(true, currentUser.InfoEmail.email, MusicaTocandoAgora.ID)
+            
+        //? Mostra as cores da img na tela
+        //   const container_cores = document.querySelector('#container_cores')
+        //   container_cores.innerHTML = ''
+        //   for (let c = 0; c < resolve.length; c++) {
+        //     const div = document.createElement('div')
+        //     div.style.background = resolve[c]
+        //     container_cores.appendChild(div)
+        //  }
+        })
+    }
+
 }

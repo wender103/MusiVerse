@@ -1634,7 +1634,7 @@ function DarPlayMusica(Lista, num, Pausar = false) {
                 Trocar_Letra()
             }
             
-            Trocar_cor_barra_musica(Lista.LinkImg)
+            Trocar_cor_barra_musica(Lista)
     
             //? Vai checar se a música foi curtida ou n
             FavoritarDesfavoritarMusica(Lista.ID, 'Checar').then((resolve) => {
@@ -1714,7 +1714,17 @@ function DarPlayMusica(Lista, num, Pausar = false) {
                 }
             } else {
                 if(ListaProxMusica.Musicas) {
-                    localStorage.setItem('Lista_Prox_Musicas', JSON.stringify(ListaProxMusica))
+                    let lista_memoria = []
+
+                    for (let c = 0; c < ListaProxMusica.Musicas.length; c++) {
+                        lista_memoria.push(ListaProxMusica.Musicas[c].ID)
+                    }
+                    
+                    let obj = {
+                        Musicas: lista_memoria,
+                        Numero: ListaProxMusica.Numero
+                    }
+                    localStorage.setItem('Lista_Prox_Musicas', JSON.stringify(obj))
                 }
             }
         })
